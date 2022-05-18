@@ -21,6 +21,7 @@ val osName = System.getProperty("os.name") match {
   case _ => throw new Exception("Unknown platform!")
 }
 libraryDependencies ++= javafxModules.map(m => "org.openjfx" % s"javafx-$m" % "18.0.1" classifier osName)
+libraryDependencies += "com.jfoenix" % "jfoenix" % "9.0.10"
 
 resolvers += Opts.resolver.sonatypeSnapshots
 
