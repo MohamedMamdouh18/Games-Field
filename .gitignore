@@ -1,4 +1,4 @@
 # Project exclude paths
 /target/
-/project/target/
 /.idea/
+/project/target/

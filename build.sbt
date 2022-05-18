@@ -1,32 +1,28 @@
 name := "BoardDrawingEngine"
 
-version := "0.1"
+version := "1.0.6"
 
-// Version of Scala used by the project
 scalaVersion := "2.13.8"
 
-libraryDependencies += "org.scalafx" %% "scalafxml-core-sfx8" % "0.2.2"
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-Xcheckinit", "-encoding", "utf8", "-Ymacro-annotations")
 
-// Add dependency on ScalaFX library
-libraryDependencies += "org.scalafx" %% "scalafx" % "18.0.1-R27"
+Compile / resourceDirectory := (Compile / scalaSource).value
+libraryDependencies ++= Seq(
+  "org.scalafx" %% "scalafx" % "18.0.1-R27",
+  "org.scalafx" %% "scalafxml-core-sfx8" % "0.5"
+)
 
-scalacOptions ++= Seq("-unchecked", "-deprecation", "-encoding", "utf8", "-feature")
+// Add OS specific JavaFX dependencies
+val javafxModules = Seq("base", "controls", "fxml", "graphics", "media", "swing", "web")
+val osName = System.getProperty("os.name") match {
+  case n if n.startsWith("Linux") => "linux"
+  case n if n.startsWith("Mac") => "mac"
+  case n if n.startsWith("Windows") => "win"
+  case _ => throw new Exception("Unknown platform!")
+}
+libraryDependencies ++= javafxModules.map(m => "org.openjfx" % s"javafx-$m" % "18.0.1" classifier osName)
 
-mainClass := Some("hello.ScalaFXHelloWorld")
+resolvers += Opts.resolver.sonatypeSnapshots
 
 // Fork a new JVM for 'run' and 'test:run', to avoid JavaFX double initialization problems
 fork := true
-
-// Add JavaFX dependencies
-libraryDependencies ++= {
-  // Determine OS version of JavaFX binaries
-  lazy val osName = System.getProperty("os.name") match {
-    case n if n.startsWith("Linux") => "linux"
-    case n if n.startsWith("Mac") => "mac"
-    case n if n.startsWith("Windows") => "win"
-    case _ => throw new Exception("Unknown platform!")
-  }
-  Seq("base", "controls", "fxml", "graphics", "media", "swing", "web")
-    .map(m => "org.openjfx" % s"javafx-$m" % "18.0.1" classifier osName)
-}
-
