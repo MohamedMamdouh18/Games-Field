@@ -5,6 +5,8 @@ version := "0.1"
 // Version of Scala used by the project
 scalaVersion := "2.13.8"
 
+libraryDependencies += "org.scalafx" %% "scalafxml-core-sfx8" % "0.2.2"
+
 // Add dependency on ScalaFX library
 libraryDependencies += "org.scalafx" %% "scalafx" % "18.0.1-R27"
 
@@ -27,3 +29,4 @@ libraryDependencies ++= {
   Seq("base", "controls", "fxml", "graphics", "media", "swing", "web")
     .map(m => "org.openjfx" % s"javafx-$m" % "18.0.1" classifier osName)
 }
+

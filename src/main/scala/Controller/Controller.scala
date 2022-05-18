@@ -1,5 +1,0 @@
-package Controller
-
-class Controller {
-
-}
