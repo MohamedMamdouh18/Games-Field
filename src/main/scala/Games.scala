@@ -1,23 +1,17 @@
-import javafx.fxml.FXMLLoader
-import scalafx.Includes.when
+import scalafx.Includes._
 import scalafx.application.JFXApp3
 import scalafx.scene.Scene
-import scalafx.scene.paint.Color._
-import scalafx.scene.shape.Rectangle
+import scalafxml.core.{FXMLView, NoDependencyResolver}
 
-import java.util.PropertyResourceBundle
-import javafx.fxml.FXMLLoader
-import javafx.{scene => jfxs}
-
-import scalafx.Includes._
-import scalafx.application.JFXApp
-import scalafx.application.JFXApp.PrimaryStage
-import scalafx.scene.Scene
+import java.io.IOException
 
 object Games extends JFXApp3 {
   override def start(): Unit = {
-    val fxml = getClass.getClassLoader.getResource("Resources/mainView.fxml")
-    val root: jfxs.Parent = FXMLLoader.load(fxml)
+    val fxml = getClass.getResource("Resources/mainView.fxml")
+    if (fxml == null) {
+      throw new IOException("Cannot load resource: AdoptionForm.fxml")
+    }
+    val root = FXMLView(fxml, NoDependencyResolver)
 
     stage = new JFXApp3.PrimaryStage {
       title.value = "Hello Stage"

@@ -26,7 +26,7 @@
                   <Font size="50.0" />
                </font>
             </Button>
-            <Button layoutX="382.0" layoutY="7.0" mnemonicParsing="false" prefHeight="107.0" prefWidth="379.0" text="X-O">
+            <Button fx:id="XO" layoutX="382.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="107.0" prefWidth="379.0" text="X-O">
                <font>
                   <Font size="50.0" />
                </font>
@@ -35,7 +35,7 @@
       </AnchorPane>
       <AnchorPane fx:id="switchPane" prefHeight="54.0" prefWidth="1080.0">
          <children>
-            <ImageView fitHeight="54.0" fitWidth="63.0" onMouseClicked="#switchPanes" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="54.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@previous.png" />
                </image>

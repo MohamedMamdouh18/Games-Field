@@ -1,25 +1,13 @@
 package Controller
 
-import javafx.fxml.{FXML, Initializable}
-import javafx.scene.layout.AnchorPane
+import scalafx.event.ActionEvent
+import scalafxml.core.macros.sfxml
 
-import java.net.URL
-import java.util.ResourceBundle
+@sfxml
+class MainController() {
 
-class MainController extends Initializable with FxmlProxyGenerator.ProxyDependencyInjection{
-  @FXML
-  private var gamePane : AnchorPane ;
-
-  override def initialize(url: URL, resourceBundle: ResourceBundle): Unit = {
-
-  }
-
-  def loadConnect() : Unit ={
-
-  }
-
-  def switchPanes() : Unit ={
-
+  def handleSubmit(event: ActionEvent): Unit = {
+    println("XO")
   }
 
 }
