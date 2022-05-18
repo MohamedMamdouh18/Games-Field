@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,31 +11,31 @@
       <AnchorPane fx:id="gamePane" layoutY="48.0" prefHeight="672.0" prefWidth="1080.0" />
       <AnchorPane fx:id="menuPane" prefHeight="720.0" prefWidth="1080.0">
          <children>
-            <Button layoutX="382.0" layoutY="328.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="379.0" text="Connect-4">
+            <JFXButton layoutX="132.0" layoutY="189.0" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Chess">
                <font>
                   <Font size="50.0" />
                </font>
-            </Button>
-            <Button layoutX="382.0" layoutY="221.0" mnemonicParsing="false" prefHeight="107.0" prefWidth="379.0" text="Checkers">
+            </JFXButton>
+            <JFXButton layoutX="569.0" layoutY="189.0" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="X-O">
                <font>
                   <Font size="50.0" />
                </font>
-            </Button>
-            <Button layoutX="382.0" layoutY="114.0" mnemonicParsing="false" prefHeight="107.0" prefWidth="379.0" text="Chess">
+            </JFXButton>
+            <JFXButton layoutX="132.0" layoutY="395.0" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Connect-4">
                <font>
                   <Font size="50.0" />
                </font>
-            </Button>
-            <Button fx:id="XO" layoutX="382.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleSubmit" prefHeight="107.0" prefWidth="379.0" text="X-O">
+            </JFXButton>
+            <JFXButton layoutX="569.0" layoutY="395.0" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Checkers">
                <font>
                   <Font size="50.0" />
                </font>
-            </Button>
+            </JFXButton>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="switchPane" prefHeight="54.0" prefWidth="1080.0">
          <children>
-            <ImageView fitHeight="54.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="54.0" fitWidth="63.0" layoutX="14.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@previous.png" />
                </image>

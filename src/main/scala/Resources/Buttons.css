@@ -1,0 +1,10 @@
+.button {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 1, 1, 5, 5);
+    -fx-background-color: #f4f4f4;
+    -fx-text-fill: #BD0F09;
+}
+
+.button:hover {
+    -fx-background-color: #BD0F09;
+    -fx-text-fill: #f4f4f4;
+}
