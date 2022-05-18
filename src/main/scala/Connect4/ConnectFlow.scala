@@ -1,4 +1,6 @@
-object Main {
+package Connect4
+
+object ConnectFlow {
 
   var board: Array[Array[Int]] = Array.ofDim[Int](6, 7)
   var turn=1
