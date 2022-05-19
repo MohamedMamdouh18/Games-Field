@@ -9,10 +9,11 @@ import scalafxml.core.macros.sfxml
 class MainController(var gamePane: StackPane,
                      val menuPane: AnchorPane,
                      val returnButton: Button) {
-
   def XOStart(event: ActionEvent): Unit = {
     gameMode(true)
     println("XO")
+    val xoController = new XOController
+    xoController.startGame(gamePane)
   }
 
   def ChessStart(event: ActionEvent): Unit = {
@@ -33,6 +34,8 @@ class MainController(var gamePane: StackPane,
   def CheckersStart(event: ActionEvent): Unit = {
     gameMode(true)
     println("Checkers")
+    val checkersController = new CheckersController
+    checkersController.startGame(gamePane)
   }
 
   def gameMode(boolean: Boolean): Unit = {
