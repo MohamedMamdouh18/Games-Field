@@ -28,7 +28,7 @@ class Connect4Drawer extends Drawer {
 
       }
     }
-    board
+
   }
 
 }
