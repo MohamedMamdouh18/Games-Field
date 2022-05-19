@@ -1,4 +1,4 @@
-package Drawers
+package GameEngines.Drawers
 import javafx.scene.layout.{GridPane, StackPane}
 import javafx.scene.paint.Color
 

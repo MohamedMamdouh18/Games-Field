@@ -1,6 +1,8 @@
 package Controller
 
-import Drawers.{CheckersDrawer, ChessDrawer, Connect4Drawer, XODrawer}
+import GameEngines.Drawers.{CheckersDrawer, ChessDrawer, Connect4Drawer, XODrawer}
+import GameEngines.GameEngine
+import GameEngines.GamesControllers.{CheckersController, ChessController, Connect4Controller, XOController}
 import javafx.scene.control.Button
 import javafx.scene.layout.{AnchorPane, StackPane}
 import scalafx.event.ActionEvent

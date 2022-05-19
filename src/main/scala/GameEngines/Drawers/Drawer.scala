@@ -1,4 +1,4 @@
-package Drawers
+package GameEngines.Drawers
 
 import javafx.geometry.Pos
 import javafx.scene.layout.{GridPane, StackPane}
