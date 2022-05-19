@@ -1,30 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+<AnchorPane prefHeight="770.0" prefWidth="1080.0" style="-fx-background-color: #312E2B;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
    <children>
-      <AnchorPane fx:id="gamePane" layoutY="48.0" prefHeight="672.0" prefWidth="1080.0" />
-      <AnchorPane fx:id="menuPane" prefHeight="720.0" prefWidth="1080.0">
+      <StackPane fx:id="gamePane" layoutY="48.0" prefHeight="722.0" prefWidth="1080.0" />
+      <AnchorPane fx:id="menuPane" prefHeight="770.0" prefWidth="1080.0">
          <children>
-            <JFXButton fx:id="Chess" layoutX="132.0" layoutY="189.0" onAction="#ChessStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Chess">
+            <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="364.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@chess.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="795.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@tic-tac-toe.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="413.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@connect-four.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="839.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@checker-board.png" />
+               </image>
+            </ImageView>
+            <JFXButton fx:id="Chess" layoutX="132.0" layoutY="189.0" onAction="#ChessStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Chess      ">
                <font>
                   <Font size="50.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="X0" layoutX="569.0" layoutY="189.0" onAction="#XOStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="X-O">
+            <JFXButton fx:id="X0" layoutX="569.0" layoutY="189.0" onAction="#XOStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="X-O        ">
                <font>
                   <Font size="50.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="Connect" layoutX="132.0" layoutY="395.0" onAction="#Connect4Start" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Connect-4">
+            <JFXButton fx:id="Connect" layoutX="132.0" layoutY="395.0" onAction="#Connect4Start" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Connect-4      ">
                <font>
                   <Font size="50.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="Checkers" layoutX="569.0" layoutY="395.0" onAction="#CheckersStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Checkers">
+            <JFXButton fx:id="Checkers" layoutX="569.0" layoutY="395.0" onAction="#CheckersStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Checkers       ">
                <font>
                   <Font size="50.0" />
                </font>
@@ -33,7 +56,7 @@
       </AnchorPane>
       <AnchorPane fx:id="switchPane" prefHeight="46.0" prefWidth="1080.0">
          <children>
-            <JFXButton fx:id="returnButton" onAction="#returnMenu" prefHeight="35.0" prefWidth="177.0" stylesheets="@Buttons.css" text="Return Menu" visible="false">
+            <JFXButton fx:id="returnButton" layoutX="452.0" layoutY="1.0" onAction="#returnMenu" prefHeight="35.0" prefWidth="177.0" stylesheets="@Buttons.css" text="Return Menu" visible="false">
                <font>
                   <Font size="20.0" />
                </font>

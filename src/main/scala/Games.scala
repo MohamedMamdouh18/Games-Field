@@ -16,7 +16,7 @@ object Games extends JFXApp3 {
     stage = new JFXApp3.PrimaryStage {
       title.value = "Hello Stage"
       width = 1080
-      height = 720
+      height = 770
       scene = new Scene(root)
     }
   }
