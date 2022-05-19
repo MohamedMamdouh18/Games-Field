@@ -7,7 +7,7 @@ class CheckersDrawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
 
   override def draw(): Unit = {
-    drawBoard(8, 8, Color.rgb(152, 68, 32), Color.rgb(236, 205, 153), showGridLines = false)
+    val board = drawBoard(8, 8, Color.rgb(152, 68, 32), Color.rgb(236, 205, 153), showGridLines = false)
   }
 
   override def extendDrawing(board:GridPane): Unit = {
