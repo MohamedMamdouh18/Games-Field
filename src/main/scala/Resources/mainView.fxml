@@ -11,22 +11,22 @@
       <AnchorPane fx:id="gamePane" layoutY="48.0" prefHeight="672.0" prefWidth="1080.0" />
       <AnchorPane fx:id="menuPane" prefHeight="720.0" prefWidth="1080.0">
          <children>
-            <JFXButton layoutX="132.0" layoutY="189.0" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Chess">
+            <JFXButton layoutX="132.0" layoutY="189.0" onAction="#ChessStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Chess">
                <font>
                   <Font size="50.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="569.0" layoutY="189.0" onAction="#handleSubmit" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="X-O">
+            <JFXButton layoutX="569.0" layoutY="189.0" onAction="#XOStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="X-O">
                <font>
                   <Font size="50.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="132.0" layoutY="395.0" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Connect-4">
+            <JFXButton layoutX="132.0" layoutY="395.0" onAction="#Connect4Start" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Connect-4">
                <font>
                   <Font size="50.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="569.0" layoutY="395.0" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Checkers">
+            <JFXButton layoutX="569.0" layoutY="395.0" onAction="#CheckersStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Checkers">
                <font>
                   <Font size="50.0" />
                </font>
