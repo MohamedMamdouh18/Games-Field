@@ -1,5 +1,7 @@
 package Connect4
 
+import Connect4.CheckersController.{Frompiece, Player_turn, To_piece, board, eaten, fromPiece, promoted, prompotion}
+
 class Checking_Moves {
   var change= new Convert_Char_Number()
   /// This function is used to validate the coordinate of the piece you want to move

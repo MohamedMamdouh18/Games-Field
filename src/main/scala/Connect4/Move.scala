@@ -1,5 +1,7 @@
 package Connect4
 
+import Connect4.CheckersController.{Frompiece, Player_turn, To_piece, board, change_player, eaten, promoted, prompotion}
+
 class Move {
   var change= new Convert_Char_Number()
   /// This function is used to move the pieces on the board if it is valid

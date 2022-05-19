@@ -1,5 +1,7 @@
 package Connect4
 
+import Connect4.CheckersController.board
+
 class DRAW {
   /// This Function is used to draw board of checkers
   def draw():Unit={
