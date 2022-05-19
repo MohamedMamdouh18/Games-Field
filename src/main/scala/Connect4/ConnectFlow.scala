@@ -5,7 +5,7 @@ object ConnectFlow {
   var board: Array[Array[Int]] = Array.ofDim[Int](6, 7)
   var turn=1
   var gameOver=false
-  def main(args: Array[String]): Unit = {
+  def Gameflow() = {
     while(!gameOver){
 
       draw()

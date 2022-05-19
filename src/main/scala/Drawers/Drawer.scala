@@ -42,7 +42,7 @@ abstract class Drawer {
 
   def draw(): Unit = ???
 
-  def extendDrawing(): Unit = ???
+  def extendDrawing(board:GridPane): Unit = ???
 
   def setGamePane(newGamePane: StackPane): Unit = {
     gamePane = newGamePane
