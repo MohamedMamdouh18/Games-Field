@@ -4,7 +4,7 @@ version := "1.0.6"
 
 scalaVersion := "2.13.8"
 
-scalacOptions ++= Seq("-unchecked", "-deprecation", "-Xcheckinit", "-encoding", "utf", "-Ymacro-annotations")
+scalacOptions ++= Seq("-unchecked", "-deprecation", "-Xcheckinit", "-encoding", "utf8", "-Ymacro-annotations")
 
 Compile / resourceDirectory := (Compile / scalaSource).value
 libraryDependencies ++= Seq(

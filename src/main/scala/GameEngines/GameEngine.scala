@@ -4,7 +4,7 @@ import Drawers.Drawer
 import GameEngines.GamesControllers.Controller
 import javafx.scene.layout.StackPane
 
-class GameEngine(drawer: Drawer, controller: Controller) {
+abstract class GameEngine(drawer: Drawer, controller: Controller) {
   def startGame(gamePane: StackPane): Unit = {
     println("Starting Game")
 

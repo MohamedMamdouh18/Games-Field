@@ -1,7 +1,7 @@
 package Controller
 
 import GameEngines.Drawers.{CheckersDrawer, ChessDrawer, Connect4Drawer, XODrawer}
-import GameEngines.GameEngine
+import GameEngines.Engines.{CheckersEngine, ChessEngine, Connect4Engine, XOEngine}
 import GameEngines.GamesControllers.{CheckersController, ChessController, Connect4Controller, XOController}
 import javafx.scene.control.Button
 import javafx.scene.layout.{AnchorPane, StackPane}
@@ -15,29 +15,7 @@ class MainController(var gamePane: StackPane,
   def XOStart(event: ActionEvent): Unit = {
     gameMode(true)
     println("XO")
-    val gameEngine = new GameEngine(new XODrawer, new XOController)
-    gameEngine.startGame(gamePane)
-  }
-
-  def ChessStart(event: ActionEvent): Unit = {
-    gameMode(true)
-    println("Chess")
-    val gameEngine = new GameEngine(new ChessDrawer, new ChessController)
-    gameEngine.startGame(gamePane)
-  }
-
-  def Connect4Start(event: ActionEvent): Unit = {
-    gameMode(true)
-    println("Connect-4")
-    val gameEngine = new GameEngine(new Connect4Drawer, new Connect4Controller)
-    gameEngine.startGame(gamePane)
-  }
-
-
-  def CheckersStart(event: ActionEvent): Unit = {
-    gameMode(true)
-    println("Checkers")
-    val gameEngine = new GameEngine(new CheckersDrawer, new CheckersController)
+    val gameEngine = new XOEngine(new XODrawer, new XOController)
     gameEngine.startGame(gamePane)
   }
 
@@ -46,6 +24,27 @@ class MainController(var gamePane: StackPane,
     menuPane.setVisible(!boolean)
     returnButton.setVisible(boolean)
     gamePane.setVisible(boolean)
+  }
+
+  def ChessStart(event: ActionEvent): Unit = {
+    gameMode(true)
+    println("Chess")
+    val gameEngine = new ChessEngine(new ChessDrawer, new ChessController)
+    gameEngine.startGame(gamePane)
+  }
+
+  def Connect4Start(event: ActionEvent): Unit = {
+    gameMode(true)
+    println("Connect-4")
+    val gameEngine = new Connect4Engine(new Connect4Drawer, new Connect4Controller)
+    gameEngine.startGame(gamePane)
+  }
+
+  def CheckersStart(event: ActionEvent): Unit = {
+    gameMode(true)
+    println("Checkers")
+    val gameEngine = new CheckersEngine(new CheckersDrawer, new CheckersController)
+    gameEngine.startGame(gamePane)
   }
 
   def returnMenu(event: ActionEvent): Unit = {
