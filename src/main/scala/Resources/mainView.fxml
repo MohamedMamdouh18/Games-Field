@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -11,35 +9,35 @@
       <AnchorPane fx:id="gamePane" layoutY="48.0" prefHeight="672.0" prefWidth="1080.0" />
       <AnchorPane fx:id="menuPane" prefHeight="720.0" prefWidth="1080.0">
          <children>
-            <JFXButton layoutX="132.0" layoutY="189.0" onAction="#ChessStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Chess">
+            <JFXButton fx:id="Chess" layoutX="132.0" layoutY="189.0" onAction="#ChessStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Chess">
                <font>
                   <Font size="50.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="but" layoutX="569.0" layoutY="189.0" onAction="#XOStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="X-O">
+            <JFXButton fx:id="X0" layoutX="569.0" layoutY="189.0" onAction="#XOStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="X-O">
                <font>
                   <Font size="50.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="132.0" layoutY="395.0" onAction="#Connect4Start" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Connect-4">
+            <JFXButton fx:id="Connect" layoutX="132.0" layoutY="395.0" onAction="#Connect4Start" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Connect-4">
                <font>
                   <Font size="50.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="569.0" layoutY="395.0" onAction="#CheckersStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Checkers">
+            <JFXButton fx:id="Checkers" layoutX="569.0" layoutY="395.0" onAction="#CheckersStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Checkers">
                <font>
                   <Font size="50.0" />
                </font>
             </JFXButton>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="switchPane" prefHeight="54.0" prefWidth="1080.0">
+      <AnchorPane fx:id="switchPane" prefHeight="46.0" prefWidth="1080.0">
          <children>
-            <ImageView fitHeight="54.0" fitWidth="63.0" layoutX="14.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@previous.png" />
-               </image>
-            </ImageView>
+            <JFXButton fx:id="returnButton" onAction="#returnMenu" prefHeight="35.0" prefWidth="177.0" stylesheets="@Buttons.css" text="Return Menu" visible="false">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>
