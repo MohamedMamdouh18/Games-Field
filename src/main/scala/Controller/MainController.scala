@@ -1,5 +1,6 @@
 package Controller
 
+import Drawers.{CheckersDrawer, ChessDrawer, Connect4Drawer, XODrawer}
 import javafx.scene.control.Button
 import javafx.scene.layout.{AnchorPane, StackPane}
 import scalafx.event.ActionEvent
@@ -12,30 +13,30 @@ class MainController(var gamePane: StackPane,
   def XOStart(event: ActionEvent): Unit = {
     gameMode(true)
     println("XO")
-    val xoController = new XOController
-    xoController.startGame(gamePane)
+    val gameEngine = new GameEngine(new XODrawer, new XOController)
+    gameEngine.startGame(gamePane)
   }
 
   def ChessStart(event: ActionEvent): Unit = {
     gameMode(true)
     println("Chess")
-    val chessController = new ChessController
-    chessController.startGame(gamePane)
+    val gameEngine = new GameEngine(new ChessDrawer, new ChessController)
+    gameEngine.startGame(gamePane)
   }
 
   def Connect4Start(event: ActionEvent): Unit = {
     gameMode(true)
     println("Connect-4")
-    val connectController = new ConnectController
-    connectController.startGame(gamePane)
+    val gameEngine = new GameEngine(new Connect4Drawer, new Connect4Controller)
+    gameEngine.startGame(gamePane)
   }
 
 
   def CheckersStart(event: ActionEvent): Unit = {
     gameMode(true)
     println("Checkers")
-    val checkersController = new CheckersController
-    checkersController.startGame(gamePane)
+    val gameEngine = new GameEngine(new CheckersDrawer, new CheckersController)
+    gameEngine.startGame(gamePane)
   }
 
   def gameMode(boolean: Boolean): Unit = {
