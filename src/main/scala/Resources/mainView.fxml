@@ -16,7 +16,7 @@
                   <Font size="50.0" />
                </font>
             </JFXButton>
-            <JFXButton layoutX="569.0" layoutY="189.0" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="X-O">
+            <JFXButton layoutX="569.0" layoutY="189.0" onAction="#handleSubmit" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="X-O">
                <font>
                   <Font size="50.0" />
                </font>
