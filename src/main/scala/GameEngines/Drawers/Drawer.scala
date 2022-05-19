@@ -8,7 +8,6 @@ import javafx.scene.shape.Rectangle
 abstract class Drawer {
   var gamePane: StackPane
 
-
   def drawBoard(rows: Int, cols: Int, color1: Color, color2: Color, showGridLines: Boolean): GridPane = {
     val board = new GridPane
     for (i <- 0 until rows) {
@@ -42,7 +41,11 @@ abstract class Drawer {
 
   def draw(): Unit = ???
 
-  def extendDrawing(board:GridPane): Unit = ???
+  def extendDrawing(board: GridPane): Unit = ???
+
+  def movementDraw(board: GridPane): Unit = ???
+
+  def helper(x: Int): Unit = ???
 
   def setGamePane(newGamePane: StackPane): Unit = {
     gamePane = newGamePane

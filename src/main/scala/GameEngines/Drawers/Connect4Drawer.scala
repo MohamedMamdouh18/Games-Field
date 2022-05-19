@@ -28,6 +28,12 @@ class Connect4Drawer extends Drawer {
 
       }
     }
+  }
+
+  override def movementDraw(board: GridPane): Unit = {
+  }
+
+  override def helper(x: Int): Unit = {
 
   }
 

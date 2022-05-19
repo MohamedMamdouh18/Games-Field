@@ -11,4 +11,6 @@ abstract class GameEngine(drawer: Drawer, controller: Controller) {
     drawer.setGamePane(gamePane)
     drawer.draw()
   }
+
+  def movementCheck(): Unit = ???
 }
