@@ -1,13 +1,17 @@
 package GameEngines.Engines
 
-import GameEngines.Drawers.Drawer
+import GameEngines.Drawers.ChessDrawer
 import GameEngines.GameEngine
-import GameEngines.GamesControllers.Controller
+import GameEngines.GamesControllers.ChessController
 
-class ChessEngine(drawer: Drawer, controller: Controller) extends GameEngine(drawer, controller) {
+class ChessEngine extends GameEngine {
+  override val gameController = new ChessController
+  override val gameDrawer = new ChessDrawer
+
   override def movementCheck(): Unit = {
-    drawer.helper(controller.x)
-    if (controller.movementValidation())
-      drawer.draw()
+    gameController.of()
+    gameDrawer.helper(5)
+    if (gameController.movementValidation())
+      gameDrawer.draw()
   }
 }

@@ -1,9 +1,11 @@
 package GameEngines.Engines
 
-import GameEngines.Drawers.Drawer
+import GameEngines.Drawers.XODrawer
 import GameEngines.GameEngine
-import GameEngines.GamesControllers.Controller
+import GameEngines.GamesControllers.XOController
 
-class XOEngine(drawer: Drawer, controller: Controller) extends GameEngine(drawer, controller) {
+class XOEngine extends GameEngine {
+  override val gameController = new XOController
+  override val gameDrawer = new XODrawer
 
 }

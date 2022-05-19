@@ -1,15 +1,18 @@
 package GameEngines
 
-import Drawers.Drawer
+import GameEngines.Drawers.Drawer
 import GameEngines.GamesControllers.Controller
 import javafx.scene.layout.StackPane
 
-abstract class GameEngine(drawer: Drawer, controller: Controller) {
+abstract class GameEngine {
+  val gameController: Controller = null
+  val gameDrawer: Drawer = null
+
   def startGame(gamePane: StackPane): Unit = {
     println("Starting Game")
 
-    drawer.setGamePane(gamePane)
-    drawer.draw()
+    gameDrawer.setGamePane(gamePane)
+    gameDrawer.draw()
   }
 
   def movementCheck(): Unit = ???

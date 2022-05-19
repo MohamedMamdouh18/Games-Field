@@ -4,4 +4,9 @@ class ChessController extends Controller {
   override def movementValidation(): Boolean = {
     true
   }
+
+  def of(): Unit = {
+
+  }
+
 }

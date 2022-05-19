@@ -1,9 +1,11 @@
 package GameEngines.Engines
 
-import GameEngines.Drawers.Drawer
+import GameEngines.Drawers.Connect4Drawer
 import GameEngines.GameEngine
-import GameEngines.GamesControllers.Controller
+import GameEngines.GamesControllers.Connect4Controller
 
-class Connect4Engine(drawer: Drawer, controller: Controller) extends GameEngine(drawer, controller) {
+class Connect4Engine extends GameEngine {
+  override val gameController = new Connect4Controller
+  override val gameDrawer = new Connect4Drawer
 
 }
