@@ -36,6 +36,8 @@ abstract class Drawer {
     gamePane.setAlignment(Pos.CENTER)
     gamePane.getChildren.add(board)
 
+    extendDrawing(board)
+
     board
   }
 

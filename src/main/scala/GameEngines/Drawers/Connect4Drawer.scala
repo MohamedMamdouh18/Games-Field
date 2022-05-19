@@ -10,7 +10,6 @@ class Connect4Drawer extends Drawer {
 
   override def draw(): Unit = {
     val board = drawBoard(6, 7, Color.rgb(0, 0, 139), Color.rgb(0, 0, 139), showGridLines = false)
-    extendDrawing(board)
   }
 
   override def extendDrawing(board: GridPane): Unit = {
