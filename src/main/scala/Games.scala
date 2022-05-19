@@ -14,7 +14,7 @@ object Games extends JFXApp3 {
     val root = FXMLView(fxml, NoDependencyResolver)
 
     stage = new JFXApp3.PrimaryStage {
-      title.value = "Hello Stage"
+      title.value = "Game Engine"
       width = 1080
       height = 770
       scene = new Scene(root)
