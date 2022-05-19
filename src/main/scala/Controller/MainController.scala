@@ -1,12 +1,16 @@
 package Controller
 
 import scalafx.event.ActionEvent
+import javafx.scene.control.Button
 import scalafxml.core.macros.sfxml
 
 @sfxml
-class MainController() {
+class MainController(private val but: Button) {
 
   def XOStart(event: ActionEvent): Unit = {
+    but.setOnMouseClicked((event) => {
+      println("XOStart")
+    })
     println("XO")
   }
 
