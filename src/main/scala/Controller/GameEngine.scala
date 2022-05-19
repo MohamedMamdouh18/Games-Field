@@ -14,19 +14,17 @@ abstract class GameEngine {
       if (i % 2 == 0) {
         for (j <- 0 until cols) {
           val rect = new Rectangle(80, 80)
-          if (j % 2 == 0)
-            rect.setFill(color1)
-          else
-            rect.setFill(color2)
+          if (j % 2 == 0) rect.setFill(color1)
+          else rect.setFill(color2)
+
           board.add(rect, j, i, 1, 1)
         }
       } else {
         for (j <- 0 until cols) {
           val rect = new Rectangle(80, 80)
-          if (j % 2 != 0)
-            rect.setFill(color1)
-          else
-            rect.setFill(color2)
+          if (j % 2 != 0) rect.setFill(color1)
+          else rect.setFill(color2)
+
           board.add(rect, j, i, 1, 1)
         }
       }
