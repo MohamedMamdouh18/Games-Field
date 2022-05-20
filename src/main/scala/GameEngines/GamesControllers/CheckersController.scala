@@ -1,8 +1,13 @@
 package GameEngines.GamesControllers
-
+import javafx.collections.ObservableList
 import Connect4.CheckersController.{board, eaten}
 import javafx.scene.Node
+
+
+import javafx.scene.shape.Circle
 import javafx.scene.layout.GridPane
+
+import scala.util.control.Breaks.{break, breakable}
 class CheckersController extends Controller {
   var boardData = Array(
     Array("A","B","C","D","E","F","G","H"),
@@ -15,31 +20,28 @@ class CheckersController extends Controller {
     Array("x", ".", "x", ".", "x", ".", "x", ".","7"),
     Array(".", "x", ".", "x", ".", "x", ".", "x","8"),
   )
+  var x_8:Int=0
+  var y_8:Int=0
+  var eat=false
   var Player_turn=1
   var fromPiece = "x"
   var eaten=false
   var change_player=false
   var promoted : Map[Int,Int]=Map()
   var prompotion=false
-  override def movementValidation(oldCol: Int, oldRow: Int, newCol: Int, newRow: Int,color:String): Boolean = {
+  var noplayerchange = false
+
+  override def movementValidation(oldCol: Int, oldRow: Int, newCol: Int, newRow: Int): Boolean = {
     println(oldCol + " " + oldRow + " " + newCol + " " + newRow)
     val to_x = newCol
     val to_y = newRow+1
     val fromX = oldCol
     var fromY = oldRow+1
-    if(color=="white")
-      {
-        Player_turn=1
-      }
-    else
-    {
-        Player_turn=2
-    }
+    Player_turn=Playerrole
+    println(Player_turn)
     if(validFrom(fromY,fromX))
     {
-      println("lol")
       if (validto(to_y,to_x,fromY,fromX)) {
-        println("e4ta")
          move(to_y,to_x,fromY,fromX)
         for(i<- 0 to 8)
         {
@@ -49,17 +51,31 @@ class CheckersController extends Controller {
           }
           println()
         }
+        if(!change_player)
+          {
+            if(Playerrole==1)
+            {
+              Playerrole=2
+            }
+            else
+            {
+              Playerrole=1
+            }
+          }
+
         return true
       }
       else
         {
           return false
+
         }
     }
     else
       {
         return false
       }
+
   }
   def validFrom(fromY:Int,fromX:Int):Boolean={
     println(boardData(fromY)(fromX))
@@ -114,6 +130,7 @@ class CheckersController extends Controller {
         {
           if (boardData(fromY - 1)(fromX + 1) == "y" || boardData(fromY - 1)(fromX - 1) == "y") {
             eaten = true
+            eat=true
             prompotion=true
             return true
           }
@@ -130,6 +147,7 @@ class CheckersController extends Controller {
         else if ((to_y == fromY - 2 && to_x == fromX + 2) || (to_y == fromY - 2 && to_x == fromX - 2)) {
           if (boardData(fromY - 1)(fromX + 1) == "y" || boardData(fromY - 1)(fromX - 1) == "y") {
             eaten = true
+            eat=true
             return true
           }
           else {
@@ -150,6 +168,7 @@ class CheckersController extends Controller {
         {
           if (boardData(fromY - 1)(fromX + 1) == "x" || boardData(fromY - 1)(fromX - 1) == "x") {
             eaten = true
+            eat=true
             prompotion=true
             return true
           }
@@ -166,6 +185,7 @@ class CheckersController extends Controller {
         else if ((to_y == fromY + 2 && to_x == fromX + 2) || (to_y == fromY + 2 && to_x == fromX - 2)) {
           if (boardData(fromY + 1)(fromX + 1) == "x" || boardData(fromY - 1)(fromX + 1) == "x") {
             eaten = true
+            eat=true
             return true
           }
           else {
@@ -177,7 +197,9 @@ class CheckersController extends Controller {
     return false
   }
   def move(to_y:Int,to_x:Int,fromY:Int,fromX:Int)={
-
+    var Source:Circle=new Circle()
+    val childrens = board.getChildren
+     println(eaten)
     boardData(to_y)(to_x)=boardData(fromY)(fromX)
     if(Player_turn==1)
     {
@@ -200,10 +222,31 @@ class CheckersController extends Controller {
         if((fromY +fromX)%2==0)
         {
           boardData(fromY-1)(fromX-1)="-"
+          x_8=fromY-1
+          y_8=fromX-1
+
+          breakable {
+            childrens.forEach((node:Node)=>{
+              if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == x_8) && (GridPane.getColumnIndex(node) == y_8)) {
+                board.getChildren.remove(node)
+                break
+              }
+            })
+          }
         }
         else
         {
           boardData(fromY-1)(fromX-1)="."
+          x_8=fromY-1
+          y_8=fromX-1
+          breakable {
+            childrens.forEach((node:Node)=>{
+              if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == x_8) && (GridPane.getColumnIndex(node) == y_8)) {
+                board.getChildren.remove(node)
+                break
+              }
+            })
+          }
         }
         if(to_x!=0 && to_y!=0)
         {
@@ -234,10 +277,30 @@ class CheckersController extends Controller {
         if((fromY +fromX)%2==0)
         {
           boardData(fromY-1)(fromX+1)="-"
+          x_8=fromY-1
+          y_8=fromX+1
+          breakable {
+            childrens.forEach((node:Node)=>{
+              if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == x_8) && (GridPane.getColumnIndex(node) == y_8)) {
+                board.getChildren.remove(node)
+                break
+              }
+            })
+          }
         }
         else
         {
           boardData(fromY-1)(fromX+1)="."
+          x_8=fromY-1
+          y_8=fromX+1
+          breakable {
+            childrens.forEach((node:Node)=>{
+              if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == x_8) && (GridPane.getColumnIndex(node) == y_8)) {
+                board.getChildren.remove(node)
+                break
+              }
+            })
+          }
         }
         if(to_x!=0 && to_y!=0)
         {
@@ -267,10 +330,31 @@ class CheckersController extends Controller {
         if((fromY +fromX)%2==0)
         {
           boardData(fromY+1)(fromX+1)="-"
+          x_8=fromY+1
+          y_8=fromX+1
+          breakable {
+            childrens.forEach((node:Node)=>{
+              if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == x_8) && (GridPane.getColumnIndex(node) == y_8)) {
+                board.getChildren.remove(node)
+                break
+              }
+            })
+          }
         }
         else
         {
           boardData(fromY+1)(fromX+1)="."
+          x_8=fromY+1
+          y_8=fromX+1
+          breakable {
+            childrens.forEach((node:Node)=>{
+              if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == x_8) && (GridPane.getColumnIndex(node) == y_8)) {
+                board.getChildren.remove(node)
+                break
+              }
+            })
+          }
+
         }
         if(to_x!=0)
         {
@@ -300,10 +384,31 @@ class CheckersController extends Controller {
         if((fromY +fromX)%2==0)
         {
           boardData(fromY+1)(fromX-1)="-"
+          x_8=fromY+1
+          y_8=fromX-1
+          breakable {
+            childrens.forEach((node:Node)=>{
+              if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == x_8) && (GridPane.getColumnIndex(node) == y_8)) {
+                board.getChildren.remove(node)
+                break
+              }
+            })
+          }
         }
         else
         {
           boardData(fromY+1)(fromX-1)="."
+          x_8=fromY+1
+          y_8=fromX-1
+          breakable {
+            childrens.forEach((node:Node)=>{
+              if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == x_8) && (GridPane.getColumnIndex(node) == y_8)) {
+                board.getChildren.remove(node)
+                break
+              }
+            })
+          }
+
         }
         if(to_x!=0)
         {
@@ -342,6 +447,9 @@ class CheckersController extends Controller {
           }
         }
       }
+      println("values")
+      println(x_8)
+      println(y_8)
       eaten=false
     }
     if(prompotion==true)
