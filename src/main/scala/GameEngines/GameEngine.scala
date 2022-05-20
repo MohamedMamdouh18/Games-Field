@@ -12,11 +12,9 @@ abstract class GameEngine {
     println("Starting Game")
 
     gameDrawer.setGamePane(gamePane)
-    val board= gameDrawer.draw()
-    gameController.movement(board)
-    movementCheck()
+    gameDrawer.setDrag(gameController.Draggable)
+    val board = gameDrawer.draw()
+    gameController.setBoard(board)
+    println(board.localToScene(board.getBoundsInLocal))
   }
-
-
-  def movementCheck(): Unit = ???
 }
