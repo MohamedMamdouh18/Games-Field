@@ -20,20 +20,16 @@ abstract class Drawer {
           val rect = new Rectangle(80, 80)
           if (j % 2 == 0) rect.setFill(color1)
           else rect.setFill(color2)
-          GridPane.setColumnIndex(rect,j)
-          GridPane.setRowIndex(rect,i)
 
-          board.add(rect, j, i, 1, 1)
+          board.add(rect, j, i)
         }
       } else {
         for (j <- 0 until cols) {
           val rect = new Rectangle(80, 80)
           if (j % 2 != 0) rect.setFill(color1)
           else rect.setFill(color2)
-          GridPane.setColumnIndex(rect,j)
-          GridPane.setRowIndex(rect,i)
 
-           board.add(rect, j, i, 1, 1)
+          board.add(rect, j, i)
         }
       }
     }

@@ -34,17 +34,13 @@ class CheckersDrawer extends Drawer {
         val circle = new Circle(30)
         if (MiniBoard(i)(j) == "x") {
           circle.setFill(Color.rgb(255, 255, 255))
-          GridPane.setColumnIndex(circle, j)
-          GridPane.setRowIndex(circle, i)
-          board.add(circle, j, i, 1, 1)
+          board.add(circle, j, i)
 
           Draggable(circle)
         }
         else if (MiniBoard(i)(j) == "y") {
           circle.setFill(Color.rgb(0, 0, 0))
-          GridPane.setColumnIndex(circle, j)
-          GridPane.setRowIndex(circle, i)
-          board.add(circle, j, i, 1, 1)
+          board.add(circle, j, i)
           Draggable(circle)
         }
         GridPane.setHalignment(circle, HPos.CENTER)

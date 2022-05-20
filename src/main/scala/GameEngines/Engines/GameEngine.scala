@@ -1,4 +1,4 @@
-package GameEngines
+package GameEngines.Engines
 
 import GameEngines.Drawers.Drawer
 import GameEngines.GamesControllers.Controller
@@ -10,7 +10,7 @@ abstract class GameEngine {
   val gameDrawer: Drawer = null
 
   def startGame(gamePane: StackPane): Unit = {
-    println("Starting Game")
+//    println("Starting Game")
 
     gameDrawer.setGamePane(gamePane)
 
@@ -22,6 +22,6 @@ abstract class GameEngine {
     val board = gameDrawer.draw()
     gameController.setBoard(board)
 
-    println(board.localToScene(board.getBoundsInLocal))
+//    println(board.localToScene(board.getBoundsInLocal))
   }
 }

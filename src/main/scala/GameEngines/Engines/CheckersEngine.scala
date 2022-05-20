@@ -1,7 +1,6 @@
 package GameEngines.Engines
 
 import GameEngines.Drawers.CheckersDrawer
-import GameEngines.GameEngine
 import GameEngines.GamesControllers.CheckersController
 
 class CheckersEngine extends GameEngine {
