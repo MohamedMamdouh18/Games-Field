@@ -5,12 +5,11 @@ import javafx.scene.Node
 import javafx.scene.layout.{GridPane, StackPane}
 import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
-import scalafx.scene.input.MouseEvent
 
 class Connect4Drawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
   override var drag: (Node) => Unit = _
-  override var gameBoard : Array[Array[String]] = Array.ofDim[String](6, 7)
+  override var gameBoard: Array[Array[String]] = Array.ofDim[String](6, 7)
 
   override def draw(): GridPane = {
     val board = drawBoard(6, 7, Color.rgb(0, 0, 139), Color.rgb(0, 0, 139), showGridLines = false)
