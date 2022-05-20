@@ -12,8 +12,11 @@ abstract class GameEngine {
     println("Starting Game")
 
     gameDrawer.setGamePane(gamePane)
-    gameDrawer.draw()
+    val board= gameDrawer.draw()
+    gameController.movement(board)
+    movementCheck()
   }
+
 
   def movementCheck(): Unit = ???
 }

@@ -11,7 +11,7 @@ class ChessEngine extends GameEngine {
   override def movementCheck(): Unit = {
     gameController.of()
     gameDrawer.helper(5)
-    if (gameController.movementValidation())
+    //if (gameController.movementValidation())
       gameDrawer.draw()
   }
 }

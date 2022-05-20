@@ -1,11 +1,18 @@
 package GameEngines.Engines
 
-import GameEngines.Drawers.ChessDrawer
+import GameEngines.Drawers.{CheckersDrawer}
 import GameEngines.GameEngine
-import GameEngines.GamesControllers.ChessController
+import GameEngines.GamesControllers.{CheckersController}
 
 class CheckersEngine extends GameEngine {
-  override val gameController = new ChessController
-  override val gameDrawer = new ChessDrawer
+  override val gameController = new CheckersController
+  override val gameDrawer = new CheckersDrawer
+/*
+  override def movementCheck():Boolean={
+    return true
+  }
+*/
+ def move():Unit={
 
+ }
 }
