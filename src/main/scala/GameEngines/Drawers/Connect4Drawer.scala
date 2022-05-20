@@ -8,14 +8,14 @@ import javafx.scene.shape.Circle
 
 class Connect4Drawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
-  override var drag: Node => Unit = _
+  override var drag: (Circle) => Unit = _
 
   override def draw(): GridPane = {
     val board = drawBoard(6, 7, Color.rgb(0, 0, 139), Color.rgb(0, 0, 139), showGridLines = false)
     board
   }
 
-  override def extendDrawing(board: GridPane, Draggable: (Node) => Unit): Unit = {
+  override def extendDrawing(board: GridPane, Draggable: (Circle) => Unit): Unit = {
     board.setAlignment(Pos.CENTER)
 
     for (i <- 0 until 6) {
