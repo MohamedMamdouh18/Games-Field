@@ -22,26 +22,18 @@ abstract class Controller {
     })
     source.setOnMouseReleased(e => {
      // val source = e.getTarget.asInstanceOf[Node]
-      println(board.localToScene(source.getBoundsInLocal))
-      println(Math.floor((e.getSceneY - 100) / 80).toInt)
-      println(Math.floor((e.getSceneX - 220) / 80).toInt)
       if (movementValidation(GridPane.getColumnIndex(source), GridPane.getRowIndex(source),
         Math.floor((e.getSceneX - 220) / 80).toInt, Math.floor((e.getSceneY - 100) / 80).toInt)) {
-        println(Math.floor((e.getSceneY - 100) / 80).toInt)
-        println(Math.floor((e.getSceneX - 220) / 80).toInt)
         GridPane.setColumnIndex(source, Math.floor((e.getSceneX - 220) / 80).toInt)
         GridPane.setRowIndex(source,Math.floor((e.getSceneY - 100) / 80).toInt )
         source.setTranslateX(0)
         source.setTranslateY(0)
 
       } else {
-        println(oldRow)
-        println(oldCol)
         GridPane.setRowIndex(source, oldRow)
         GridPane.setColumnIndex(source, oldCol)
         source.setTranslateX(0)
         source.setTranslateY(0)
-
       }
     })
   }
