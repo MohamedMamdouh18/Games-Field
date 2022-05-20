@@ -10,7 +10,7 @@ import javafx.scene.shape.Circle
 abstract class Drawer {
   var gameBoard: Array[Array[String]]
   var gamePane: StackPane
-  var drag: (Circle) => Unit
+  var drag: (Node) => Unit
 
   def drawBoard(rows: Int, cols: Int, color1: Color, color2: Color, showGridLines: Boolean): GridPane = {
     val board = new GridPane
@@ -49,7 +49,7 @@ abstract class Drawer {
 
   def draw(): GridPane = ???
 
-  def extendDrawing(board: GridPane, Draggable: (Circle) => Unit): Unit = ???
+  def extendDrawing(board: GridPane, Draggable: (Node) => Unit): Unit = ???
 
   def movementDraw(board: GridPane): Unit = ???
 
@@ -57,7 +57,7 @@ abstract class Drawer {
     gamePane = newGamePane
   }
 
-  def setDrag(dragFn: (Circle) => Unit): Unit = {
+  def setDrag(dragFn: (Node) => Unit): Unit = {
     drag = dragFn
   }
 

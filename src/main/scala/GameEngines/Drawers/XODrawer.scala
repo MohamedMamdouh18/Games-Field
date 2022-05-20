@@ -7,7 +7,7 @@ import javafx.scene.shape.Circle
 
 class XODrawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
-  override var drag: (Circle) => Unit = _
+  override var drag: (Node) => Unit = _
   override var gameBoard = Array(
     Array("A", "B", "C", "D", "E", "F", "G", "H"),
     Array("y", ".", "y", ".", "y", ".", "y", ".", "1"),
@@ -25,7 +25,7 @@ class XODrawer extends Drawer {
     board
   }
 
-  override def extendDrawing(board: GridPane, Draggable: (Circle) => Unit): Unit = {
-
+  override def extendDrawing(board: GridPane, Draggable: (Node) => Unit): Unit = {
+    board.getChildren
   }
 }

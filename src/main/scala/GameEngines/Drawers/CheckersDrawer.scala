@@ -1,13 +1,14 @@
 package GameEngines.Drawers
 
 import javafx.geometry.{HPos, VPos}
+import javafx.scene.Node
 import javafx.scene.layout.{GridPane, StackPane}
 import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
 
 class CheckersDrawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
-  override var drag: (Circle) => Unit = _
+  override var drag: (Node) => Unit = _
   override var gameBoard: Array[Array[String]] = _
   var MiniBoard: Array[Array[String]] = Array(
     Array("y", ".", "y", ".", "y", ".", "y", "."),
@@ -26,7 +27,7 @@ class CheckersDrawer extends Drawer {
     board
   }
 
-  override def extendDrawing(board: GridPane, Draggable: (Circle) => Unit): Unit = {
+  override def extendDrawing(board: GridPane, Draggable: (Node) => Unit): Unit = {
 
     for (i <- 0 until 8) {
       for (j <- 0 until 8) {
