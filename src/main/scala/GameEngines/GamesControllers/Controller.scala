@@ -2,45 +2,23 @@ package GameEngines.GamesControllers
 
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
-import javafx.scene.shape.Circle
+
 abstract class Controller {
-  var Playerrole:Int=1
+  var gameBoard: Array[Array[String]]
+  var PlayerRole: Int = 1
   var board: GridPane = new GridPane()
   var x, y: Double = 0
   var oldRow, oldCol: Int = 0
 
-  def Draggable(source: Circle): Unit = {
-    source.setOnMousePressed(e => {
-      oldCol = GridPane.getColumnIndex(source)
-      oldRow = GridPane.getRowIndex(source)
-      x = e.getSceneX - source.getTranslateX
-      y = e.getSceneY - source.getTranslateY
-    })
-    source.setOnMouseDragged(e => {
-      source.setTranslateX(e.getSceneX - x)
-      source.setTranslateY(e.getSceneY - y)
-    })
-    source.setOnMouseReleased(e => {
-     // val source = e.getTarget.asInstanceOf[Node]
-      if (movementValidation(GridPane.getColumnIndex(source), GridPane.getRowIndex(source),
-        Math.floor((e.getSceneX - 220) / 80).toInt, Math.floor((e.getSceneY - 100) / 80).toInt)) {
-        GridPane.setColumnIndex(source, Math.floor((e.getSceneX - 220) / 80).toInt)
-        GridPane.setRowIndex(source,Math.floor((e.getSceneY - 100) / 80).toInt )
-        source.setTranslateX(0)
-        source.setTranslateY(0)
-
-      } else {
-        GridPane.setRowIndex(source, oldRow)
-        GridPane.setColumnIndex(source, oldCol)
-        source.setTranslateX(0)
-        source.setTranslateY(0)
-      }
-    })
-  }
+  def Movement(source: Node): Unit = ???
 
   def movementValidation(oldCol: Int, oldRow: Int, newCol: Int, newRow: Int): Boolean = ???
 
   def setBoard(board: GridPane): Unit = {
     this.board = board
+  }
+
+  def setGameBoard(board: Array[Array[String]]): Unit = {
+    this.gameBoard = board
   }
 }

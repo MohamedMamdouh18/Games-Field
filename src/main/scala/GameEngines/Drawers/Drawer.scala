@@ -8,6 +8,7 @@ import javafx.scene.shape.Rectangle
 import javafx.scene.shape.Circle
 
 abstract class Drawer {
+  var gameBoard: Array[Array[String]]
   var gamePane: StackPane
   var drag: (Circle) => Unit
 
@@ -58,5 +59,9 @@ abstract class Drawer {
 
   def setDrag(dragFn: (Circle) => Unit): Unit = {
     drag = dragFn
+  }
+
+  def setGameBoard(board: Array[Array[String]]): Unit = {
+    this.gameBoard = board
   }
 }

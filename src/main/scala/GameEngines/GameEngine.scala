@@ -5,6 +5,7 @@ import GameEngines.GamesControllers.Controller
 import javafx.scene.layout.StackPane
 
 abstract class GameEngine {
+  var gameBoard: Array[Array[String]]
   val gameController: Controller = null
   val gameDrawer: Drawer = null
 
@@ -12,9 +13,15 @@ abstract class GameEngine {
     println("Starting Game")
 
     gameDrawer.setGamePane(gamePane)
-    gameDrawer.setDrag(gameController.Draggable)
+
+    gameController.setGameBoard(gameBoard)
+    gameDrawer.setGameBoard(gameBoard)
+
+    gameDrawer.setDrag(gameController.Movement)
+
     val board = gameDrawer.draw()
     gameController.setBoard(board)
+
     println(board.localToScene(board.getBoundsInLocal))
   }
 }
