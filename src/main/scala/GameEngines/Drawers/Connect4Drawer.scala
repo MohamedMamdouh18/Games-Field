@@ -38,31 +38,7 @@ class Connect4Drawer extends Drawer {
     }
   }
 
-  /*
-  def redraw (boardControl: Array[Array[Int]]): Unit =
-  {
-    for (i <- 0 until 6) {
-      for (j <- 0 until 7) {
-        val circle = new Circle(35)
-        if (j % 2 == 0 && i % 2 == 0) circle.setFill(Color.rgb(164, 43, 57))
-        else if (j % 2 == 0 && i % 2 == 1) circle.setFill(Color.rgb(255, 221, 99))
-        else circle.setFill(Color.rgb(49, 46, 43))
-        circle.setOnMouseClicked(e=>
-          Draggable(circle)
-        )
-        GridPane.setColumnIndex(circle, j)
-        GridPane.setRowIndex(circle, i)
-        board.add(circle, j, i, 1, 1)
-        GridPane.setHalignment(circle, HPos.CENTER)
-        GridPane.setValignment(circle, VPos.CENTER)
-      }
-    }
-  }
-  */
-  def handleEvent(e: MouseEvent) = {
-    print("marwan pabloooo")
 
-  }
 
   override def movementDraw(board: GridPane): Unit = {
 
