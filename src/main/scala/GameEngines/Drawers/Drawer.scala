@@ -2,15 +2,15 @@ package GameEngines.Drawers
 
 import javafx.geometry.Pos
 import javafx.scene.Node
+import javafx.scene.input.MouseEvent
 import javafx.scene.layout.{GridPane, StackPane}
 import javafx.scene.paint.Color
 import javafx.scene.shape.Rectangle
-import javafx.scene.shape.Circle
 
 abstract class Drawer {
   var gameBoard: Array[Array[String]]
   var gamePane: StackPane
-  var drag: (Node) => Unit
+  var drag: Node => Unit
 
   def drawBoard(rows: Int, cols: Int, color1: Color, color2: Color, showGridLines: Boolean): GridPane = {
     val board = new GridPane
@@ -43,17 +43,17 @@ abstract class Drawer {
     board
   }
 
-  def draw(): GridPane = ???
+  def draw(): GridPane
 
-  def extendDrawing(board: GridPane, Draggable: (Node) => Unit): Unit = ???
+  def extendDrawing(board: GridPane, Draggable: Node => Unit): Unit
 
-  def movementDraw(board: GridPane): Unit = ???
+  def movementDraw(board: GridPane, source: Node, e: MouseEvent, turn: Boolean): Unit
 
   def setGamePane(newGamePane: StackPane): Unit = {
     gamePane = newGamePane
   }
 
-  def setDrag(dragFn: (Node) => Unit): Unit = {
+  def setDrag(dragFn: Node => Unit): Unit = {
     drag = dragFn
   }
 

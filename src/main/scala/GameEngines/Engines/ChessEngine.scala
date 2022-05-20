@@ -1,16 +1,46 @@
 package GameEngines.Engines
 
-import ChessPieces.{Bishop, Castle, King, Knight, Piece, Queen, Soldier}
+import ChessPieces._
 import GameEngines.Drawers.ChessDrawer
 import GameEngines.GamesControllers.ChessController
+import javafx.scene.Node
 
 class ChessEngine extends GameEngine {
   override val gameController = new ChessController
   override val gameDrawer = new ChessDrawer
   override var gameBoard: Array[Array[String]] = Array.ofDim[String](8, 8)
+  var oldCol, oldRow: Int = 0
+  var x, y: Double = 0
+
+  override def Movement(source: Node): Unit = {
+    source.setOnMousePressed(e => {
+      gameDrawer.movementDraw(gameController.board, source, e, turn = false)
+    })
+    source.setOnMouseDragged(e => {
+      gameDrawer.movementDraw(gameController.board, source, e, turn = false)
+      //      source.setTranslateX(e.getSceneX - x)
+      //      source.setTranslateY(e.getSceneY - y)
+    })
+    source.setOnMouseReleased(e => {
+      gameDrawer.movementDraw(gameController.board, source, e, turn = false)
+      //      if (movementValidation(GridPane.getColumnIndex(source), GridPane.getRowIndex(source),
+      //        Math.floor((e.getSceneX - 220) / 80).toInt, Math.floor((e.getSceneY - 100) / 80).toInt)) {
+      //        GridPane.setColumnIndex(source, Math.floor((e.getSceneX - 220) / 80).toInt)
+      //        GridPane.setRowIndex(source, Math.floor((e.getSceneY - 100) / 80).toInt)
+      //        source.setTranslateX(0)
+      //        source.setTranslateY(0)
+      //
+      //      } else {
+      //        GridPane.setRowIndex(source, oldRow)
+      //        GridPane.setColumnIndex(source, oldCol)
+      //        source.setTranslateX(0)
+      //        source.setTranslateY(0)
+      //      }
+    })
+  }
 }
 
-object ChessEngine{
+object ChessEngine {
   var board: Array[Array[Piece]] = Array(
     Array(new Castle("bcas", 0, 0, 1),
       new Knight("bhor", 0, 1, 1),

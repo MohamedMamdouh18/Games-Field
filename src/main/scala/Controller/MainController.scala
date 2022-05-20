@@ -10,24 +10,15 @@ import scalafxml.core.macros.sfxml
 class MainController(var gamePane: StackPane,
                      val menuPane: AnchorPane,
                      val returnButton: Button) {
-  def XOStart(event: ActionEvent): Unit = {
+  def XOStart(): Unit = {
     gameMode(true)
-    println("XO")
     val gameEngine = new XOEngine
     gameEngine.startGame(gamePane)
   }
 
-  def ChessStart(event: ActionEvent): Unit = {
+  def ChessStart(): Unit = {
     gameMode(true)
-    println("Chess")
     val gameEngine = new ChessEngine
-    gameEngine.startGame(gamePane)
-  }
-
-  def Connect4Start(event: ActionEvent): Unit = {
-    gameMode(true)
-    println("Connect-4")
-    val gameEngine = new Connect4Engine
     gameEngine.startGame(gamePane)
   }
 
@@ -38,14 +29,19 @@ class MainController(var gamePane: StackPane,
     gamePane.setVisible(boolean)
   }
 
-  def CheckersStart(event: ActionEvent): Unit = {
+  def Connect4Start(): Unit = {
     gameMode(true)
-    println("Checkers")
+    val gameEngine = new Connect4Engine
+    gameEngine.startGame(gamePane)
+  }
+
+  def CheckersStart(): Unit = {
+    gameMode(true)
     val gameEngine = new CheckersEngine
     gameEngine.startGame(gamePane)
   }
 
-  def returnMenu(event: ActionEvent): Unit = {
+  def returnMenu(): Unit = {
     gameMode(false)
   }
 

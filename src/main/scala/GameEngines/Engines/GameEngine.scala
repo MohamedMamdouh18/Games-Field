@@ -2,6 +2,7 @@ package GameEngines.Engines
 
 import GameEngines.Drawers.Drawer
 import GameEngines.GamesControllers.Controller
+import javafx.scene.Node
 import javafx.scene.layout.StackPane
 
 abstract class GameEngine {
@@ -10,18 +11,18 @@ abstract class GameEngine {
   val gameDrawer: Drawer = null
 
   def startGame(gamePane: StackPane): Unit = {
-//    println("Starting Game")
-
     gameDrawer.setGamePane(gamePane)
 
     gameController.setGameBoard(gameBoard)
     gameDrawer.setGameBoard(gameBoard)
 
-    gameDrawer.setDrag(gameController.Movement)
+    gameDrawer.setDrag(Movement)
 
     val board = gameDrawer.draw()
     gameController.setBoard(board)
 
 //    println(board.localToScene(board.getBoundsInLocal))
   }
+
+  def Movement(source: Node): Unit
 }

@@ -2,6 +2,8 @@ package GameEngines.Engines
 
 import GameEngines.Drawers.CheckersDrawer
 import GameEngines.GamesControllers.CheckersController
+import javafx.scene.Node
+import javafx.scene.layout.GridPane
 
 class CheckersEngine extends GameEngine {
   override val gameController = new CheckersController
@@ -17,4 +19,21 @@ class CheckersEngine extends GameEngine {
     Array("x", ".", "x", ".", "x", ".", "x", ".", "7"),
     Array(".", "x", ".", "x", ".", "x", ".", "x", "8"),
   )
+
+  override def Movement(source: Node): Unit = {
+    source.setOnMousePressed(e => {
+      gameDrawer.movementDraw(gameController.board, source, e, turn = false)
+    })
+    source.setOnMouseDragged(e => {
+      gameDrawer.movementDraw(gameController.board, source, e, turn = false)
+    })
+    source.setOnMouseReleased(e => {
+      if (gameController.movementValidation(GridPane.getColumnIndex(source), GridPane.getRowIndex(source),
+        Math.floor((e.getSceneX - 220) / 80).toInt, Math.floor((e.getSceneY - 100) / 80).toInt)) {
+        gameDrawer.movementDraw(gameController.board, source, e, turn = true)
+      } else {
+        gameDrawer.movementDraw(gameController.board, source, e, turn = false)
+      }
+    })
+  }
 }

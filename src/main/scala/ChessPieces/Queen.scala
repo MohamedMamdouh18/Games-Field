@@ -2,7 +2,7 @@ package ChessPieces
 
 import javafx.scene.image.ImageView
 
-class Queen(name : String , x: Int, y: Int, color: Int) extends Piece(name, x, y, color) {
+class Queen(name: String, x: Int, y: Int, color: Int) extends Piece(name, x, y, color) {
   override var image: ImageView = _
   loadImage()
 

@@ -2,13 +2,14 @@ package GameEngines.Drawers
 
 import javafx.geometry.{HPos, Pos, VPos}
 import javafx.scene.Node
+import javafx.scene.input.MouseEvent
 import javafx.scene.layout.{GridPane, StackPane}
 import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
 
 class Connect4Drawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
-  override var drag: (Node) => Unit = _
+  override var drag: Node => Unit = _
   override var gameBoard: Array[Array[String]] = Array.ofDim[String](6, 7)
 
   override def draw(): GridPane = {
@@ -17,7 +18,7 @@ class Connect4Drawer extends Drawer {
     board
   }
 
-  override def extendDrawing(board: GridPane, Draggable: (Node) => Unit): Unit = {
+  override def extendDrawing(board: GridPane, Draggable: Node => Unit): Unit = {
     board.setAlignment(Pos.CENTER)
 
     for (i <- 0 until 6) {
@@ -38,9 +39,7 @@ class Connect4Drawer extends Drawer {
     }
   }
 
-
-
-  override def movementDraw(board: GridPane): Unit = {
+  override def movementDraw(board: GridPane, source: Node, e: MouseEvent, turn: Boolean): Unit = {
 
   }
 }

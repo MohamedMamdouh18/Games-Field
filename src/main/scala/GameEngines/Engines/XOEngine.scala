@@ -2,6 +2,8 @@ package GameEngines.Engines
 
 import GameEngines.Drawers.XODrawer
 import GameEngines.GamesControllers.XOController
+import javafx.scene.Node
+import javafx.scene.layout.GridPane
 
 class XOEngine extends GameEngine {
   override val gameController = new XOController
@@ -11,5 +13,13 @@ class XOEngine extends GameEngine {
     Array(".", ".", "."),
     Array(".", ".", ".")
   )
+
+  override def Movement(source: Node): Unit = {
+    source.setOnMouseClicked(_ => {
+      if (gameController.movementValidation(GridPane.getColumnIndex(source), GridPane.getRowIndex(source), 0, 0)) {
+        gameDrawer.movementDraw(gameController.board, source, null, gameController.turn)
+      }
+    })
+  }
 
 }

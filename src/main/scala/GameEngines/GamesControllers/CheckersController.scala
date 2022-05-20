@@ -19,38 +19,7 @@ class CheckersController extends Controller {
   var promotion = false
   var swapTurn = false
 
-  override def Movement(source: Node): Unit = {
-    source.setOnMousePressed(e => {
-      oldCol = GridPane.getColumnIndex(source)
-      oldRow = GridPane.getRowIndex(source)
-      x = e.getSceneX - source.getTranslateX
-      y = e.getSceneY - source.getTranslateY
-    })
-    source.setOnMouseDragged(e => {
-      source.setTranslateX(e.getSceneX - x)
-      source.setTranslateY(e.getSceneY - y)
-    })
-    source.setOnMouseReleased(e => {
-      // val source = e.getTarget.asInstanceOf[Node]
-      if (movementValidation(GridPane.getColumnIndex(source), GridPane.getRowIndex(source),
-        Math.floor((e.getSceneX - 220) / 80).toInt, Math.floor((e.getSceneY - 100) / 80).toInt)) {
-        GridPane.setColumnIndex(source, Math.floor((e.getSceneX - 220) / 80).toInt)
-        GridPane.setRowIndex(source, Math.floor((e.getSceneY - 100) / 80).toInt)
-        source.setTranslateX(0)
-        source.setTranslateY(0)
-
-      } else {
-        GridPane.setRowIndex(source, oldRow)
-        GridPane.setColumnIndex(source, oldCol)
-        source.setTranslateX(0)
-        source.setTranslateY(0)
-      }
-    })
-  }
-
   override def movementValidation(oldCol: Int, oldRow: Int, newCol: Int, newRow: Int): Boolean = {
-    println(gameBoard(newRow)(newCol))
-    println(oldCol + " " + oldRow + " " + newCol + " " + newRow)
     val to_x = newCol
     val to_y = newRow + 1
     val fromX = oldCol
@@ -61,9 +30,7 @@ class CheckersController extends Controller {
         move(to_y, to_x, fromY, fromX)
         for (i <- 0 to 8) {
           for (j <- 0 to gameBoard(i).length - 1) {
-            print(" " + gameBoard(i)(j))
           }
-          println()
         }
         if (!change_player) {
           if (PlayerRole == 1) {
@@ -74,17 +41,13 @@ class CheckersController extends Controller {
           }
         }
 
-        return true
+        true
       }
-      else {
-        return false
-
-      }
+      else
+        false
     }
-    else {
-      return false
-    }
-
+    else
+      false
   }
 
   def validFrom(fromY: Int, fromX: Int): Boolean = {
@@ -100,7 +63,7 @@ class CheckersController extends Controller {
         return true
       }
     }
-    return false
+    false
   }
 
   def validto(to_y: Int, to_x: Int, fromY: Int, fromX: Int): Boolean = {
@@ -186,13 +149,12 @@ class CheckersController extends Controller {
         }
       }
     }
-    return false
+    false
   }
 
-  def move(to_y: Int, to_x: Int, fromY: Int, fromX: Int) = {
+  def move(to_y: Int, to_x: Int, fromY: Int, fromX: Int): Unit = {
     var Source: Circle = new Circle()
     val childrens = board.getChildren
-    println(eaten)
     gameBoard(to_y)(to_x) = gameBoard(fromY)(fromX)
     if (Player_turn == 1) {
       if (to_y == 1) {
@@ -210,7 +172,6 @@ class CheckersController extends Controller {
           gameBoard(fromY - 1)(fromX - 1) = "-"
           x_8 = fromX - 1
           y_8 = fromY - 2
-          println("lol1")
           breakable {
             childrens.forEach((node: Node) => {
               if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == y_8) && (GridPane.getColumnIndex(node) == x_8)) {
@@ -224,7 +185,6 @@ class CheckersController extends Controller {
           gameBoard(fromY - 1)(fromX - 1) = "."
           x_8 = fromX - 1
           y_8 = fromY - 2
-          println("lol2")
           breakable {
             childrens.forEach((node: Node) => {
               if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == y_8) && (GridPane.getColumnIndex(node) == x_8)) {
@@ -254,7 +214,6 @@ class CheckersController extends Controller {
       }
       else if (to_y < fromY && to_x > fromX) {
         if ((fromY + fromX) % 2 == 0) {
-          println("lol3")
           gameBoard(fromY - 1)(fromX + 1) = "-"
           x_8 = fromX + 1
           y_8 = fromY - 2
@@ -268,12 +227,7 @@ class CheckersController extends Controller {
           }
         }
         else {
-          println("lol4")
-          println(gameBoard(4)(5))
           gameBoard(fromY - 1)(fromX + 1) = "."
-          println(gameBoard(4)(5))
-          println(fromY - 1)
-          println(fromX + 1)
           x_8 = fromX + 1
           y_8 = fromY - 2
           breakable {
@@ -304,7 +258,6 @@ class CheckersController extends Controller {
       }
       else if (to_y > fromY && to_x > fromX) {
         if ((fromY + fromX) % 2 == 0) {
-          println("lol5")
           gameBoard(fromY + 1)(fromX + 1) = "-"
 
           x_8 = fromX + 1
@@ -323,7 +276,6 @@ class CheckersController extends Controller {
           x_8 = fromX + 1
           y_8 = fromY
           breakable {
-            println("lol6")
             childrens.forEach((node: Node) => {
               if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == y_8) && (GridPane.getColumnIndex(node) == x_8)) {
                 board.getChildren.remove(node)
@@ -356,7 +308,6 @@ class CheckersController extends Controller {
 
           x_8 = fromX - 1
           y_8 = fromY
-          println("lol7")
           breakable {
             childrens.forEach((node: Node) => {
               if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == y_8) && (GridPane.getColumnIndex(node) == x_8)) {
@@ -370,7 +321,6 @@ class CheckersController extends Controller {
           gameBoard(fromY + 1)(fromX - 1) = "."
           x_8 = fromX - 1
           y_8 = fromY
-          println("lol8")
           breakable {
             childrens.forEach((node: Node) => {
               if (node.isInstanceOf[Circle] && (GridPane.getRowIndex(node) == y_8) && (GridPane.getColumnIndex(node) == x_8)) {
@@ -408,12 +358,9 @@ class CheckersController extends Controller {
           }
         }
       }
-      println("values")
-      println(x_8)
-      println(y_8)
       eaten = false
     }
-    if (promotion == true) {
+    if (promotion) {
       promoted = promoted.removed(fromY)
       promoted = promoted + (to_y -> to_x)
       promotion = false

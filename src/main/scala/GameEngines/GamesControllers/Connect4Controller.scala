@@ -1,6 +1,5 @@
 package GameEngines.GamesControllers
 
-import javafx.scene.Node
 import javafx.scene.layout.GridPane
 import javafx.scene.paint.Color
 import javafx.scene.shape.Circle
@@ -11,14 +10,6 @@ class Connect4Controller extends Controller {
 
   var gameBoard: Array[Array[String]] = Array.ofDim[String](6, 7)
   var turn = "1"
-
-  override def Movement(source: Node): Unit = {
-    source.setOnMouseClicked(e => {
-      if (gameBoard(5 - GridPane.getRowIndex(source))(GridPane.getColumnIndex(source)) == null) {
-        movementValidation(GridPane.getColumnIndex(source), 0, 0, 0)
-      }
-    })
-  }
 
   override def movementValidation(oldCol: Int, oldRow: Int, newCol: Int, newRow: Int): Boolean = {
     checking(oldCol)
@@ -40,8 +31,6 @@ class Connect4Controller extends Controller {
       return
     }
     putting(5 - i, col, turn)
-    println(i)
-
   }
 
   def putting(row: Int, col: Int, color: String): Unit = {
@@ -59,15 +48,6 @@ class Connect4Controller extends Controller {
 
   def changeTurns(): Unit = {
     if (turn == "1") turn = "2" else turn = "1"
-  }
-
-  def draw(): Unit = {
-    for (i <- 5 to 0 by -1) {
-      for (j <- 0 to 6) {
-        print(" " + gameBoard(i)(j))
-      }
-      println()
-    }
   }
 
 }

@@ -2,7 +2,7 @@ package ChessPieces
 
 import javafx.scene.image.ImageView
 
-class Bishop(name : String , x: Int, y: Int, color: Int) extends Piece(name, x, y, color) {
+class Bishop(name: String, x: Int, y: Int, color: Int) extends Piece(name, x, y, color) {
   override var image: ImageView = _
   loadImage()
 
