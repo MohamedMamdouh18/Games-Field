@@ -1,25 +1,32 @@
 package ChessPieces
 
-import GameEngines.Engines.ChessEngine
+import GameEngines.GamesControllers.ChessController
 import javafx.scene.image.ImageView
 
 class Castle(name: String, x: Int, y: Int, color: Int) extends Piece(name, x, y, color) {
   override var image: ImageView = _
   loadImage()
 
-  override def validateMove(newX: Int, newY: Int): Boolean = {
-    if (newX > 7 || newX < 0 || newY > 7 || newY < 0) return false
-    if (newX == x) {
-      for (i <- y until newY) {
-        if (ChessEngine.board(x)(i) != null) return false
+  override def validateMove(newCol: Int, newRow: Int): Boolean = {
+    if (newCol > 7 || newCol < 0 || newRow > 7 || newRow < 0) return false
+    if (newCol == curCol) {
+
+      if (curRow > newRow) {
+        for (i <- (newRow + 1) until curRow) if (ChessController.board(i)(curCol) != null) return false
+      } else {
+        for (i <- (curRow + 1) until newRow) if (ChessController.board(i)(curCol) != null) return false
       }
-      if (!canEat(newX, newY)) return false
-    } else if (newY == y) {
-      for (i <- x until newX) {
-        if (ChessEngine.board(i)(y) != null) return false
+      if (!canEat(newRow, newCol)) return false
+    } else if (newRow == curRow) {
+
+      if (curCol > newCol) {
+        for (i <- (newCol + 1) until curCol) if (ChessController.board(curRow)(i) != null) return false
+      } else {
+        for (i <- (curCol+1) until newCol) if (ChessController.board(curRow)(i) != null) return false
       }
-      if (!canEat(newX, newY)) return false
+
+      if (!canEat(newRow, newCol)) return false
     } else return false
-    true
+    return true
   }
 }

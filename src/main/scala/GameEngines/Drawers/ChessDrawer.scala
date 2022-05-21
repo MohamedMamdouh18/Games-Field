@@ -1,6 +1,6 @@
 package GameEngines.Drawers
 
-import GameEngines.Engines.ChessEngine
+import GameEngines.GamesControllers.ChessController
 import javafx.geometry.Pos
 import javafx.scene.Node
 import javafx.scene.input.MouseEvent
@@ -25,9 +25,9 @@ class ChessDrawer extends Drawer {
     board.setAlignment(Pos.CENTER)
     for (i <- 0 until 8) {
       for (j <- 0 until 8) {
-        if (ChessEngine.board(i)(j) != null) {
-          board.add(ChessEngine.board(i)(j).image, j, i)
-          Draggable(ChessEngine.board(i)(j).image)
+        if (ChessController.board(i)(j) != null) {
+          board.add(ChessController.board(i)(j).image, j, i)
+          Draggable(ChessController.board(i)(j).image)
         }
       }
     }

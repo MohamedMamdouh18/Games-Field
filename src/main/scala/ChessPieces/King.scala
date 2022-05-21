@@ -6,7 +6,13 @@ class King(name: String, x: Int, y: Int, color: Int) extends Piece(name, x, y, c
   override var image: ImageView = _
   loadImage()
 
-  override def validateMove(newX: Int, newY: Int): Boolean = {
-    false
+  override def validateMove(newCol: Int, newRow: Int): Boolean = {
+    if (newCol > 7 || newCol < 0 || newRow > 7 || newRow < 0) return false
+
+    if( !(((newCol == curCol + 1 && (newRow == curRow || newRow == curRow - 1  || newRow == curRow + 1))
+     || (newCol == curCol - 1 && (newRow == curRow || newRow == curRow - 1  || newRow == curRow + 1))
+      || (newCol == curCol && (newRow == curRow - 1  || newRow == curRow + 1))) && canEat(newRow , newCol)) ) return false
+
+    return true
   }
 }
