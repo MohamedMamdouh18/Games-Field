@@ -5,7 +5,7 @@ import GameEngines.GamesControllers.ChessController
 import javafx.scene.image.ImageView
 
 abstract class Piece(pieceName: String, row: Int, col: Int, team: Int) {
-  val name: String = pieceName
+  var name: String = pieceName
   var curRow: Int = row
   var curCol: Int = col
   val color: Int = team
@@ -14,7 +14,11 @@ abstract class Piece(pieceName: String, row: Int, col: Int, team: Int) {
 
   def validateMove(newX: Int, newY: Int): Boolean = ???
 
-  protected def loadImage(): Unit = {
+  def wantPromote() : Boolean ={
+    false
+  }
+
+   def loadImage(): Unit = {
     if(name != null) image = new ImageView("Resources/Chess/" + name + ".png")
   }
 
