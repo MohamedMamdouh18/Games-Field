@@ -79,12 +79,12 @@ class CheckersController extends Controller {
     }
     if (Player_turn == 1) {
       if (promoted.contains(fromY)) {
-        if (((to_y == fromY - 1 && to_x == fromX + 1) || (to_y == fromY - 1 && to_x == fromX - 1) || (to_y == fromY + 1 && to_x == fromX + 1) || (to_y == fromY + 1 && to_x == fromX - 1)) && gameBoard(to_y)(to_x) != "x") {
+        if (((to_y == fromY - 1 && to_x == fromX + 1) || (to_y == fromY - 1 && to_x == fromX - 1) || (to_y == fromY + 1 && to_x == fromX + 1) || (to_y == fromY + 1 && to_x == fromX - 1)) && (gameBoard(to_y)(to_x)!="y" &&  gameBoard(to_y)(to_x)!="x")) {
           promotion = true
           return true
         }
-        else if ((to_y == fromY - 2 && to_x == fromX + 2) || (to_y == fromY - 2 && to_x == fromX - 2) || (to_y == fromY + 2 && to_x == fromX + 2) || (to_y == fromY + 2 && to_x == fromX - 2)) {
-          if (gameBoard(fromY - 1)(fromX + 1) == "y" || gameBoard(fromY - 1)(fromX - 1) == "y") {
+        else if ((to_y == fromY - 2 && to_x == fromX + 2) || (to_y == fromY - 2 && to_x == fromX - 2) || (to_y == fromY + 2 && to_x == fromX + 2) || (to_y == fromY + 2 && to_x == fromX - 2) && (gameBoard(to_y)(to_x)!="y" &&  gameBoard(to_y)(to_x)!="x")) {
+          if (gameBoard(fromY - 1)(fromX + 1) == "y" || gameBoard(fromY - 1)(fromX - 1) == "y" ) {
             eaten = true
             eat = true
             promotion = true
@@ -97,10 +97,10 @@ class CheckersController extends Controller {
         }
       }
       else {
-        if (((to_y == fromY - 1 && to_x == fromX + 1) || (to_y == fromY - 1 && to_x == fromX - 1)) && gameBoard(to_y)(to_x) != "y") {
+        if (((to_y == fromY - 1 && to_x == fromX + 1) || (to_y == fromY - 1 && to_x == fromX - 1)) && (gameBoard(to_y)(to_x)!="y" &&  gameBoard(to_y)(to_x)!="x")) {
           return true
         }
-        else if ((to_y == fromY - 2 && to_x == fromX + 2) || (to_y == fromY - 2 && to_x == fromX - 2)) {
+        else if (((to_y == fromY - 2 && to_x == fromX + 2) || (to_y == fromY - 2 && to_x == fromX - 2)) && (gameBoard(to_y)(to_x)!="y" &&  gameBoard(to_y)(to_x)!="x")) {
           if (gameBoard(fromY - 1)(fromX + 1) == "y" || gameBoard(fromY - 1)(fromX - 1) == "y") {
             eaten = true
             eat = true
@@ -114,11 +114,11 @@ class CheckersController extends Controller {
     }
     else {
       if (promoted.contains(fromY)) {
-        if (((to_y == fromY - 1 && to_x == fromX + 1) || (to_y == fromY - 1 && to_x == fromX - 1) || (to_y == fromY + 1 && to_x == fromX + 1) || (to_y == fromY + 1 && to_x == fromX - 1)) && gameBoard(to_y)(to_x) != "y") {
+        if (((to_y == fromY - 1 && to_x == fromX + 1) || (to_y == fromY - 1 && to_x == fromX - 1) || (to_y == fromY + 1 && to_x == fromX + 1) || (to_y == fromY + 1 && to_x == fromX - 1)) && (gameBoard(to_y)(to_x)!="y" &&  gameBoard(to_y)(to_x)!="x")) {
           promotion = true
           return true
         }
-        else if ((to_y == fromY - 2 && to_x == fromX + 2) || (to_y == fromY - 2 && to_x == fromX - 2) || (to_y == fromY + 2 && to_x == fromX + 2) || (to_y == fromY + 2 && to_x == fromX - 2)) {
+        else if ((to_y == fromY - 2 && to_x == fromX + 2) || (to_y == fromY - 2 && to_x == fromX - 2) || (to_y == fromY + 2 && to_x == fromX + 2) || (to_y == fromY + 2 && to_x == fromX - 2) && (gameBoard(to_y)(to_x)!="y" &&  gameBoard(to_y)(to_x)!="x")) {
 
           if (gameBoard(fromY - 1)(fromX + 1) == "x" || gameBoard(fromY - 1)(fromX - 1) == "x") {
             eaten = true
@@ -133,11 +133,11 @@ class CheckersController extends Controller {
         }
       }
       else {
-        if (((to_y == fromY + 1 && to_x == fromX + 1) || (to_y == fromY + 1 && to_x == fromX - 1)) && gameBoard(to_y)(to_x) != "x") {
+        if (((to_y == fromY + 1 && to_x == fromX + 1) || (to_y == fromY + 1 && to_x == fromX - 1)) && (gameBoard(to_y)(to_x)!="y" &&  gameBoard(to_y)(to_x)!="x")) {
 
           return true
         }
-        else if ((to_y == fromY + 2 && to_x == fromX + 2) || (to_y == fromY + 2 && to_x == fromX - 2)) {
+        else if (((to_y == fromY + 2 && to_x == fromX + 2) || (to_y == fromY + 2 && to_x == fromX - 2) )&& (gameBoard(to_y)(to_x)!="y" &&  gameBoard(to_y)(to_x)!="x")) {
           if ((gameBoard(fromY + 1)(fromX + 1) == "x") || (gameBoard(fromY + 1)(fromX - 1) == "x")) {
             eaten = true
             eat = true
@@ -194,7 +194,7 @@ class CheckersController extends Controller {
             })
           }
         }
-        if (to_x != 0 && to_y != 0) {
+        if (to_x != 0 && to_y != 0 && to_x!=1 && to_y!=1 && to_x!=7 && to_x!=8) {
           if (gameBoard(to_y - 1)(to_x - 1) == "y" && (gameBoard(to_y - 2)(to_x - 2) == "." || gameBoard(to_y - 2)(to_x - 2) == "-") || gameBoard(to_y - 1)(to_x + 1) == "y" && (gameBoard(to_y - 2)(to_x + 2) == "." || gameBoard(to_y - 2)(to_x + 2) == "-")) {
             change_player = true
           }
@@ -202,7 +202,7 @@ class CheckersController extends Controller {
             change_player = false
           }
         }
-        else if (to_y != 0) {
+        else if (to_y != 0 && to_y!=1 && to_x!=7 && to_x!=8) {
           if (gameBoard(to_y - 1)(to_x + 1) == "y" && (gameBoard(to_y - 2)(to_x + 2) == "." || gameBoard(to_y - 2)(to_x + 2) == "-")) {
             change_player = true
           }
@@ -239,7 +239,7 @@ class CheckersController extends Controller {
             })
           }
         }
-        if (to_x != 0 && to_y != 0) {
+        if (to_x != 0 && to_y != 0 && to_y!=1 && to_x!=1 && to_x!=7 && to_x!=8) {
           if (gameBoard(to_y - 1)(to_x - 1) == "y" && (gameBoard(to_y - 2)(to_x - 2) == "." || gameBoard(to_y - 2)(to_x - 2) == "-") || gameBoard(to_y - 1)(to_x + 1) == "y" && (gameBoard(to_y - 2)(to_x + 2) == "." || gameBoard(to_y - 2)(to_x + 2) == "-")) {
             change_player = true
           }
@@ -247,7 +247,7 @@ class CheckersController extends Controller {
             change_player = false
           }
         }
-        else if (to_y != 0) {
+        else if (to_y != 0 && to_x!=7 && to_y!=1 && to_x!=8) {
           if (gameBoard(to_y - 1)(to_x + 1) == "y" && (gameBoard(to_y - 2)(to_x + 2) == "." || gameBoard(to_y - 2)(to_x + 2) == "-")) {
             change_player = true
           }
@@ -285,7 +285,7 @@ class CheckersController extends Controller {
           }
 
         }
-        if (to_x != 0) {
+        if (to_x != 0 && to_y!=7 && to_x!=7 && to_x!=1 && to_x!=8 && to_y!=8) {
           if ((gameBoard(to_y + 1)(to_x + 1) == "y" && (gameBoard(to_y + 2)(to_x + 2) == "." || gameBoard(to_y + 2)(to_x + 2) == "-")) || gameBoard(to_y + 1)(to_x - 1) == "y" && (gameBoard(to_y + 2)(to_x - 2) == "." || gameBoard(to_y + 2)(to_x - 2) == "-")) {
             change_player = true
           }
@@ -293,7 +293,7 @@ class CheckersController extends Controller {
             change_player = false
           }
         }
-        else {
+        else if(to_y!=7 && to_x!=7 && to_x!=8 && to_y!=8) {
           if (gameBoard(to_y + 1)(to_x + 1) == "y" && (gameBoard(to_y + 2)(to_x + 2) == "." || gameBoard(to_y + 2)(to_x + 2) == "-")) {
             change_player = true
           }
@@ -331,7 +331,7 @@ class CheckersController extends Controller {
           }
 
         }
-        if (to_x != 0) {
+        if (to_x != 0 && to_x!=7 && to_y!=7 && to_x!=1 && to_y!=8 && to_x!=8) {
           if ((gameBoard(to_y + 1)(to_x + 1) == "y" && (gameBoard(to_y + 2)(to_x + 2) == "." || gameBoard(to_y + 2)(to_x + 2) == "-")) || gameBoard(to_y + 1)(to_x - 1) == "y" && (gameBoard(to_y + 2)(to_x - 2) == "." || gameBoard(to_y + 2)(to_x - 2) == "-")) {
             change_player = true
           }
@@ -339,7 +339,7 @@ class CheckersController extends Controller {
             change_player = false
           }
         }
-        else {
+        else if(to_y!=7 && to_x!=7 && to_x!=8 && to_y!=8 ){
           if (gameBoard(to_y + 1)(to_x + 1) == "y" && (gameBoard(to_y + 2)(to_x + 2) == "." || gameBoard(to_y + 2)(to_x + 2) == "-")) {
             change_player = true
           }
@@ -349,7 +349,7 @@ class CheckersController extends Controller {
         }
       }
       if (promotion) {
-        if (to_x != 0 && to_y != 0) {
+        if (to_x != 0 && to_x!=7 && to_y!=7 && to_x!=1 && to_y!=1 && to_y!=0  && to_x!=8 && to_y!=8) {
           if (gameBoard(to_y + 1)(to_x - 1) == "y" && (gameBoard(to_y + 2)(to_x - 2) == "." || gameBoard(to_y + 2)(to_x - 2) == "-") || gameBoard(to_y + 1)(to_x + 1) == "y" && (gameBoard(to_y + 2)(to_x + 2) == "." || gameBoard(to_y + 2)(to_x + 2) == "-") || gameBoard(to_y - 1)(to_x + 1) == "y" && (gameBoard(to_y - 2)(to_x + 2) == "." || gameBoard(to_y - 2)(to_x + 2) == "-") || gameBoard(to_y - 1)(to_x - 1) == "y" && (gameBoard(to_y - 2)(to_x - 2) == "." || gameBoard(to_y - 2)(to_x - 2) == "-")) {
             change_player = true
           }
