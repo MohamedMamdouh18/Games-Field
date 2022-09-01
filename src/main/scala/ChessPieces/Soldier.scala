@@ -1,7 +1,7 @@
 package ChessPieces
 
-import GameEngines.Engines.ChessEngine
-import GameEngines.GamesControllers.ChessController
+import Controllers.ChessController
+import Engines.ChessEngine
 import javafx.scene.image.ImageView
 
 class Soldier(name: String, x: Int, y: Int, color: Int) extends Piece(name, x, y, color) {

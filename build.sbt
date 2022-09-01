@@ -1,4 +1,4 @@
-name := "BoardDrawingEngine"
+name := "GamesField"
 
 version := "1.0.6"
 

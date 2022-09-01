@@ -1,6 +1,6 @@
 package ChessPieces
 
-import GameEngines.GamesControllers.ChessController
+import Controllers.ChessController
 import javafx.scene.image.ImageView
 
 import scala.math.abs

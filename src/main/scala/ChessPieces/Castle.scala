@@ -1,6 +1,6 @@
 package ChessPieces
 
-import GameEngines.GamesControllers.ChessController
+import Controllers.ChessController
 import javafx.scene.image.ImageView
 
 class Castle(name: String, x: Int, y: Int, color: Int) extends Piece(name, x, y, color) {
@@ -22,7 +22,7 @@ class Castle(name: String, x: Int, y: Int, color: Int) extends Piece(name, x, y,
       if (curCol > newCol) {
         for (i <- (newCol + 1) until curCol) if (ChessController.board(curRow)(i) != null) return false
       } else {
-        for (i <- (curCol+1) until newCol) if (ChessController.board(curRow)(i) != null) return false
+        for (i <- (curCol + 1) until newCol) if (ChessController.board(curRow)(i) != null) return false
       }
 
       if (!canEat(newRow, newCol)) return false

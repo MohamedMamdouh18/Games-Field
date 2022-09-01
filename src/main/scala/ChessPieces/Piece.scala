@@ -1,7 +1,7 @@
 package ChessPieces
 
-import GameEngines.Engines.ChessEngine
-import GameEngines.GamesControllers.ChessController
+import Controllers.ChessController
+import Engines.ChessEngine
 import javafx.scene.image.ImageView
 
 abstract class Piece(pieceName: String, row: Int, col: Int, team: Int) {
@@ -26,8 +26,4 @@ abstract class Piece(pieceName: String, row: Int, col: Int, team: Int) {
     if (ChessController.board(atkRow)(atkCol) != null && color == ChessController.board(atkRow)(atkCol).color) return false
     else true
   }
-}
-
-object Piece {
-
 }
