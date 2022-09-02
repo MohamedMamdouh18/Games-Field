@@ -14,19 +14,19 @@ class ChessDrawer extends Drawer {
   var oldCol, oldRow: Int = 0
   var x, y: Double = 0
 
-  override def draw(): Unit = {
+  override def draw(board: Array[Array[Piece]]): Unit = {
     gameBoard = drawBoard(8, 8,
       Color.rgb(152, 68, 32), Color.rgb(236, 205, 153), showGridLines = false)
-    extendDrawing1(gameBoard, drag)
+    extendDrawing2(board, drag)
   }
 
-  override def extendDrawing2(board: GridPane, gameBoard: Array[Array[Piece]], Draggable: Node => Unit): Unit = {
-    board.setAlignment(Pos.CENTER)
+  override def extendDrawing2(board: Array[Array[Piece]], Draggable: Node => Unit): Unit = {
+    gameBoard.setAlignment(Pos.CENTER)
     for (i <- 0 until 8) {
       for (j <- 0 until 8) {
-        if (gameBoard(i)(j) != null) {
-          board.add(gameBoard(i)(j).image, j, i)
-          Draggable(gameBoard(i)(j).image)
+        if (board(i)(j) != null) {
+          gameBoard.add(board(i)(j).image, j, i)
+          Draggable(board(i)(j).image)
         }
       }
     }

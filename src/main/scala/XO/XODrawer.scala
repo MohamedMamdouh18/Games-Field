@@ -1,6 +1,6 @@
 package XO
 
-import Base.{Drawer, State}
+import Base.{Drawer, Piece, State}
 import javafx.geometry.{HPos, VPos}
 import javafx.scene.Node
 import javafx.scene.control.Label
@@ -14,13 +14,13 @@ class XODrawer extends Drawer {
   override var gameBoard: GridPane = new GridPane()
   override var drag: Node => Unit = _
 
-  override def draw(): Unit = {
+  override def draw(board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit = {
     gameBoard = drawBoard(3, 3, Color.rgb(236, 205, 153), Color.rgb(236, 205, 153), showGridLines = true)
-    extendDrawing1(gameBoard, drag)
+    extendDrawing1(drag)
   }
 
-  override def extendDrawing1(board: GridPane, Draggable: Node => Unit): Unit = {
-    board.getChildren.forEach(node => {
+  override def extendDrawing1(Draggable: Node => Unit): Unit = {
+    gameBoard.getChildren.forEach(node => {
       if (node.isInstanceOf[Node]) {
         Draggable(node)
       }

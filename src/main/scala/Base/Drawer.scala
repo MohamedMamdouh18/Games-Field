@@ -43,13 +43,13 @@ abstract class Drawer {
     board
   }
 
-  def draw(): Unit
+  def draw(board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit
 
-  def extendDrawing1(board: GridPane, Draggable: Node => Unit): Unit = {
+  def extendDrawing1(Draggable: Node => Unit): Unit = {
 
   }
 
-  def extendDrawing2(board: GridPane, gameBoard: Array[Array[Piece]], Draggable: Node => Unit): Unit = {
+  def extendDrawing2(board: Array[Array[Piece]], Draggable: Node => Unit): Unit = {
 
   }
 

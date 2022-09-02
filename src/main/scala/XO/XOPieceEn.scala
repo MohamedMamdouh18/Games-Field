@@ -2,7 +2,7 @@ package XO
 
 import Base.PieceType
 
-object XOPiece extends PieceType {
+object XOPieceEn extends PieceType {
   val X = "X"
   val O = "O"
 }

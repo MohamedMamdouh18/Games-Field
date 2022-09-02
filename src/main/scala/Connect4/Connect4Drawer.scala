@@ -1,6 +1,6 @@
 package Connect4
 
-import Base.{Drawer, State}
+import Base.{Drawer, Piece, State}
 import javafx.geometry.{HPos, Pos, VPos}
 import javafx.scene.Node
 import javafx.scene.input.MouseEvent
@@ -15,13 +15,13 @@ class Connect4Drawer extends Drawer {
   override var gameBoard: GridPane = new GridPane()
   override var drag: Node => Unit = _
 
-  override def draw(): Unit = {
+  override def draw(board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit = {
     gameBoard = drawBoard(6, 7, Color.rgb(0, 0, 139), Color.rgb(0, 0, 139), showGridLines = false)
-    extendDrawing1(gameBoard, drag)
+    extendDrawing1(drag)
   }
 
-  override def extendDrawing1(board: GridPane, Draggable: Node => Unit): Unit = {
-    board.setAlignment(Pos.CENTER)
+  override def extendDrawing1(Draggable: Node => Unit): Unit = {
+    gameBoard.setAlignment(Pos.CENTER)
 
     for (i <- 0 until 6) {
       for (j <- 0 until 7) {
@@ -30,7 +30,7 @@ class Connect4Drawer extends Drawer {
         Draggable(circle)
         GridPane.setColumnIndex(circle, j)
         GridPane.setRowIndex(circle, i)
-        board.add(circle, j, i, 1, 1)
+        gameBoard.add(circle, j, i, 1, 1)
         GridPane.setHalignment(circle, HPos.CENTER)
         GridPane.setValignment(circle, VPos.CENTER)
       }
