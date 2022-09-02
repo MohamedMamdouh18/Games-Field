@@ -1,27 +1,21 @@
 package Engines
 
+import Base.Piece
 import Controllers.Controller
 import Drawers.Drawer
 import javafx.scene.Node
 import javafx.scene.layout.StackPane
 
 abstract class GameEngine {
-  var gameBoard: Array[Array[String]]
   val gameController: Controller = null
   val gameDrawer: Drawer = null
+  var gameBoard: Array[Array[Piece]]
+  var turn: Int = 0
 
   def startGame(gamePane: StackPane): Unit = {
     gameDrawer.setGamePane(gamePane)
-
-    gameController.setGameBoard(gameBoard)
-    gameDrawer.setGameBoard(gameBoard)
-
     gameDrawer.setDrag(Movement)
-
-    val board = gameDrawer.draw()
-    gameController.setBoard(board)
-
-//    println(board.localToScene(board.getBoundsInLocal))
+    gameDrawer.draw()
   }
 
   def Movement(source: Node): Unit

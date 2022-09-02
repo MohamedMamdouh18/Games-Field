@@ -1,4 +1,4 @@
-import Engines.{ChessEngine, Connect4Engine, XOEngine}
+import Engines.{Connect4Engine, XOEngine}
 import javafx.scene.control.Button
 import javafx.scene.layout.{AnchorPane, HBox, StackPane}
 import scalafxml.core.macros.sfxml
@@ -15,11 +15,11 @@ class MainController(var gamePane: StackPane,
     gameEngine.startGame(gamePane)
   }
 
-  def ChessStart(): Unit = {
-    gameMode(true)
-    val gameEngine = new ChessEngine(promButs)
-    gameEngine.startGame(gamePane)
-  }
+  // def ChessStart(): Unit = {
+  //   gameMode(true)
+  //   val gameEngine = new ChessEngine(promButs)
+  //   gameEngine.startGame(gamePane)
+  // }
 
   def gameMode(boolean: Boolean): Unit = {
     promButs.setVisible(false)

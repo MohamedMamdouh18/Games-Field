@@ -1,20 +1,17 @@
 package Controllers
 
+import Base.{MoveValidation, Piece, State}
+
 class XOController extends Controller {
-  override var gameBoard: Array[Array[String]] = Array.ofDim[String](3, 3)
-  var turn = true
 
-  override def movementValidation(oldCol: Int, oldRow: Int, newCol: Int, newRow: Int): Boolean = {
-    if (gameBoard(oldCol)(oldRow) == ".") {
-      if (this.turn)
-        gameBoard(oldCol)(oldRow) = "X"
+  override def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation = {
+    if (gameBoard(state.oldCol)(state.oldRow) == null) {
+      gameBoard(state.oldCol)(state.oldRow) = if (state.turn == 1)
+        new Piece("X", state.oldRow, state.oldCol, 1)
       else
-        gameBoard(oldCol)(oldRow) = "O"
-
-      this.turn = !this.turn
-
-      true
+        new Piece("O", state.oldRow, state.oldCol, 0)
+      new MoveValidation(null, true)
     } else
-      false
+      new MoveValidation(null, false)
   }
 }

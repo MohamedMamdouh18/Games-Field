@@ -1,5 +1,6 @@
 package Engines
 
+import Base.{Piece, State}
 import Controllers.XOController
 import Drawers.XODrawer
 import javafx.scene.Node
@@ -8,18 +9,15 @@ import javafx.scene.layout.GridPane
 class XOEngine extends GameEngine {
   override val gameController = new XOController
   override val gameDrawer = new XODrawer
-  override var gameBoard: Array[Array[String]] = Array(
-    Array(".", ".", "."),
-    Array(".", ".", "."),
-    Array(".", ".", ".")
-  )
+  override var gameBoard: Array[Array[Piece]] = Array.ofDim[Piece](3, 3)
 
   override def Movement(source: Node): Unit = {
     source.setOnMouseClicked(_ => {
-      if (gameController.movementValidation(GridPane.getColumnIndex(source), GridPane.getRowIndex(source), 0, 0)) {
-        gameDrawer.movementDraw(gameController.board, source, null, gameController.turn)
+      val s: State = new State(GridPane.getRowIndex(source), GridPane.getColumnIndex(source), 0, 0, turn)
+      if (gameController.movementValidation(gameBoard, s).valid) {
+        gameDrawer.movementDraw(source, null, s)
+        turn = 1 - turn
       }
     })
   }
-
 }
