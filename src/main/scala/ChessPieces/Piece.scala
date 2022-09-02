@@ -27,3 +27,7 @@ abstract class Piece(pieceName: String, row: Int, col: Int, team: Int) {
     else true
   }
 }
+
+object Piece {
+
+}
