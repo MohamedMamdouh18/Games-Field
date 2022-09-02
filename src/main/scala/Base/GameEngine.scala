@@ -1,8 +1,5 @@
-package Engines
+package Base
 
-import Base.Piece
-import Controllers.Controller
-import Drawers.Drawer
 import javafx.scene.Node
 import javafx.scene.layout.StackPane
 

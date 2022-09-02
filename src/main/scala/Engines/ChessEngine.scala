@@ -1,5 +1,0 @@
-package Engines
-
-class ChessEngine {
-
-}

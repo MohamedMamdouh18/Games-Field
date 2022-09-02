@@ -1,6 +1,5 @@
-package Drawers
+package Base
 
-import Base.State
 import javafx.geometry.Pos
 import javafx.scene.Node
 import javafx.scene.input.MouseEvent
@@ -46,7 +45,13 @@ abstract class Drawer {
 
   def draw(): Unit
 
-  def extendDrawing(board: GridPane, Draggable: Node => Unit): Unit
+  def extendDrawing1(board: GridPane, Draggable: Node => Unit): Unit = {
+
+  }
+
+  def extendDrawing2(board: GridPane, gameBoard: Array[Array[Piece]], Draggable: Node => Unit): Unit = {
+
+  }
 
   def movementDraw(source: Node, e: MouseEvent, state: State): Unit
 

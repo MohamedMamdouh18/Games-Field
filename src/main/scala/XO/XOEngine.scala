@@ -1,8 +1,6 @@
-package Engines
+package XO
 
-import Base.{Piece, State}
-import Controllers.XOController
-import Drawers.XODrawer
+import Base.{GameEngine, Piece, State}
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 

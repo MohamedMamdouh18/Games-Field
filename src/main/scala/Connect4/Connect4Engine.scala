@@ -1,8 +1,6 @@
-package Engines
+package Connect4
 
-import Base.{Piece, State}
-import Controllers.Connect4Controller
-import Drawers.Connect4Drawer
+import Base.{GameEngine, Piece, State}
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 

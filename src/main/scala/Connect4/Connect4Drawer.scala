@@ -1,6 +1,6 @@
-package Drawers
+package Connect4
 
-import Base.State
+import Base.{Drawer, State}
 import javafx.geometry.{HPos, Pos, VPos}
 import javafx.scene.Node
 import javafx.scene.input.MouseEvent
@@ -17,10 +17,10 @@ class Connect4Drawer extends Drawer {
 
   override def draw(): Unit = {
     gameBoard = drawBoard(6, 7, Color.rgb(0, 0, 139), Color.rgb(0, 0, 139), showGridLines = false)
-    extendDrawing(gameBoard, drag)
+    extendDrawing1(gameBoard, drag)
   }
 
-  override def extendDrawing(board: GridPane, Draggable: Node => Unit): Unit = {
+  override def extendDrawing1(board: GridPane, Draggable: Node => Unit): Unit = {
     board.setAlignment(Pos.CENTER)
 
     for (i <- 0 until 6) {

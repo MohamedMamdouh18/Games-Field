@@ -33,7 +33,7 @@
                   <Image url="@checker-board.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="Chess" layoutX="132.0" layoutY="189.0" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Chess      ">
+            <JFXButton fx:id="Chess" layoutX="132.0" layoutY="189.0" onAction="#ChessStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Chess      ">
                <font>
                   <Font size="50.0" />
                </font>
