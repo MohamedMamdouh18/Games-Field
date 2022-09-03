@@ -22,14 +22,6 @@ class Queen(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x
     moves.validMoves
   }
 
-  override protected def validateMoveImpl(board: Array[Array[Piece]], x: Int, y: Int, i: Int): Boolean = {
-    false
-  }
-
-  override protected def validatedMovesImpl(board: Array[Array[Piece]], x: Int, y: Int, i: Int): Boolean = {
-    false
-  }
-
   private def updatePos(): Unit = {
     b.curRow = curRow
     b.curCol = curCol

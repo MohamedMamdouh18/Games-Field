@@ -1,8 +1,11 @@
 package Chess.Pieces
 
-import Base.Piece
+import Base.{Piece, State}
+import Chess.ChessPieceEn
 import javafx.scene.image.ImageView
 import javafx.util.Pair
+
+import scala.util.control.Breaks.{break, breakable}
 
 abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) extends Piece(pieceName, row, col, color) {
   var firstMove: Boolean = true
@@ -23,18 +26,38 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
 
   def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]]
 
-  protected def validateMoveImpl(board: Array[Array[Piece]], x: Int, y: Int, i: Int): Boolean
+  protected def validateMoveImpl(s: State): Boolean = {
+    if (s.newCol == s.oldCol && s.newRow == s.oldRow)
+      moves.valid = true
+    moves.valid
+  }
 
-  protected def validatedMovesImpl(board: Array[Array[Piece]], x: Int, y: Int, i: Int): Boolean
+  protected def validatedMovesImpl(s: State): Boolean = {
+    moves.validMoves = moves.validMoves :+ new Pair[Int, Int](s.newRow, s.newCol)
+    moves.valid
+  }
 
   protected def loopTemplate(board: Array[Array[Piece]], newX: Int, newY: Int,
-                             execute: (Array[Array[Piece]], Int, Int, Int) => Boolean): Moves = {
+                             execute: State => Boolean, e: Int): Moves = {
     if (newX > 7 || newX < 0 || newY > 7 || newY < 0)
       return moves
 
     for (i <- dx.indices) {
-      if (execute(board, newX, newY, i))
-        return moves
+      breakable {
+        for (j <- 1 to e) {
+          val validNewX = curRow + dx(i) * j
+          val validNewY = curCol + dy(i) * j
+
+          if (validNewX <= 7 && validNewX >= 0 && validNewY >= 0 && validNewY <= 7 &&
+            canEat(board, validNewX, validNewY)) {
+
+            if (execute(new State(newX, newY, validNewX, validNewY, 0)))
+              return moves
+          } else if (pieceName != ChessPieceEn.WhiteKnight && pieceName != ChessPieceEn.BlackKnight) {
+            break
+          }
+        }
+      }
     }
     moves
   }
