@@ -19,7 +19,14 @@ class MainController(var gamePane: StackPane,
 
   def ChessStart(): Unit = {
     gameMode(true)
-    val gameEngine = new ChessEngine
+    val gameEngine =new ChessEngine(promButs)
+    gameEngine.startGame(gamePane)
+  }
+
+
+  def Connect4Start(): Unit = {
+    gameMode(true)
+    val gameEngine = new Connect4Engine
     gameEngine.startGame(gamePane)
   }
 
@@ -29,12 +36,6 @@ class MainController(var gamePane: StackPane,
     menuPane.setVisible(!boolean)
     returnButton.setVisible(boolean)
     gamePane.setVisible(boolean)
-  }
-
-  def Connect4Start(): Unit = {
-    gameMode(true)
-    val gameEngine = new Connect4Engine
-    gameEngine.startGame(gamePane)
   }
 
   def returnMenu(): Unit = {

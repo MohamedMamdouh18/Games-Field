@@ -12,11 +12,11 @@ import javafx.scene.text.{Font, FontWeight}
 class XODrawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
   override var gameBoard: GridPane = new GridPane()
-  override var drag: Node => Unit = _
+  override var Event: Node => Unit = _
 
-  override def draw(board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit = {
+  override def drawPiece(board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit = {
     gameBoard = drawBoard(3, 3, Color.rgb(236, 205, 153), Color.rgb(236, 205, 153), showGridLines = true)
-    extendDrawing1(drag)
+    extendDrawing1(Event)
   }
 
   override def extendDrawing1(Draggable: Node => Unit): Unit = {

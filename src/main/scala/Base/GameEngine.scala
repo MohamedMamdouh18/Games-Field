@@ -11,8 +11,8 @@ abstract class GameEngine {
 
   def startGame(gamePane: StackPane): Unit = {
     gameDrawer.setGamePane(gamePane)
-    gameDrawer.setDrag(Movement)
-    gameDrawer.draw()
+    gameDrawer.setEvent(Movement)
+    gameDrawer.drawPiece()
   }
 
   def Movement(source: Node): Unit

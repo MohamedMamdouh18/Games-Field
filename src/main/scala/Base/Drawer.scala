@@ -10,7 +10,7 @@ import javafx.scene.shape.Rectangle
 abstract class Drawer {
   var gamePane: StackPane
   var gameBoard: GridPane
-  var drag: Node => Unit
+  var Event: Node => Unit
 
   def drawBoard(rows: Int, cols: Int, color1: Color, color2: Color, showGridLines: Boolean): GridPane = {
     val board = new GridPane
@@ -43,7 +43,7 @@ abstract class Drawer {
     board
   }
 
-  def draw(board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit
+  def drawPiece(board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit
 
   def extendDrawing1(Draggable: Node => Unit): Unit = {
 
@@ -59,7 +59,7 @@ abstract class Drawer {
     gamePane = newGamePane
   }
 
-  def setDrag(dragFn: Node => Unit): Unit = {
-    drag = dragFn
+  def setEvent(EventFn: Node => Unit): Unit = {
+    Event = EventFn
   }
 }

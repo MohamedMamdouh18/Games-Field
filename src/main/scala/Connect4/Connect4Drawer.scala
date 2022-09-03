@@ -13,11 +13,11 @@ import scala.util.control.Breaks.{break, breakable}
 class Connect4Drawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
   override var gameBoard: GridPane = new GridPane()
-  override var drag: Node => Unit = _
+  override var Event: Node => Unit = _
 
-  override def draw(board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit = {
+  override def drawPiece(board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit = {
     gameBoard = drawBoard(6, 7, Color.rgb(0, 0, 139), Color.rgb(0, 0, 139), showGridLines = false)
-    extendDrawing1(drag)
+    extendDrawing1(Event)
   }
 
   override def extendDrawing1(Draggable: Node => Unit): Unit = {

@@ -1,9 +1,13 @@
 package Chess
 
 import Base.{Controller, MoveValidation, Piece, State}
+import Chess.Pieces.ChessPiece
 
 class ChessController extends Controller {
   override def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation = {
-    new MoveValidation(new State(0, 0, 0, 0, 0), false)
+    val piece = gameBoard(state.oldRow)(state.oldCol).asInstanceOf[ChessPiece]
+    if(piece.validateMove(gameBoard , state.newCol , state.newRow))
+      new MoveValidation(null , true)
+    else new MoveValidation(null , false)
   }
 }
