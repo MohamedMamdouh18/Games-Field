@@ -57,18 +57,18 @@ class ChessEngine(promButs: HBox) extends GameEngine {
       new Knight(ChessPieceEn.WhiteKnight, 7, 6, 0),
       new Castle(ChessPieceEn.WhiteCastle, 7, 7, 0)),
   )
-  var promotionMap: Array[Map[Int, ChessPiece]] = Array(
+  var promotionMap: Array[Map[Int, Promotion]] = Array(
       Map(
-        0 -> new Queen(ChessPieceEn.BlackQueen, 0, 0, 1),
-        1 -> new Knight(ChessPieceEn.BlackKnight, 0, 0, 1),
-        2 -> new Bishop(ChessPieceEn.BlackBishop, 0, 0, 1),
-        3 -> new Castle(ChessPieceEn.BlackCastle, 0, 0, 1)
+        0 -> (() => new Queen(ChessPieceEn.BlackQueen, 0, 0, 1)),
+        1 -> (() => new Knight(ChessPieceEn.BlackKnight, 0, 0, 1)),
+        2 -> (() => new Bishop(ChessPieceEn.BlackBishop, 0, 0, 1)),
+        3 -> (() => new Castle(ChessPieceEn.BlackCastle, 0, 0, 1))
       ),
       Map(
-        0 -> new Queen(ChessPieceEn.WhiteQueen, 0, 0, 0),
-        1 -> new Knight(ChessPieceEn.WhiteKnight, 0, 0, 0),
-        2 -> new Bishop(ChessPieceEn.WhiteBishop, 0, 0, 0),
-        3 -> new Castle(ChessPieceEn.WhiteCastle, 0, 0, 0)
+        0 -> (() => new Queen(ChessPieceEn.WhiteQueen, 0, 0, 0)),
+        1 -> (() => new Knight(ChessPieceEn.WhiteKnight, 0, 0, 0)),
+        2 -> (() => new Bishop(ChessPieceEn.WhiteBishop, 0, 0, 0)),
+        3 -> (() => new Castle(ChessPieceEn.WhiteCastle, 0, 0, 0))
       ),
   )
   var oldCol, oldRow: Int = 0
@@ -124,7 +124,7 @@ class ChessEngine(promButs: HBox) extends GameEngine {
     buts.forEach(_.setOnMousePressed(e => {
       val indx: Int = (e.getSceneX / 100).toInt
 
-      val ps: ChessPiece = promotionMap(turn)(indx)
+      val ps: ChessPiece = promotionMap(turn)(indx).promote()
       ps.curCol = newCol
       ps.curRow = newRow
 
