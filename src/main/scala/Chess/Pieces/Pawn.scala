@@ -1,6 +1,7 @@
 package Chess.Pieces
 
-import Base.Piece
+import Base.{Piece, State}
+import javafx.util.Pair
 
 class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x, y, color) {
   loadImage()
@@ -16,20 +17,19 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     false
   }
 
-  override def validateMove(board: Array[Array[Piece]], newCol: Int, newRow: Int): Boolean = {
-    if (newCol > 7 || newCol < 0 || newRow > 7 || newRow < 0) return false
-    //black == 1
+  override def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean = {
+    if (newY > 7 || newY < 0 || newX > 7 || newX < 0) return false
     if (color == 1) {
       if (promotedDone) {
-        promotedMove(newCol, newRow)
+        promotedMove(newY, newX)
       } else {
-        if ((firstMove && newCol == curCol && newRow == curRow + 2 && board(newRow)(newCol) == null) ||
-          (newCol == curCol && newRow == curRow + 1 && board(newRow)(newCol) == null) ||
-          (newCol == curCol - 1 && newRow == curRow + 1 && board(newRow)(newCol) != null
-            && board(newRow)(newCol).color == 0) ||
-          (newCol == curCol + 1 && newRow == curRow + 1 && board(newRow)(newCol) != null
-            && board(newRow)(newCol).color == 0)) {
-          if (newRow == 7) {
+        if ((firstMove && newY == curCol && newX == curRow + 2 && board(newX)(newY) == null) ||
+          (newY == curCol && newX == curRow + 1 && board(newX)(newY) == null) ||
+          (newY == curCol - 1 && newX == curRow + 1 && board(newX)(newY) != null
+            && board(newX)(newY).color == 0) ||
+          (newY == curCol + 1 && newX == curRow + 1 && board(newX)(newY) != null
+            && board(newX)(newY).color == 0)) {
+          if (newX == 7) {
             promotion = true
           }
           true
@@ -39,15 +39,15 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     }
     else {
       if (promotedDone) {
-        promotedMove(newCol, newRow)
+        promotedMove(newY, newX)
       } else {
-        if ((firstMove && newCol == curCol && newRow == curRow - 2 && board(newRow)(newCol) == null) ||
-          (newCol == curCol && newRow == curRow - 1 && board(newRow)(newCol) == null) ||
-          (newCol == curCol - 1 && newRow == curRow - 1 && board(newRow)(newCol) != null
-            && board(newRow)(newCol).color == 1) ||
-          (newCol == curCol + 1 && newRow == curRow - 1 && board(newRow)(newCol) != null
-            && board(newRow)(newCol).color == 1)) {
-          if (newRow == 0) {
+        if ((firstMove && newY == curCol && newX == curRow - 2 && board(newX)(newY) == null) ||
+          (newY == curCol && newX == curRow - 1 && board(newX)(newY) == null) ||
+          (newY == curCol - 1 && newX == curRow - 1 && board(newX)(newY) != null
+            && board(newX)(newY).color == 1) ||
+          (newY == curCol + 1 && newX == curRow - 1 && board(newX)(newY) != null
+            && board(newX)(newY).color == 1)) {
+          if (newX == 0) {
             promotion = true
           }
           true
@@ -56,4 +56,24 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
       }
     }
   }
+
+  override def validatedMoves(board: Array[Array[Piece]], newX: Int, newY: Int): Array[Pair[Int, Int]] = {
+    moves.validMoves
+  }
+
+  override protected def validateMoveImpl(board: Array[Array[Piece]], s: State): Unit = {
+
+  }
+
+  override protected def validatedMovesImpl(board: Array[Array[Piece]], s: State): Unit = {
+
+  }
+
+  override protected def loopTemplate(board: Array[Array[Piece]], newX: Int, newY: Int,
+                                      execute: (Array[Array[Piece]], State) => Unit): Moves = {
+    moves
+  }
+
+  override val dx: Array[Int] = Array()
+  override val dy: Array[Int] = Array()
 }
