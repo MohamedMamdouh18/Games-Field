@@ -1,6 +1,6 @@
 package Chess.Pieces
 
-import Base.{Piece, State}
+import Base.Piece
 import javafx.scene.image.ImageView
 import javafx.util.Pair
 
@@ -21,30 +21,20 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
 
   def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean
 
-  def validatedMoves(board: Array[Array[Piece]], newX: Int, newY: Int): Array[Pair[Int, Int]]
+  def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]]
 
-  protected def validateMoveImpl(board: Array[Array[Piece]], s: State): Unit
+  protected def validateMoveImpl(board: Array[Array[Piece]], x: Int, y: Int, i: Int): Boolean
 
-  protected def validatedMovesImpl(board: Array[Array[Piece]], s: State): Unit
+  protected def validatedMovesImpl(board: Array[Array[Piece]], x: Int, y: Int, i: Int): Boolean
 
   protected def loopTemplate(board: Array[Array[Piece]], newX: Int, newY: Int,
-                             execute: (Array[Array[Piece]], State) => Unit): Moves = {
+                             execute: (Array[Array[Piece]], Int, Int, Int) => Boolean): Moves = {
     if (newX > 7 || newX < 0 || newY > 7 || newY < 0)
       return moves
-    var validNewX, validNewY: Int = 0
 
-    for (i <- 0 to 7) {
-      validNewX = curRow + dx(i)
-      validNewY = curCol + dy(i)
-
-      if (validNewX <= 7 && validNewX >= 0 && validNewY >= 0 && validNewY <= 7 &&
-        canEat(board, validNewX, validNewY)) {
-        val s: State = new State(validNewX, validNewY, newX, newY, 0)
-
-        execute(board, s)
-        if (moves.valid)
-          return moves
-      }
+    for (i <- dx.indices) {
+      if (execute(board, newX, newY, i))
+        return moves
     }
     moves
   }

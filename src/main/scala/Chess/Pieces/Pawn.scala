@@ -1,6 +1,6 @@
 package Chess.Pieces
 
-import Base.{Piece, State}
+import Base.Piece
 import javafx.util.Pair
 
 class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x, y, color) {
@@ -57,21 +57,16 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     }
   }
 
-  override def validatedMoves(board: Array[Array[Piece]], newX: Int, newY: Int): Array[Pair[Int, Int]] = {
+  override def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]] = {
     moves.validMoves
   }
 
-  override protected def validateMoveImpl(board: Array[Array[Piece]], s: State): Unit = {
-
+  override protected def validateMoveImpl(board: Array[Array[Piece]], x: Int, y: Int, i: Int): Boolean = {
+    false
   }
 
-  override protected def validatedMovesImpl(board: Array[Array[Piece]], s: State): Unit = {
-
-  }
-
-  override protected def loopTemplate(board: Array[Array[Piece]], newX: Int, newY: Int,
-                                      execute: (Array[Array[Piece]], State) => Unit): Moves = {
-    moves
+  override protected def validatedMovesImpl(board: Array[Array[Piece]], x: Int, y: Int, i: Int): Boolean = {
+    false
   }
 
   override val dx: Array[Int] = Array()

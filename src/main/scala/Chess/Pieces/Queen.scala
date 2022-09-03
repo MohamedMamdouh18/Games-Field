@@ -1,6 +1,6 @@
 package Chess.Pieces
 
-import Base.{Piece, State}
+import Base.Piece
 import javafx.util.Pair
 
 class Queen(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x, y, color) {
@@ -15,24 +15,19 @@ class Queen(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x
     moves.valid
   }
 
-  override def validatedMoves(board: Array[Array[Piece]], newX: Int, newY: Int): Array[Pair[Int, Int]] = {
+  override def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]] = {
     clear()
     updatePos()
-    moves.validMoves = b.validatedMoves(board, newX, newY) ++ c.validatedMoves(board, newX, newY)
+    moves.validMoves = b.validatedMoves(board) ++ c.validatedMoves(board)
     moves.validMoves
   }
 
-  override protected def loopTemplate(board: Array[Array[Piece]], newX: Int, newY: Int,
-                                      execute: (Array[Array[Piece]], State) => Unit): Moves = {
-    moves
+  override protected def validateMoveImpl(board: Array[Array[Piece]], x: Int, y: Int, i: Int): Boolean = {
+    false
   }
 
-  override protected def validateMoveImpl(board: Array[Array[Piece]], s: State): Unit = {
-
-  }
-
-  override protected def validatedMovesImpl(board: Array[Array[Piece]], s: State): Unit = {
-
+  override protected def validatedMovesImpl(board: Array[Array[Piece]], x: Int, y: Int, i: Int): Boolean = {
+    false
   }
 
   private def updatePos(): Unit = {

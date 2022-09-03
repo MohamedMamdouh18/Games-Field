@@ -1,6 +1,6 @@
 package Chess.Pieces
 
-import Base.{Piece, State}
+import Base.Piece
 import javafx.util.Pair
 
 class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x, y, color) {
@@ -13,17 +13,34 @@ class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     loopTemplate(board, newX, newY, validateMoveImpl).valid
   }
 
-  override def validatedMoves(board: Array[Array[Piece]], newX: Int, newY: Int): Array[Pair[Int, Int]] = {
+  override def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]] = {
     clear()
-    loopTemplate(board, newX, newY, validatedMovesImpl).validMoves
+    loopTemplate(board, 0, 0, validatedMovesImpl).validMoves
   }
 
-  override protected def validateMoveImpl(board: Array[Array[Piece]], s: State): Unit = {
-    if (s.oldCol == s.newCol && s.oldRow == s.newRow)
-      moves.valid = true
+  override protected def validateMoveImpl(board: Array[Array[Piece]], x: Int, y: Int, i: Int): Boolean = {
+    val validNewX = curRow + dx(i)
+    val validNewY = curCol + dy(i)
+
+    if (validNewX <= 7 && validNewX >= 0 && validNewY >= 0 && validNewY <= 7 &&
+      canEat(board, validNewX, validNewY)) {
+
+      if (validNewY == y && validNewX == x)
+        moves.valid = true
+      if (moves.valid)
+        return moves.valid
+    }
+    moves.valid
   }
 
-  override protected def validatedMovesImpl(board: Array[Array[Piece]], s: State): Unit = {
-    moves.validMoves = moves.validMoves :+ new Pair[Int, Int](s.oldRow, s.oldCol)
+  override protected def validatedMovesImpl(board: Array[Array[Piece]], x: Int, y: Int, i: Int): Boolean = {
+    val validNewX = curRow + dx(i)
+    val validNewY = curCol + dy(i)
+
+    if (validNewX <= 7 && validNewX >= 0 && validNewY >= 0 && validNewY <= 7 &&
+      canEat(board, validNewX, validNewY))
+      moves.validMoves = moves.validMoves :+ new Pair[Int, Int](validNewX, validNewY)
+
+    false
   }
 }
