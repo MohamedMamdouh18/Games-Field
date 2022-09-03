@@ -8,15 +8,6 @@ import javafx.scene.layout.{GridPane, HBox, StackPane}
 class ChessEngine(promButs: HBox) extends GameEngine {
   override val gameController = new ChessController
   override val gameDrawer = new ChessDrawer
-
-  turn = 0
-  var oldCol, oldRow: Int = 0
-  var newCol, newRow: Int = 0
-  var curPiece: ChessPiece = _
-  var x, y: Double = 0
-  var src: Node = _
-  var promotion: Boolean = false
-
   override var gameBoard: Array[Array[Piece]] = Array(
     Array(
       new Castle(ChessPieceEn.BlackCastle, 0, 0, 1),
@@ -66,32 +57,52 @@ class ChessEngine(promButs: HBox) extends GameEngine {
       new Knight(ChessPieceEn.WhiteKnight, 7, 6, 0),
       new Castle(ChessPieceEn.WhiteCastle, 7, 7, 0)),
   )
-
-  preparePromotion()
+  var promotionMap: Array[Map[Int, ChessPiece]] = Array(
+      Map(
+        0 -> new Queen(ChessPieceEn.BlackQueen, 0, 0, 1),
+        1 -> new Knight(ChessPieceEn.BlackKnight, 0, 0, 1),
+        2 -> new Bishop(ChessPieceEn.BlackBishop, 0, 0, 1),
+        3 -> new Castle(ChessPieceEn.BlackCastle, 0, 0, 1)
+      ),
+      Map(
+        0 -> new Queen(ChessPieceEn.WhiteQueen, 0, 0, 0),
+        1 -> new Knight(ChessPieceEn.WhiteKnight, 0, 0, 0),
+        2 -> new Bishop(ChessPieceEn.WhiteBishop, 0, 0, 0),
+        3 -> new Castle(ChessPieceEn.WhiteCastle, 0, 0, 0)
+      ),
+  )
+  var oldCol, oldRow: Int = 0
+  var newCol, newRow: Int = 0
+  var curPiece: ChessPiece = _
+  var x, y: Double = 0
+  var src: Node = _
+  var promotion: Boolean = false
 
   override def startGame(gamePane: StackPane): Unit = {
     gameDrawer.setGamePane(gamePane)
     gameDrawer.setEvent(Movement)
     gameDrawer.drawPiece(gameBoard)
+    preparePromotion()
   }
 
   override def Movement(source: Node): Unit = {
-
     source.setOnMousePressed(e => {
       if (!promotion) {
         oldCol = GridPane.getColumnIndex(source)
         oldRow = GridPane.getRowIndex(source)
-        x = e.getSceneX //get column
-        y = e.getSceneY //get row
+        x = e.getSceneX
+        y = e.getSceneY
         curPiece = gameBoard(oldRow)(oldCol).asInstanceOf[ChessPiece]
       }
     })
+
     source.setOnMouseDragged(e => {
       if (curPiece.color == turn && !promotion) {
         source.setTranslateX(e.getSceneX - x)
         source.setTranslateY(e.getSceneY - y)
       }
     })
+
     source.setOnMouseReleased(e => {
       if (curPiece.color == turn && !promotion) {
         newRow = Math.floor((e.getSceneY - 100) / 80).toInt
@@ -101,77 +112,22 @@ class ChessEngine(promButs: HBox) extends GameEngine {
         source.setTranslateY(0)
         val s: State = new State(oldRow, oldCol, newRow, newCol, turn)
         if ((newCol != oldCol || newRow != oldRow) && gameController.movementValidation(gameBoard, s).valid) {
-          if (gameBoard(newRow)(newCol) != null) {
-            gameDrawer.gameBoard.getChildren.remove(gameBoard(newRow)(newCol).image)
-            gameBoard(newRow)(newCol) = null
-          }
-
-          if (curPiece.wantPromote()) {
-            promotion = true
-            src = source
-            promButs.setVisible(true)
-          }
-
-          gameBoard(oldRow)(oldCol) = null
-          gameBoard(newRow)(newCol) = curPiece
-          gameDrawer.gameBoard.getChildren.remove(source)
-          gameDrawer.gameBoard.add(source, newCol, newRow)
-
-          curPiece.firstMove = false
-          curPiece.curCol = newCol
-          curPiece.curRow = newRow
-
+          ReleaseLogic(source)
           turn = 1 - turn
-
         }
       }
     })
   }
 
   def preparePromotion(): Unit = {
-    var buts = promButs.getChildren
+    val buts = promButs.getChildren
     buts.forEach(_.setOnMousePressed(e => {
-      var ps: Piece = null
-      var indx: Int = (e.getSceneX / 100).toInt
-      var name: String = null
+      val indx: Int = (e.getSceneX / 100).toInt
 
-      if (indx == 0) {
-        if (turn == 0) {
-          name = ChessPieceEn.BlackQueen
-          ps = new Queen(name, newRow, newCol, 1)
-        }
-        if (turn == 1) {
-          name = ChessPieceEn.WhiteQueen
-          ps = new Queen(name, newRow, newCol, 0)
-        }
-      } else if (indx == 1) {
-        if (turn == 0) {
-          name = ChessPieceEn.BlackKnight
-          ps = new Knight(name, newRow, newCol, 1)
-        }
-        if (turn == 1) {
-          name = ChessPieceEn.WhiteKnight
-          ps = new Knight(name, newRow, newCol, 0)
-        }
-      } else if (indx == 2) {
-        if (turn == 0) {
-          name = ChessPieceEn.BlackBishop
-          ps = new Bishop(name, newRow, newCol, 1)
-        }
-        if (turn == 1) {
-          name = ChessPieceEn.WhiteBishop
-          ps = new Bishop(name, newRow, newCol, 0)
-        }
-      } else {
-        if (turn == 0) {
-          name = ChessPieceEn.BlackCastle
-          ps = new Castle(name, newRow, newCol, 1)
-        }
-        if (turn == 1) {
-          name = ChessPieceEn.WhiteCastle
-          ps = new Castle(name, newRow, newCol, 0)
-        }
-      }
+      val ps: ChessPiece = promotionMap(turn)(indx)
+      ps.curCol = newCol
+      ps.curRow = newRow
+
       Movement(ps.image)
       gameBoard(newRow)(newCol) = ps
       gameDrawer.gameBoard.getChildren.remove(src)
@@ -181,5 +137,27 @@ class ChessEngine(promButs: HBox) extends GameEngine {
 
       promotion = false
     }))
+  }
+
+  def ReleaseLogic(source: Node): Unit = {
+    if (gameBoard(newRow)(newCol) != null) {
+      gameDrawer.gameBoard.getChildren.remove(gameBoard(newRow)(newCol).image)
+      gameBoard(newRow)(newCol) = null
+    }
+
+    if (curPiece.wantPromote()) {
+      promotion = true
+      src = source
+      promButs.setVisible(true)
+    }
+
+    gameBoard(oldRow)(oldCol) = null
+    gameBoard(newRow)(newCol) = curPiece
+    gameDrawer.gameBoard.getChildren.remove(source)
+    gameDrawer.gameBoard.add(source, newCol, newRow)
+
+    curPiece.firstMove = false
+    curPiece.curCol = newCol
+    curPiece.curRow = newRow
   }
 }

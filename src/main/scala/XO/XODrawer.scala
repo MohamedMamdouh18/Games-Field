@@ -19,15 +19,16 @@ class XODrawer extends Drawer {
     extendDrawing1(Event)
   }
 
-  override def extendDrawing1(Draggable: Node => Unit): Unit = {
+  override def extendDrawing1(Event: Node => Unit): Unit = {
     gameBoard.getChildren.forEach(node => {
       if (node.isInstanceOf[Node]) {
-        Draggable(node)
+        Event(node)
       }
     })
   }
 
-  override def movementDraw(source: Node, e: MouseEvent, state: State): Unit = {
+  override def movementDraw(source: Node, e: MouseEvent, state: State,
+                            board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit = {
     val text = new Label()
     text.setFont(Font.font("Roboto", FontWeight.BOLD, 50))
     if (state.turn == 1) {

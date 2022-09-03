@@ -20,14 +20,14 @@ class Connect4Drawer extends Drawer {
     extendDrawing1(Event)
   }
 
-  override def extendDrawing1(Draggable: Node => Unit): Unit = {
+  override def extendDrawing1(Event: Node => Unit): Unit = {
     gameBoard.setAlignment(Pos.CENTER)
 
     for (i <- 0 until 6) {
       for (j <- 0 until 7) {
         val circle = new Circle(35)
         circle.setFill(Color.rgb(49, 46, 43))
-        Draggable(circle)
+        Event(circle)
         GridPane.setColumnIndex(circle, j)
         GridPane.setRowIndex(circle, i)
         gameBoard.add(circle, j, i, 1, 1)
@@ -37,7 +37,8 @@ class Connect4Drawer extends Drawer {
     }
   }
 
-  override def movementDraw(source: Node, e: MouseEvent, state: State): Unit = {
+  override def movementDraw(source: Node, e: MouseEvent, state: State,
+                            board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit = {
     breakable {
       gameBoard.getChildren.forEach {
         case node@(x: Circle) if GridPane.getColumnIndex(node) == state.oldCol

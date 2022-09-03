@@ -32,9 +32,8 @@ class ChessDrawer extends Drawer {
     }
   }
 
-  override def movementDraw(source: Node, e: MouseEvent, state: State): Unit = {
-    if(state.oldRow == -1){
-      gameBoard.getChildren.remove(source)
-    }
+  override def movementDraw(source: Node, e: MouseEvent, state: State,
+                            board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit = {
+
   }
 }

@@ -45,7 +45,7 @@ abstract class Drawer {
 
   def drawPiece(board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit
 
-  def extendDrawing1(Draggable: Node => Unit): Unit = {
+  def extendDrawing1(Event: Node => Unit): Unit = {
 
   }
 
@@ -53,7 +53,8 @@ abstract class Drawer {
 
   }
 
-  def movementDraw(source: Node, e: MouseEvent, state: State): Unit
+  def movementDraw(source: Node, e: MouseEvent, state: State,
+                   board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit
 
   def setGamePane(newGamePane: StackPane): Unit = {
     gamePane = newGamePane
