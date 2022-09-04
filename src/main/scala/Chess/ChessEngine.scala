@@ -78,6 +78,9 @@ class ChessEngine(promButs: HBox) extends GameEngine {
   var src: Node = _
   var promotion: Boolean = false
 
+  var gameEnded: Boolean = false
+  var checkGameEnd: Boolean = false
+
   override def startGame(gamePane: StackPane): Unit = {
     gameDrawer.setGamePane(gamePane)
     gameDrawer.setEvent(Movement)
@@ -87,7 +90,7 @@ class ChessEngine(promButs: HBox) extends GameEngine {
 
   override def Movement(source: Node): Unit = {
     source.setOnMousePressed(e => {
-      if (!promotion) {
+      if (!promotion && !gameEnded) {
         oldCol = GridPane.getColumnIndex(source)
         oldRow = GridPane.getRowIndex(source)
         x = e.getSceneX
@@ -97,14 +100,14 @@ class ChessEngine(promButs: HBox) extends GameEngine {
     })
 
     source.setOnMouseDragged(e => {
-      if (curPiece.color == turn && !promotion) {
+      if (curPiece.color == turn && !promotion && !gameEnded) {
         source.setTranslateX(e.getSceneX - x)
         source.setTranslateY(e.getSceneY - y)
       }
     })
 
     source.setOnMouseReleased(e => {
-      if (curPiece.color == turn && !promotion) {
+      if (curPiece.color == turn && !promotion && !gameEnded) {
         newRow = Math.floor((e.getSceneY - 100) / 80).toInt
         newCol = Math.floor((e.getSceneX - 220) / 80).toInt
 
@@ -112,8 +115,25 @@ class ChessEngine(promButs: HBox) extends GameEngine {
         source.setTranslateY(0)
         val s: State = new State(oldRow, oldCol, newRow, newCol, turn)
         if ((newCol != oldCol || newRow != oldRow) && gameController.movementValidation(gameBoard, s).valid) {
-          ReleaseLogic(source)
-          turn = 1 - turn
+
+          var newBoard = gameBoard.map(_.clone())
+          newBoard(oldRow)(oldCol) = null
+          newBoard(newRow)(newCol) = curPiece
+
+          if (!gameController.checkMate(newBoard, turn)) {
+            ReleaseLogic(source)
+            turn = 1 - turn
+
+            checkGameEnd = false
+          } else if (!checkGameEnd) {
+            if (gameController.checkEndGame(gameBoard.map(_.clone()), turn))
+              {
+                gameEnded = true
+                println("game ended")
+              }
+
+            checkGameEnd = true
+          }
         }
       }
     })
@@ -137,10 +157,9 @@ class ChessEngine(promButs: HBox) extends GameEngine {
   }
 
   def ReleaseLogic(source: Node): Unit = {
-    if (gameBoard(newRow)(newCol) != null) {
+    if (gameBoard(newRow)(newCol) != null)
       gameDrawer.gameBoard.getChildren.remove(gameBoard(newRow)(newCol).image)
-      gameBoard(newRow)(newCol) = null
-    }
+
 
     if (curPiece.wantPromote()) {
       promotion = true

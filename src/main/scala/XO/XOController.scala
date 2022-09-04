@@ -14,4 +14,6 @@ class XOController extends Controller {
     } else
       new MoveValidation(null, false)
   }
+
+  override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int): Boolean = ???
 }

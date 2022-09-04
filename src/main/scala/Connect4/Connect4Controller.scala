@@ -17,4 +17,6 @@ class Connect4Controller extends Controller {
     }
     new MoveValidation(null, false)
   }
+
+  override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int): Boolean = ???
 }

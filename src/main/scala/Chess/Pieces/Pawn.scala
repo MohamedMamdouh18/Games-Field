@@ -58,7 +58,7 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
   }
 
   override def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]] = {
-    moves.validMoves
+    Array(new Pair[Int,Int](1,2))
   }
 
   override val dx: Array[Int] = Array()
