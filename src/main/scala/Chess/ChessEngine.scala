@@ -116,7 +116,8 @@ class ChessEngine(promButs: HBox) extends GameEngine {
         val s: State = new State(oldRow, oldCol, newRow, newCol, turn)
 
         val x = gameController.movementValidation(gameBoard, s).valid
-        println(x)
+        if (curPiece.name == ChessPieceEn.WhiteBishop || curPiece.name == ChessPieceEn.BlackQueen)
+          println(gameBoard(oldRow)(oldCol).asInstanceOf[ChessPiece].validatedMoves(gameBoard).mkString("Array(", ", ", ")"), oldCol, oldRow)
 //        if(!x){
 //          for(i <- gameBoard.indices){
 //            for(j <- gameBoard.indices){

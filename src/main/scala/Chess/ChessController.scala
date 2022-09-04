@@ -3,7 +3,7 @@ package Chess
 import Base.{Controller, MoveValidation, Piece, State}
 import Chess.Pieces.ChessPiece
 
-import scala.util.control.Breaks.{break, breakable}
+import scala.util.control.Breaks.breakable
 
 class ChessController extends Controller {
   override def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation = {
@@ -18,24 +18,24 @@ class ChessController extends Controller {
   override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
     for (i <- gameBoard.indices) {
       for (j <- gameBoard(i).indices) {
-          val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
-          if (curPiece != null && curPiece.color == turn){
-            val availableMoves = curPiece.validatedMoves(gameBoard)
-            for (move <- availableMoves.indices) {
-              val newX = availableMoves(move).getKey
-              val newY = availableMoves(move).getValue
-              val newBoard = gameBoard.map(_.clone())
+        val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
+        if (curPiece != null && curPiece.color == turn) {
+          val availableMoves = curPiece.validatedMoves(gameBoard)
+          for (move <- availableMoves.indices) {
+            val newX = availableMoves(move).getKey
+            val newY = availableMoves(move).getValue
+            val newBoard = gameBoard.map(_.clone())
 
-              val modPiece = newBoard(i)(j)
-              newBoard(modPiece.curRow)(modPiece.curCol) = null
-              modPiece.curRow = newX
-              modPiece.curCol = newY
-              newBoard(modPiece.curRow)(modPiece.curCol) = modPiece
+            val modPiece = newBoard(i)(j)
+            newBoard(modPiece.curRow)(modPiece.curCol) = null
+            modPiece.curRow = newX
+            modPiece.curCol = newY
+            newBoard(modPiece.curRow)(modPiece.curCol) = modPiece
 
-              if (!checkMate(newBoard, turn))
-                return false
-            }
+            if (!checkMate(newBoard, turn))
+              return false
           }
+        }
       }
     }
     true
@@ -50,12 +50,12 @@ class ChessController extends Controller {
         breakable {
           val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
           if (curPiece != null && curPiece.color == enemyTurn &&
-            curPiece.validateMove(gameBoard, kingPiece.curRow, kingPiece.curCol)){
+            curPiece.validateMove(gameBoard, kingPiece.curRow, kingPiece.curCol)) {
             println(curPiece.name + " " + "true")
             return true
           }
 
-          else if(curPiece != null && curPiece.color == enemyTurn )println(curPiece.name + " " + "false")
+          else if (curPiece != null && curPiece.color == enemyTurn) println(curPiece.name + " " + "false")
         }
       }
     }

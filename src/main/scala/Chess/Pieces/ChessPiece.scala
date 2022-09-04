@@ -48,14 +48,13 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
           val validNewX = curRow + dx(i) * j
           val validNewY = curCol + dy(i) * j
 
-          if (validNewX <= 7 && validNewX >= 0 && validNewY >= 0 && validNewY <= 7 &&
-            (canEat(board, validNewX, validNewY) || board(validNewX)(validNewY) == null)) {
-
-            if (execute(new State(newX, newY, validNewX, validNewY, 0)))
-              return moves
+          if (validNewX <= 7 && validNewX >= 0 && validNewY >= 0 && validNewY <= 7) {
+            if (canEat(board, validNewX, validNewY) || board(validNewX)(validNewY) == null)
+              if (execute(new State(newX, newY, validNewX, validNewY, 0)))
+                return moves
 
             if (pieceName != ChessPieceEn.WhiteKnight && pieceName != ChessPieceEn.BlackKnight &&
-              canEat(board, validNewX, validNewY))
+              board(validNewX)(validNewY) != null)
               break
           }
         }
