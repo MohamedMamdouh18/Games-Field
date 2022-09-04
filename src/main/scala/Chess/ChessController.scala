@@ -27,10 +27,10 @@ class ChessController extends Controller {
               val newBoard = gameBoard.map(_.clone())
 
               val modPiece = newBoard(i)(j)
+              newBoard(modPiece.curRow)(modPiece.curCol) = null
               modPiece.curRow = newX
               modPiece.curCol = newY
-              newBoard(curPiece.curRow)(curPiece.curCol) = null
-              newBoard(newX)(newY) = modPiece
+              newBoard(modPiece.curRow)(modPiece.curCol) = modPiece
 
               if (!checkMate(newBoard, turn))
                 return false
@@ -51,8 +51,11 @@ class ChessController extends Controller {
           val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
           if (curPiece != null && curPiece.color == enemyTurn &&
             curPiece.validateMove(gameBoard, kingPiece.curRow, kingPiece.curCol)){
+            println(curPiece.name + " " + "true")
             return true
           }
+
+          else if(curPiece != null && curPiece.color == enemyTurn )println(curPiece.name + " " + "false")
         }
       }
     }

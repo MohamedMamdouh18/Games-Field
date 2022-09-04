@@ -115,29 +115,58 @@ class ChessEngine(promButs: HBox) extends GameEngine {
         source.setTranslateY(0)
         val s: State = new State(oldRow, oldCol, newRow, newCol, turn)
 
-        if ((newCol != oldCol || newRow != oldRow) && gameController.movementValidation(gameBoard, s).valid) {
+        val x = gameController.movementValidation(gameBoard, s).valid
+        println(x)
+//        if(!x){
+//          for(i <- gameBoard.indices){
+//            for(j <- gameBoard.indices){
+//              if(gameBoard(i)(j) != null)print(gameBoard(i)(j).name + " ")
+//              else print("     ")
+//            }
+//            println()
+//          }
+//        }
 
-          val newBoard = gameBoard.map(_.clone())
-          val modPiece = newBoard(oldRow)(oldCol)
-          modPiece.curRow = newRow
-          modPiece.curCol = newCol
-          newBoard(oldRow)(oldCol) = null
-          newBoard(newRow)(newCol) = modPiece
+        if ((newCol != oldCol || newRow != oldRow) && x) {
 
-          if (!gameController.checkMate(newBoard, turn)) {
+//          val newBoard = gameBoard.map(_.clone())
+//          val modifiedPiece = newBoard(oldRow)(oldCol)
+//          newBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = null
+//          modifiedPiece.curRow = newRow
+//          modifiedPiece.curCol = newCol
+//          newBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = modifiedPiece
+//
+//          for(i <- newBoard.indices){
+//            for(j <- newBoard.indices){
+//              if(newBoard(i)(j) != null)print(newBoard(i)(j).name + " ")
+//              else print("     ")
+//            }
+//            println()
+//          }
+//          println()
+//          for(i <- gameBoard.indices){
+//            for(j <- gameBoard.indices){
+//              if(gameBoard(i)(j) != null)print(gameBoard(i)(j).name + " ")
+//              else print("     ")
+//            }
+//            println()
+//          }
+//          println("................................................")
+
             ReleaseLogic(source)
             turn = 1 - turn
-
-            checkGameEnd = false
-          } else if (!checkGameEnd) {
-            println("check mate")
-            if (gameController.checkEndGame(gameBoard.map(_.clone()), turn)) {
-              println("game over")
-              gameEnded = true
-            }
-
-            checkGameEnd = true
-          }
+//          if (!gameController.checkMate(newBoard, turn)) {
+//
+//            checkGameEnd = false
+//          } else if (!checkGameEnd) {
+//            println("check mate")
+//            if (gameController.checkEndGame(gameBoard.map(_.clone()), turn)) {
+//              println("game over")
+//              gameEnded = true
+//            }
+//
+//            checkGameEnd = true
+//          }
         }
       }
     })
