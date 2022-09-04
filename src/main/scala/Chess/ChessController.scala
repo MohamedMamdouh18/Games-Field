@@ -24,7 +24,7 @@ class ChessController extends Controller {
           val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
           if (curPiece == null || curPiece.color != turn) break
 
-          var availableMoves = curPiece.validatedMoves(gameBoard)
+          val availableMoves = curPiece.validatedMoves(gameBoard)
           for(move <- availableMoves.indices){
            val newX = availableMoves(move).getKey
            val newY = availableMoves(move).getValue
@@ -32,7 +32,7 @@ class ChessController extends Controller {
 
             val modPiece = newBoard(i)(j)
             modPiece.curRow = newX
-            curPiece.curCol = newY
+            modPiece.curCol = newY
             newBoard(curPiece.curRow)(curPiece.curCol) = null
             newBoard(newX)(newY) = modPiece
 
@@ -48,7 +48,7 @@ class ChessController extends Controller {
   def checkMate(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
     val enemyTurn = 1 - turn
     val kingPiece: ChessPiece = findKing(gameBoard , turn)
-
+    println(kingPiece.name)
     for (i <- gameBoard.indices) {
       for (j <- gameBoard(i).indices) {
         breakable {

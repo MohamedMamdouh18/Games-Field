@@ -114,11 +114,27 @@ class ChessEngine(promButs: HBox) extends GameEngine {
         source.setTranslateX(0)
         source.setTranslateY(0)
         val s: State = new State(oldRow, oldCol, newRow, newCol, turn)
-        if ((newCol != oldCol || newRow != oldRow) && gameController.movementValidation(gameBoard, s).valid) {
 
-          var newBoard = gameBoard.map(_.clone())
+        var x = gameController.movementValidation(gameBoard, s).valid
+        println(x)
+
+        for(i <- gameBoard.indices){
+          for(j <- gameBoard.indices){
+            if(gameBoard(i)(j) != null)print(gameBoard(i)(j).name + " ")
+            else print("     ")
+          }
+          println()
+        }
+        println()
+
+        if ((newCol != oldCol || newRow != oldRow) && x) {
+
+          val newBoard = gameBoard.map(_.clone())
+          val modPiece = newBoard(oldRow)(oldCol)
+          modPiece.curRow = newRow
+          modPiece.curCol = newCol
           newBoard(oldRow)(oldCol) = null
-          newBoard(newRow)(newCol) = curPiece
+          newBoard(newRow)(newCol) = modPiece
 
           if (!gameController.checkMate(newBoard, turn)) {
             ReleaseLogic(source)
@@ -126,8 +142,7 @@ class ChessEngine(promButs: HBox) extends GameEngine {
 
             checkGameEnd = false
           } else if (!checkGameEnd) {
-            if (gameController.checkEndGame(gameBoard.map(_.clone()), turn))
-              {
+            if (gameController.checkEndGame(gameBoard.map(_.clone()), turn)) {
                 gameEnded = true
                 println("game ended")
               }
