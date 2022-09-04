@@ -8,10 +8,10 @@ import javafx.util.Pair
 import scala.util.control.Breaks.{break, breakable}
 
 abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) extends Piece(pieceName, row, col, color) {
-  var firstMove: Boolean = true
-  var moves: Moves = new Moves
   val dx: Array[Int]
   val dy: Array[Int]
+  var firstMove: Boolean = true
+  var moves: Moves = new Moves
 
   def loadImage(): Unit = {
     if (name != null)
@@ -49,12 +49,14 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
           val validNewY = curCol + dy(i) * j
 
           if (validNewX <= 7 && validNewX >= 0 && validNewY >= 0 && validNewY <= 7 &&
-            canEat(board, validNewX, validNewY)) {
+            (canEat(board, validNewX, validNewY) || board(validNewX)(validNewY) == null)) {
 
             if (execute(new State(newX, newY, validNewX, validNewY, 0)))
               return moves
-          } else if (pieceName != ChessPieceEn.WhiteKnight && pieceName != ChessPieceEn.BlackKnight) {
-            break
+
+            if (pieceName != ChessPieceEn.WhiteKnight && pieceName != ChessPieceEn.BlackKnight &&
+              canEat(board, validNewX, validNewY))
+              break
           }
         }
       }
@@ -63,7 +65,7 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
   }
 
   def canEat(board: Array[Array[Piece]], atkRow: Int, atkCol: Int): Boolean = {
-    if (board(atkRow)(atkCol) != null && color == board(atkRow)(atkCol).color)
+    if ((board(atkRow)(atkCol) != null && color == board(atkRow)(atkCol).color) || board(atkRow)(atkCol) == null)
       false
     else
       true

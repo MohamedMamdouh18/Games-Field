@@ -48,7 +48,7 @@ class ChessController extends Controller {
   def checkMate(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
     val enemyTurn = 1 - turn
     val kingPiece: ChessPiece = findKing(gameBoard , turn)
-    println(kingPiece.name)
+
     for (i <- gameBoard.indices) {
       for (j <- gameBoard(i).indices) {
         breakable {
