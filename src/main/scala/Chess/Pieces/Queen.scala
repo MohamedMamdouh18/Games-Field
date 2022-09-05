@@ -4,9 +4,11 @@ import Base.Piece
 import javafx.util.Pair
 
 class Queen(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x, y, color) {
+  override val dx: Array[Int] = Array()
+  override val dy: Array[Int] = Array()
+  loadImage()
   var b = new Bishop(null, curRow, curCol, color)
   var c = new Castle(null, curRow, curCol, color)
-  loadImage()
 
   override def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean = {
     clear()
@@ -30,10 +32,7 @@ class Queen(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x
   }
 
   override def clone(): ChessPiece = {
-    val x = new Queen(name , curRow , curCol , color)
+    val x = new Queen(name, curRow, curCol, color)
     x
   }
-
-  override val dx: Array[Int] = Array()
-  override val dy: Array[Int] = Array()
 }

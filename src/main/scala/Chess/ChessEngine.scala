@@ -117,11 +117,8 @@ class ChessEngine(promButs: HBox) extends GameEngine {
 
         if ((newCol != oldCol || newRow != oldRow) && gameController.movementValidation(gameBoard, s).valid) {
           val newBoard = gameController.copyBoard(gameBoard)
-          val modifiedPiece = newBoard(oldRow)(oldCol)
-          newBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = null
-          modifiedPiece.curRow = newRow
-          modifiedPiece.curCol = newCol
-          newBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = modifiedPiece
+
+          gameController.createState(newBoard, newBoard(oldRow)(oldCol), newRow, newCol)
 
           if (!gameController.checkMate(newBoard, turn)) {
             ReleaseLogic(source)

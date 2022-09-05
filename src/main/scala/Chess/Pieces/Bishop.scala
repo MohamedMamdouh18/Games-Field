@@ -21,8 +21,9 @@ class Bishop(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, 
     clear()
     loopTemplate(board, 0, 0, validatedMovesImpl, 7).validMoves
   }
+
   override def clone(): ChessPiece = {
-    val x = new Bishop(name , curRow , curCol , color)
+    val x = new Bishop(name, curRow, curCol, color)
     x
   }
 }

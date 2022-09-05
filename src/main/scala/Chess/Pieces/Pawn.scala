@@ -5,6 +5,8 @@ import javafx.util.Pair
 
 class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x, y, color) {
   loadImage()
+  override val dx: Array[Int] = Array()
+  override val dy: Array[Int] = Array()
   var promotedDone: Boolean = false
   var promotion: Boolean = false
   var promotedMove: (Int, Int) => Boolean = _
@@ -72,8 +74,8 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     if (curCol - 1 >= 0 && board(curRow + direction)(curCol - 1) != null && board(curRow + direction)(curCol - 1).color != color)
       validMoves = validMoves :+ new Pair[Int, Int](curRow + direction, curCol - 1)
 
-    if(firstMove && board(curRow + direction * 2)(curCol) == null && board(curRow + direction)(curCol) == null)
-      validMoves = validMoves :+ new Pair[Int, Int](curRow + direction*2, curCol)
+    if (firstMove && board(curRow + direction * 2)(curCol) == null && board(curRow + direction)(curCol) == null)
+      validMoves = validMoves :+ new Pair[Int, Int](curRow + direction * 2, curCol)
 
     validMoves
   }
@@ -82,7 +84,4 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     val x = new Pawn(name, curRow, curCol, color)
     x
   }
-
-  override val dx: Array[Int] = Array()
-  override val dy: Array[Int] = Array()
 }

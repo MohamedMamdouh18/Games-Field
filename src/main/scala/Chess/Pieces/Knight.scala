@@ -17,8 +17,9 @@ class Knight(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, 
     clear()
     loopTemplate(board, 0, 0, validatedMovesImpl, 1).validMoves
   }
+
   override def clone(): ChessPiece = {
-    val x = new Knight(name , curRow , curCol , color)
+    val x = new Knight(name, curRow, curCol, color)
     x
   }
 }

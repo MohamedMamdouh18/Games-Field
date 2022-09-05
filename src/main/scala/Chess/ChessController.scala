@@ -6,15 +6,6 @@ import Chess.Pieces.ChessPiece
 import scala.util.control.Breaks.breakable
 
 class ChessController extends Controller {
-  override def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation = {
-    val piece = gameBoard(state.oldRow)(state.oldCol).asInstanceOf[ChessPiece]
-
-    if (piece.validateMove(gameBoard, state.newRow, state.newCol))
-      new MoveValidation(null, true)
-    else
-      new MoveValidation(null, false)
-  }
-
   override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
     for (i <- gameBoard.indices) {
       for (j <- gameBoard(i).indices) {
@@ -26,11 +17,7 @@ class ChessController extends Controller {
             val newY = availableMoves(move).getValue
             val newBoard = copyBoard(gameBoard)
 
-            val modifiedPiece = newBoard(i)(j)
-            newBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = null
-            modifiedPiece.curRow = newX
-            modifiedPiece.curCol = newY
-            newBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = modifiedPiece
+            createState(newBoard, newBoard(i)(j), newX, newY)
 
             if (!checkMate(newBoard, turn))
               return false
@@ -63,6 +50,15 @@ class ChessController extends Controller {
     false
   }
 
+  override def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation = {
+    val piece = gameBoard(state.oldRow)(state.oldCol).asInstanceOf[ChessPiece]
+
+    if (piece.validateMove(gameBoard, state.newRow, state.newCol))
+      new MoveValidation(null, true)
+    else
+      new MoveValidation(null, false)
+  }
+
   def findKing(gameBoard: Array[Array[Piece]], turn: Int): ChessPiece = {
     val kings: Array[String] = Array(ChessPieceEn.WhiteKing, ChessPieceEn.BlackKing)
     for (i <- gameBoard.indices) {
@@ -75,7 +71,7 @@ class ChessController extends Controller {
   }
 
   def copyBoard(gameBoard: Array[Array[Piece]]): Array[Array[Piece]] = {
-    val newBoard: Array[Array[Piece]] = Array.tabulate(8, 8)((x, y) => null)
+    val newBoard: Array[Array[Piece]] = Array.tabulate(8, 8)((_, _) => null)
     for (i <- newBoard.indices) {
       for (j <- newBoard(i).indices) {
         if (gameBoard(i)(j) != null) {
@@ -84,5 +80,12 @@ class ChessController extends Controller {
       }
     }
     newBoard
+  }
+
+  def createState(gameBoard: Array[Array[Piece]], modifiedPiece: Piece, newX: Int, newY: Int): Unit = {
+    gameBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = null
+    modifiedPiece.curRow = newX
+    modifiedPiece.curCol = newY
+    gameBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = modifiedPiece
   }
 }

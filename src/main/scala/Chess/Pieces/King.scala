@@ -19,7 +19,7 @@ class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
   }
 
   override def clone(): ChessPiece = {
-    val x = new King(name , curRow , curCol , color)
+    val x = new King(name, curRow, curCol, color)
     x
   }
 }
