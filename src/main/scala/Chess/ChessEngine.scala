@@ -115,59 +115,25 @@ class ChessEngine(promButs: HBox) extends GameEngine {
         source.setTranslateY(0)
         val s: State = new State(oldRow, oldCol, newRow, newCol, turn)
 
-        val x = gameController.movementValidation(gameBoard, s).valid
-        if (curPiece.name == ChessPieceEn.WhiteBishop || curPiece.name == ChessPieceEn.BlackQueen)
-          println(gameBoard(oldRow)(oldCol).asInstanceOf[ChessPiece].validatedMoves(gameBoard).mkString("Array(", ", ", ")"), oldCol, oldRow)
-//        if(!x){
-//          for(i <- gameBoard.indices){
-//            for(j <- gameBoard.indices){
-//              if(gameBoard(i)(j) != null)print(gameBoard(i)(j).name + " ")
-//              else print("     ")
-//            }
-//            println()
-//          }
-//        }
+        if ((newCol != oldCol || newRow != oldRow) && gameController.movementValidation(gameBoard, s).valid) {
+          val newBoard = gameController.copyBoard(gameBoard)
+          val modifiedPiece = newBoard(oldRow)(oldCol)
+          newBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = null
+          modifiedPiece.curRow = newRow
+          modifiedPiece.curCol = newCol
+          newBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = modifiedPiece
 
-        if ((newCol != oldCol || newRow != oldRow) && x) {
-
-//          val newBoard = gameBoard.map(_.clone())
-//          val modifiedPiece = newBoard(oldRow)(oldCol)
-//          newBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = null
-//          modifiedPiece.curRow = newRow
-//          modifiedPiece.curCol = newCol
-//          newBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = modifiedPiece
-//
-//          for(i <- newBoard.indices){
-//            for(j <- newBoard.indices){
-//              if(newBoard(i)(j) != null)print(newBoard(i)(j).name + " ")
-//              else print("     ")
-//            }
-//            println()
-//          }
-//          println()
-//          for(i <- gameBoard.indices){
-//            for(j <- gameBoard.indices){
-//              if(gameBoard(i)(j) != null)print(gameBoard(i)(j).name + " ")
-//              else print("     ")
-//            }
-//            println()
-//          }
-//          println("................................................")
-
+          if (!gameController.checkMate(newBoard, turn)) {
             ReleaseLogic(source)
+
             turn = 1 - turn
-//          if (!gameController.checkMate(newBoard, turn)) {
-//
-//            checkGameEnd = false
-//          } else if (!checkGameEnd) {
-//            println("check mate")
-//            if (gameController.checkEndGame(gameBoard.map(_.clone()), turn)) {
-//              println("game over")
-//              gameEnded = true
-//            }
-//
-//            checkGameEnd = true
-//          }
+            checkGameEnd = false
+          } else if (!checkGameEnd) {
+            if (gameController.checkEndGame(gameController.copyBoard(gameBoard), turn))
+              gameEnded = true
+
+            checkGameEnd = true
+          }
         }
       }
     })

@@ -24,13 +24,13 @@ class ChessController extends Controller {
           for (move <- availableMoves.indices) {
             val newX = availableMoves(move).getKey
             val newY = availableMoves(move).getValue
-            val newBoard = gameBoard.map(_.clone())
+            val newBoard = copyBoard(gameBoard)
 
-            val modPiece = newBoard(i)(j)
-            newBoard(modPiece.curRow)(modPiece.curCol) = null
-            modPiece.curRow = newX
-            modPiece.curCol = newY
-            newBoard(modPiece.curRow)(modPiece.curCol) = modPiece
+            val modifiedPiece = newBoard(i)(j)
+            newBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = null
+            modifiedPiece.curRow = newX
+            modifiedPiece.curCol = newY
+            newBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = modifiedPiece
 
             if (!checkMate(newBoard, turn))
               return false
@@ -49,13 +49,14 @@ class ChessController extends Controller {
       for (j <- gameBoard(i).indices) {
         breakable {
           val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
-          if (curPiece != null && curPiece.color == enemyTurn &&
-            curPiece.validateMove(gameBoard, kingPiece.curRow, kingPiece.curCol)) {
-            println(curPiece.name + " " + "true")
-            return true
+          if (curPiece != null && curPiece.color == enemyTurn) {
+            val s: State = new State(curPiece.curRow, curPiece.curCol, kingPiece.curRow, kingPiece.curCol, enemyTurn)
+
+            if (movementValidation(gameBoard, s).valid)
+              return true
+
           }
 
-          else if (curPiece != null && curPiece.color == enemyTurn) println(curPiece.name + " " + "false")
         }
       }
     }
@@ -71,5 +72,17 @@ class ChessController extends Controller {
       }
     }
     null
+  }
+
+  def copyBoard(gameBoard: Array[Array[Piece]]): Array[Array[Piece]] = {
+    val newBoard: Array[Array[Piece]] = Array.tabulate(8, 8)((x, y) => null)
+    for (i <- newBoard.indices) {
+      for (j <- newBoard(i).indices) {
+        if (gameBoard(i)(j) != null) {
+          newBoard(i)(j) = gameBoard(i)(j).clone()
+        }
+      }
+    }
+    newBoard
   }
 }

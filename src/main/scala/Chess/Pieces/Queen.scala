@@ -29,6 +29,11 @@ class Queen(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x
     c.curCol = curCol
   }
 
+  override def clone(): ChessPiece = {
+    val x = new Queen(name , curRow , curCol , color)
+    x
+  }
+
   override val dx: Array[Int] = Array()
   override val dy: Array[Int] = Array()
 }

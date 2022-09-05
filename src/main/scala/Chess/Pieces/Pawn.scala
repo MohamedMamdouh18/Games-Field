@@ -58,7 +58,26 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
   }
 
   override def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]] = {
-    Array(new Pair[Int,Int](1,2))
+    var direction = color
+    if (direction == 0) {
+      direction = -1
+    }
+    var validMoves: Array[Pair[Int, Int]] = Array()
+    if (board(curRow + direction)(curCol) == null)
+      validMoves = validMoves :+ new Pair[Int, Int](curRow + direction, curCol)
+
+    if (curCol + 1 <= 7 && board(curRow + direction)(curCol + 1) != null && board(curRow + direction)(curCol + 1).color != color)
+      validMoves = validMoves :+ new Pair[Int, Int](curRow + direction, curCol + 1)
+
+    if (curCol - 1 >= 0 && board(curRow + direction)(curCol - 1) != null && board(curRow + direction)(curCol - 1).color != color)
+      validMoves = validMoves :+ new Pair[Int, Int](curRow + direction, curCol - 1)
+
+    validMoves
+  }
+
+  override def clone(): ChessPiece = {
+    val x = new Pawn(name, curRow, curCol, color)
+    x
   }
 
   override val dx: Array[Int] = Array()

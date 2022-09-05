@@ -7,7 +7,7 @@ import javafx.util.Pair
 
 import scala.util.control.Breaks.{break, breakable}
 
-abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) extends Piece(pieceName, row, col, color) {
+abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) extends Piece(pieceName, row, col, color) with Cloneable{
   val dx: Array[Int]
   val dy: Array[Int]
   var firstMove: Boolean = true
@@ -74,4 +74,6 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
     moves.valid = false
     moves.validMoves = Array[Pair[Int, Int]]()
   }
+
+  override def clone(): ChessPiece = ???
 }

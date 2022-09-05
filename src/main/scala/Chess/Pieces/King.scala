@@ -17,4 +17,9 @@ class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     clear()
     loopTemplate(board, 0, 0, validatedMovesImpl, 1).validMoves
   }
+
+  override def clone(): ChessPiece = {
+    val x = new King(name , curRow , curCol , color)
+    x
+  }
 }
