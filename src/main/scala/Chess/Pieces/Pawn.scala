@@ -72,6 +72,9 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     if (curCol - 1 >= 0 && board(curRow + direction)(curCol - 1) != null && board(curRow + direction)(curCol - 1).color != color)
       validMoves = validMoves :+ new Pair[Int, Int](curRow + direction, curCol - 1)
 
+    if(firstMove && board(curRow + direction * 2)(curCol) == null && board(curRow + direction)(curCol) == null)
+      validMoves = validMoves :+ new Pair[Int, Int](curRow + direction*2, curCol)
+
     validMoves
   }
 
