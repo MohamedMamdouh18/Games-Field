@@ -7,13 +7,13 @@ object ChessPieceEn extends PieceType {
   val BlackKnight = "bhor"
   val BlackKing = "bkin"
   val BlackQueen = "bque"
-  val BlackCastle = "bcas"
+  val BlackRook = "bcas"
   val BlackPawn = "bsol"
 
   val WhiteBishop = "wele"
   val WhiteKnight = "whor"
   val WhiteKing = "wkin"
   val WhiteQueen = "wque"
-  val WhiteCastle = "wcas"
+  val WhiteRook = "wcas"
   val WhitePawn = "wsol"
 }

@@ -17,7 +17,7 @@ class Connect4Engine(player1: Player, player2: Player, gameType: String) extends
         if (validation.valid) {
           val s: State = new State(validation.state.oldRow, GridPane.getColumnIndex(source), 0, 0, turn(0))
           gameDrawer.movementDraw(source, s)
-          turn(0) = 1 - turn(0)
+          update()
         }
       }
     })

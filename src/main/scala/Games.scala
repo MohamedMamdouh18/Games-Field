@@ -16,7 +16,7 @@ object Games extends JFXApp3 {
     stage = new JFXApp3.PrimaryStage {
       title.value = "Game Engine"
       width = 1080
-      height = 770
+      height = 800
       scene = new Scene(root)
     }
   }

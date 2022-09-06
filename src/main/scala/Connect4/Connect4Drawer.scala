@@ -41,7 +41,7 @@ class Connect4Drawer extends Drawer {
           && GridPane.getRowIndex(node) == 5 - state.oldRow =>
           if (state.turn == 1) x.setFill(Color.rgb(164, 43, 57))
           else x.setFill(Color.rgb(255, 221, 99))
-          break()
+          break
         case _ =>
       }
     }

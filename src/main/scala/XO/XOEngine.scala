@@ -14,7 +14,7 @@ class XOEngine(player1: Player, player2: Player, gameType: String) extends GameE
       val s: State = new State(GridPane.getRowIndex(source), GridPane.getColumnIndex(source), 0, 0, turn(0))
       if (gameController.movementValidation(gameBoard, s).valid) {
         gameDrawer.movementDraw(source, s)
-        turn(0) = 1 - turn(0)
+        update()
       }
     })
   }

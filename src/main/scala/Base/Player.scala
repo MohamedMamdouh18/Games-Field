@@ -1,21 +1,32 @@
 package Base
 
 import javafx.scene.Node
-import javafx.scene.layout.HBox
+import javafx.scene.layout.GridPane
 
 abstract class Player {
-  val gameController: Controller
+  var gameController: Controller
   var gameDrawer: Drawer
   var gameBoard: Array[Array[Piece]]
   var observer: GameEngine
   var color: Int = 0
   var turn: Array[Int]
 
-  def run(board: Array[Array[Piece]], turn: Array[Int], drawer: Drawer = null, buts: HBox = null): Unit
+  def run(board: Array[Array[Piece]], turn: Array[Int],
+          controller: Controller, drawer: Drawer, buts: GridPane = null): Unit
 
-  def Notify(): Unit
+  def Notify(): Unit = {
+    observer.update()
+  }
 
   def Movement(source: Node): Unit
 
-  def setObserver(gameEngine: GameEngine): Unit
+  def DisableMovement(): Unit = {
+    gameDrawer.gameBoard.getChildren.forEach(child => {
+      child.setOnMouseClicked(null)
+    })
+  }
+
+  def setObserver(gameEngine: GameEngine): Unit = {
+    observer = gameEngine
+  }
 }
