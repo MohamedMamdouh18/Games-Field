@@ -1,12 +1,10 @@
 package Chess
 
-import Base.{GameEngine, Piece, State}
+import Base.{GameEngine, Piece}
 import Chess.Pieces._
-import javafx.scene.Node
-import javafx.scene.layout.{GridPane, HBox, StackPane}
+import javafx.scene.layout.{StackPane, HBox}
 
-class ChessEngine(promButs: HBox) extends GameEngine {
-  override val gameController = new ChessController
+class ChessEngine(player1: ChessPlayer, player2: ChessPlayer, gameType: String) extends GameEngine(player1, player2, gameType) {
   override val gameDrawer = new ChessDrawer
   override var gameBoard: Array[Array[Piece]] = Array(
     Array(
@@ -57,120 +55,23 @@ class ChessEngine(promButs: HBox) extends GameEngine {
       new Knight(ChessPieceEn.WhiteKnight, 7, 6, 0),
       new Castle(ChessPieceEn.WhiteCastle, 7, 7, 0)),
   )
-  var promotionMap: Array[Map[Int, Promotion]] = Array(
-    Map(
-      0 -> ((r, c) => new Queen(ChessPieceEn.BlackQueen, r, c, 1)),
-      1 -> ((r, c) => new Knight(ChessPieceEn.BlackKnight, r, c, 1)),
-      2 -> ((r, c) => new Bishop(ChessPieceEn.BlackBishop, r, c, 1)),
-      3 -> ((r, c) => new Castle(ChessPieceEn.BlackCastle, r, c, 1))
-    ),
-    Map(
-      0 -> ((r, c) => new Queen(ChessPieceEn.WhiteQueen, r, c, 0)),
-      1 -> ((r, c) => new Knight(ChessPieceEn.WhiteKnight, r, c, 0)),
-      2 -> ((r, c) => new Bishop(ChessPieceEn.WhiteBishop, r, c, 0)),
-      3 -> ((r, c) => new Castle(ChessPieceEn.WhiteCastle, r, c, 0))
-    ),
-  )
-  var oldCol, oldRow: Int = 0
-  var newCol, newRow: Int = 0
-  var curPiece: ChessPiece = _
-  var x, y: Double = 0
-  var src: Node = _
-  var promotion: Boolean = false
-
-  var gameEnded: Boolean = false
-  var checkGameEnd: Boolean = false
+  var promButs: HBox = _
 
   override def startGame(gamePane: StackPane): Unit = {
     gameDrawer.setGamePane(gamePane)
-    gameDrawer.setEvent(Movement)
-    gameDrawer.drawPiece(gameBoard)
-    preparePromotion()
+    player1.color = 1
+    gameDrawer.drawPiece()
+    player1.run(gameBoard, turn, gameDrawer, promButs)
+    player2.run(gameBoard, turn, gameDrawer, promButs)
+    player2.preparePromotion()
+    //player1.preparePromotion()
   }
 
-  override def Movement(source: Node): Unit = {
-    source.setOnMousePressed(e => {
-      if (!promotion && !gameEnded) {
-        oldCol = GridPane.getColumnIndex(source)
-        oldRow = GridPane.getRowIndex(source)
-        x = e.getSceneX
-        y = e.getSceneY
-        curPiece = gameBoard(oldRow)(oldCol).asInstanceOf[ChessPiece]
-      }
-    })
-
-    source.setOnMouseDragged(e => {
-      if (curPiece.color == turn && !promotion && !gameEnded) {
-        source.setTranslateX(e.getSceneX - x)
-        source.setTranslateY(e.getSceneY - y)
-      }
-    })
-
-    source.setOnMouseReleased(e => {
-      if (curPiece.color == turn && !promotion && !gameEnded) {
-        newRow = Math.floor((e.getSceneY - 100) / 80).toInt
-        newCol = Math.floor((e.getSceneX - 220) / 80).toInt
-
-        source.setTranslateX(0)
-        source.setTranslateY(0)
-        val s: State = new State(oldRow, oldCol, newRow, newCol, turn)
-
-        if ((newCol != oldCol || newRow != oldRow) && gameController.movementValidation(gameBoard, s).valid) {
-          val newBoard = gameController.copyBoard(gameBoard)
-
-          gameController.createState(newBoard, newBoard(oldRow)(oldCol), newRow, newCol)
-
-          if (!gameController.checkMate(newBoard, turn)) {
-            ReleaseLogic(source)
-
-            turn = 1 - turn
-            checkGameEnd = false
-          } else if (!checkGameEnd) {
-            if (gameController.checkEndGame(gameController.copyBoard(gameBoard), turn))
-              gameEnded = true
-
-            checkGameEnd = true
-          }
-        }
-      }
-    })
+  override def update(): Unit = {
+    turn(0) = 1 - turn(0)
   }
 
-  def preparePromotion(): Unit = {
-    val buts = promButs.getChildren
-    buts.forEach(_.setOnMousePressed(e => {
-      val indx: Int = (e.getSceneX / 100).toInt
-      val ps: ChessPiece = promotionMap(turn)(indx).promote(newRow, newCol)
-
-      Movement(ps.image)
-      gameBoard(newRow)(newCol) = ps
-      gameDrawer.gameBoard.getChildren.remove(src)
-      gameDrawer.gameBoard.add(ps.image, newCol, newRow)
-
-      promButs.setVisible(false)
-
-      promotion = false
-    }))
-  }
-
-  def ReleaseLogic(source: Node): Unit = {
-    if (gameBoard(newRow)(newCol) != null)
-      gameDrawer.gameBoard.getChildren.remove(gameBoard(newRow)(newCol).image)
-
-
-    if (curPiece.wantPromote()) {
-      promotion = true
-      src = source
-      promButs.setVisible(true)
-    }
-
-    gameBoard(oldRow)(oldCol) = null
-    gameBoard(newRow)(newCol) = curPiece
-    gameDrawer.gameBoard.getChildren.remove(source)
-    gameDrawer.gameBoard.add(source, newCol, newRow)
-
-    curPiece.firstMove = false
-    curPiece.curCol = newCol
-    curPiece.curRow = newRow
+  def setPromButs(buts: HBox): Unit = {
+    promButs = buts
   }
 }

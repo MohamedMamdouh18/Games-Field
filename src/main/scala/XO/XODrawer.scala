@@ -4,7 +4,6 @@ import Base.{Drawer, Piece, State}
 import javafx.geometry.{HPos, VPos}
 import javafx.scene.Node
 import javafx.scene.control.Label
-import javafx.scene.input.MouseEvent
 import javafx.scene.layout.{GridPane, StackPane}
 import javafx.scene.paint.Color
 import javafx.scene.text.{Font, FontWeight}
@@ -12,14 +11,12 @@ import javafx.scene.text.{Font, FontWeight}
 class XODrawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
   override var gameBoard: GridPane = new GridPane()
-  override var Event: Node => Unit = _
 
-  override def drawPiece(board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit = {
+  override def drawPiece(): Unit = {
     gameBoard = drawBoard(3, 3, Color.rgb(236, 205, 153), Color.rgb(236, 205, 153), showGridLines = true)
-    extendDrawing1(Event)
   }
 
-  override def extendDrawing1(Event: Node => Unit): Unit = {
+  override def setEvents(Event: Node => Unit, board: Array[Array[Piece]], s: Int, e: Int): Unit = {
     gameBoard.getChildren.forEach(node => {
       if (node.isInstanceOf[Node]) {
         Event(node)
@@ -27,8 +24,7 @@ class XODrawer extends Drawer {
     })
   }
 
-  override def movementDraw(source: Node, e: MouseEvent, state: State,
-                            board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0)): Unit = {
+  override def movementDraw(source: Node, state: State, arg: Node): Unit = {
     val text = new Label()
     text.setFont(Font.font("Roboto", FontWeight.BOLD, 50))
     if (state.turn == 1) {

@@ -29,7 +29,6 @@ class ChessController extends Controller {
   }
 
   def checkMate(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
-
     val enemyTurn = 1 - turn
     val kingPiece: ChessPiece = findKing(gameBoard, turn)
     for (i <- gameBoard.indices) {
@@ -41,9 +40,7 @@ class ChessController extends Controller {
 
             if (movementValidation(gameBoard, s).valid)
               return true
-
           }
-
         }
       }
     }
