@@ -57,7 +57,7 @@ class ChessEngine(player1: Player, player2: Player, gameType: String) extends Ga
       new Knight(ChessPieceEn.WhiteKnight, 7, 6, 0),
       new Rook(ChessPieceEn.WhiteRook, 7, 7, 0)),
   )
-  override var score: Array[Int] = Array(1200, 1200)
+  override var score: Array[Int] = Array(1290, 1290)
   var whitePromButs: GridPane = _
   var blackPromButs: GridPane = _
 

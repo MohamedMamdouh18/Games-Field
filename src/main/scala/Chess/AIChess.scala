@@ -1,15 +1,16 @@
 package Chess
 
-import Base.{Controller, Drawer, GameEngine, Piece, State}
 import Base.Player.Player
+import Base._
+import Chess.Pieces.ChessPiece
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 
 class AIChess extends Player {
+  override var observer: GameEngine = _
   private var gameController: Controller = _
   private var gameDrawer: Drawer = _
   private var gameBoard: Array[Array[Piece]] = _
-  override var observer: GameEngine = _
 
   override def run(buts: GridPane = null): Unit = {
     gameDrawer = observer.gameDrawer.asInstanceOf[ChessDrawer]
@@ -23,7 +24,12 @@ class AIChess extends Player {
     new State(0, 0, 0, 0, 0)
   }
 
-  private def estimator(board: Array[Array[Piece]]): Unit = {
-
+  private def estimator(board: Array[Array[Piece]]): Int = {
+    var score: Array[Int] = Array(0, 0)
+    board.foreach(_.foreach(piece => {
+      if (piece != null)
+        score(piece.color) += piece.asInstanceOf[ChessPiece].rank
+    }))
+    score(0) - score(1)
   }
 }
