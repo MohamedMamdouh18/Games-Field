@@ -1,10 +1,11 @@
 package Chess
 
+import Base.Player.Player
 import Base.{GameEngine, Piece}
 import Chess.Pieces._
 import javafx.scene.layout.{GridPane, StackPane}
 
-class ChessEngine(player1: ChessPlayer, player2: ChessPlayer, gameType: String) extends GameEngine(player1, player2, gameType) {
+class ChessEngine(player1: Player, player2: Player, gameType: String) extends GameEngine(player1, player2, gameType) {
   override val gameController = new ChessController
   override val gameDrawer = new ChessDrawer
   override var gameBoard: Array[Array[Piece]] = Array(

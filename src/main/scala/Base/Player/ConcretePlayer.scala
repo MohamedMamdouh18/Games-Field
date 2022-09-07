@@ -1,15 +1,14 @@
 package Base.Player
 
 import Base.{Controller, Drawer, GameEngine, Piece}
-import Chess.{ChessController, ChessDrawer}
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 
 class ConcretePlayer extends Player {
   override var observer: GameEngine = _
-  var gameController: Controller = _
-  var gameBoard: Array[Array[Piece]] = _
-  var gameDrawer: Drawer = _
+  private var gameController: Controller = _
+  private var gameBoard: Array[Array[Piece]] = _
+  private var gameDrawer: Drawer = _
 
   override def run(buts: GridPane = null): Unit = {
     gameDrawer = observer.gameDrawer

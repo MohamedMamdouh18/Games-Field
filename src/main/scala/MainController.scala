@@ -1,5 +1,5 @@
 import Base.Player.{ConcretePlayer, Player}
-import Chess.{ChessEngine, ChessPlayer}
+import Chess.{AIChess, ChessEngine, ChessPlayer}
 import Connect4.Connect4Engine
 import XO.XOEngine
 import javafx.scene.control.Button
@@ -21,8 +21,9 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane, val retu
 
   def ChessStart(): Unit = {
     gameMode(true)
-    val player1, player2: ChessPlayer = new ChessPlayer
-    val gameEngine = new ChessEngine(player1, player2, "PvP")
+    val player1: ChessPlayer = new ChessPlayer
+    val player2: AIChess = new AIChess
+    val gameEngine = new ChessEngine(player1, player2, "PvA")
     player1.setObserver(gameEngine)
     player2.setObserver(gameEngine)
     gameEngine.setPromButs(whitePromotionPieces, blackPromotionPieces)
