@@ -10,10 +10,8 @@ abstract class Player {
   var gameBoard: Array[Array[Piece]]
   var observer: GameEngine
   var color: Int = 0
-  var turn: Array[Int]
 
-  def run(board: Array[Array[Piece]], turn: Array[Int],
-          controller: Controller, drawer: Drawer, buts: GridPane = null): Unit
+  def run(board: Array[Array[Piece]], controller: Controller, drawer: Drawer, buts: GridPane = null): Unit
 
   def Notify(): Unit = {
     observer.update()

@@ -9,11 +9,8 @@ class ConcretePlayer extends Player {
   var gameDrawer: Drawer = _
   var gameBoard: Array[Array[Piece]] = _
   var observer: GameEngine = _
-  var turn: Array[Int] = _
 
-  def run(board: Array[Array[Piece]], turn: Array[Int],
-          controller: Controller, drawer: Drawer, buts: GridPane = null): Unit = {
-    this.turn = turn
+  def run(board: Array[Array[Piece]], controller: Controller, drawer: Drawer, buts: GridPane = null): Unit = {
     gameDrawer = drawer
     gameController = controller
     gameBoard = board

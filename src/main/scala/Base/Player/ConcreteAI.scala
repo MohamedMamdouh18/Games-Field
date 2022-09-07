@@ -9,10 +9,8 @@ class ConcreteAI extends Player {
   override var gameDrawer: Drawer = _
   override var gameBoard: Array[Array[Piece]] = _
   override var observer: GameEngine = _
-  override var turn: Array[Int] = _
 
-  override def run(board: Array[Array[Piece]], turn: Array[Int],
-                   controller: Controller, drawer: Drawer, buts: GridPane): Unit = {
+  override def run(board: Array[Array[Piece]], controller: Controller, drawer: Drawer, buts: GridPane): Unit = {
 
   }
 

@@ -14,9 +14,9 @@ class Connect4Engine(player1: Player, player2: Player, gameType: String) extends
     source.setOnMouseClicked(_ => {
       if (gameBoard(5 - GridPane.getRowIndex(source))(GridPane.getColumnIndex(source)) == null) {
         val validation = gameController.movementValidation(gameBoard,
-          new State(0, GridPane.getColumnIndex(source), 0, 0, turn(0)))
+          new State(0, GridPane.getColumnIndex(source), 0, 0, turn))
         if (validation.valid) {
-          val s: State = new State(validation.state.oldRow, GridPane.getColumnIndex(source), 0, 0, turn(0))
+          val s: State = new State(validation.state.oldRow, GridPane.getColumnIndex(source), 0, 0, turn)
           gameDrawer.movementDraw(source, s)
           update()
         }

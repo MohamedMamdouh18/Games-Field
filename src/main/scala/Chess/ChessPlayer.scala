@@ -11,18 +11,15 @@ class ChessPlayer extends Player {
   override var gameBoard: Array[Array[Piece]] = _
   override var gameDrawer: Drawer = _
   override var observer: GameEngine = _
-  override var turn: Array[Int] = _
   var promButs: GridPane = _
   var oldCol, oldRow: Int = 0
   var newCol, newRow: Int = 0
   var curPiece: ChessPiece = _
   var x, y: Double = 0
   var src: Node = _
-  var gameEnded: Boolean = false
   var promotion: Boolean = false
 
-  override def run(board: Array[Array[Piece]], turn: Array[Int],
-                   controller: Controller, drawer: Drawer, buts: GridPane): Unit = {
+  override def run(board: Array[Array[Piece]], controller: Controller, drawer: Drawer, buts: GridPane): Unit = {
     var s, e: Int = 0
     if (color == 1) {
       s = 0
@@ -31,7 +28,7 @@ class ChessPlayer extends Player {
       s = 6
       e = 7
     }
-    this.turn = turn
+
     promButs = buts
     gameDrawer = drawer
     gameController = controller
@@ -42,7 +39,7 @@ class ChessPlayer extends Player {
 
   override def Movement(source: Node): Unit = {
     source.setOnMousePressed(e => {
-      if (!promotion && !gameEnded) {
+      if (!promotion && !observer.gameEnded) {
         oldCol = GridPane.getColumnIndex(source)
         oldRow = GridPane.getRowIndex(source)
         x = e.getSceneX
@@ -52,14 +49,14 @@ class ChessPlayer extends Player {
     })
 
     source.setOnMouseDragged(e => {
-      if (curPiece.color == turn(0) && !promotion && !gameEnded) {
+      if (curPiece.color == observer.turn && !promotion && !observer.gameEnded) {
         source.setTranslateX(e.getSceneX - x)
         source.setTranslateY(e.getSceneY - y)
       }
     })
 
     source.setOnMouseReleased(e => {
-      if (curPiece.color == turn(0) && !promotion && !gameEnded) {
+      if (curPiece.color == observer.turn && !promotion && !observer.gameEnded) {
         newRow = Math.floor((e.getSceneY - 100) / 80).toInt
         newCol = Math.floor((e.getSceneX - 220) / 80).toInt
 
@@ -76,11 +73,9 @@ class ChessPlayer extends Player {
             ReleaseLogic(source)
             if (!promotion)
               Notify()
-            if (gameController.asInstanceOf[ChessController].checkMate(gameController.asInstanceOf[ChessController].copyBoard(gameBoard), 1 - color)) {
-              if (gameController.checkEndGame(gameController.asInstanceOf[ChessController].copyBoard(gameBoard), color)) {
-                gameEnded = true
-              }
-            }
+            if (gameController.asInstanceOf[ChessController].checkMate(gameController.asInstanceOf[ChessController].copyBoard(gameBoard), 1 - color))
+              if (gameController.checkEndGame(gameController.asInstanceOf[ChessController].copyBoard(gameBoard), 1 - color))
+                observer.gameEnded = true
           }
         }
       }

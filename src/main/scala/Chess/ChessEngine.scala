@@ -63,12 +63,12 @@ class ChessEngine(player1: ChessPlayer, player2: ChessPlayer, gameType: String) 
     gameDrawer.setGamePane(gamePane)
     player1.color = 1
     gameDrawer.drawPiece()
-    player1.run(gameBoard, turn, gameController, gameDrawer, blackPromButs)
-    player2.run(gameBoard, turn, gameController, gameDrawer, whitePromButs)
+    player1.run(gameBoard, gameController, gameDrawer, blackPromButs)
+    player2.run(gameBoard, gameController, gameDrawer, whitePromButs)
   }
 
   override def update(): Unit = {
-    turn(0) = 1 - turn(0)
+    turn = 1 - turn
   }
 
   def setPromButs(buts1: GridPane, buts2: GridPane): Unit = {

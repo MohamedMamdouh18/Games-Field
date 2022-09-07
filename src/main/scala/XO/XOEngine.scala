@@ -12,7 +12,7 @@ class XOEngine(player1: Player, player2: Player, gameType: String) extends GameE
 
   override def Movement(source: Node): Unit = {
     source.setOnMouseClicked(_ => {
-      val s: State = new State(GridPane.getRowIndex(source), GridPane.getColumnIndex(source), 0, 0, turn(0))
+      val s: State = new State(GridPane.getRowIndex(source), GridPane.getColumnIndex(source), 0, 0, turn)
       if (gameController.movementValidation(gameBoard, s).valid) {
         gameDrawer.movementDraw(source, s)
         update()
