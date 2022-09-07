@@ -8,6 +8,7 @@ import scala.math.max
 class Rook(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x, y, color) {
   override val dx: Array[Int] = Array(1, 0, 0, -1)
   override val dy: Array[Int] = Array(0, -1, 1, 0)
+  override var rank: Int = 50
   loadImage()
 
   override def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean = {

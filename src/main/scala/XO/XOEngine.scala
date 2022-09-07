@@ -9,6 +9,7 @@ class XOEngine(player1: Player, player2: Player, gameType: String) extends GameE
   override val gameController = new XOController
   override val gameDrawer = new XODrawer
   override var gameBoard: Array[Array[Piece]] = Array.ofDim[Piece](3, 3)
+  override var score: Array[Int] = Array(0, 0)
 
   override def Movement(source: Node): Unit = {
     source.setOnMouseClicked(_ => {

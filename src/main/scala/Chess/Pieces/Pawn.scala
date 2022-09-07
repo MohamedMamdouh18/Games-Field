@@ -4,12 +4,13 @@ import Base.Piece
 import javafx.util.Pair
 
 class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x, y, color) {
-  loadImage()
   override val dx: Array[Int] = Array()
   override val dy: Array[Int] = Array()
+  override var rank: Int = 10
   var promotedDone: Boolean = false
   var promotion: Boolean = false
   var promotedMove: (Int, Int) => Boolean = _
+  loadImage()
 
   override def wantPromote(): Boolean = {
     if (promotion) {

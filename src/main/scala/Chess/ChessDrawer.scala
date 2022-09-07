@@ -54,6 +54,7 @@ class ChessDrawer extends Drawer {
       player.Movement(ps.image)
 
       player.gameBoard(player.newRow)(player.newCol) = ps
+      player.observer.score(player.color) += ps.rank - 10
       movementDraw(player.src, new State(0, 0, player.newRow, player.newCol, 0), ps.image)
 
       player.promButs.setVisible(false)

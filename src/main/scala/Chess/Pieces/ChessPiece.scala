@@ -12,6 +12,7 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
   val dy: Array[Int]
   var firstMove: Boolean = true
   var moves: Moves = new Moves
+  var rank: Int
 
   def loadImage(): Unit = {
     if (name != null)

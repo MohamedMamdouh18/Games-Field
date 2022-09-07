@@ -9,6 +9,7 @@ class Connect4Engine(player1: Player, player2: Player, gameType: String) extends
   override val gameController = new Connect4Controller
   override val gameDrawer = new Connect4Drawer
   override var gameBoard: Array[Array[Piece]] = Array.ofDim[Piece](6, 7)
+  override var score: Array[Int] = Array(0, 0)
 
   override def Movement(source: Node): Unit = {
     source.setOnMouseClicked(_ => {

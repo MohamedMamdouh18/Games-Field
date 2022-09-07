@@ -83,8 +83,10 @@ class ChessPlayer extends Player {
   }
 
   private def ReleaseLogic(source: Node): Unit = {
-    if (gameBoard(newRow)(newCol) != null)
+    if (gameBoard(newRow)(newCol) != null) {
+      observer.score(1 - color) -= gameBoard(newRow)(newCol).asInstanceOf[ChessPiece].rank
       gameDrawer.gameBoard.getChildren.remove(gameBoard(newRow)(newCol).image)
+    }
 
     if (curPiece.wantPromote()) {
       promotion = true

@@ -8,6 +8,7 @@ abstract class GameEngine(player1: Player, player2: Player, gameType: String) {
   val gameController: Controller = null
   val gameDrawer: Drawer = null
   var gameBoard: Array[Array[Piece]]
+  var score: Array[Int]
   var turn: Int = 0
   var gameEnded: Boolean = false
 

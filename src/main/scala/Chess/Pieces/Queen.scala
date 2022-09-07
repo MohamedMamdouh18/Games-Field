@@ -6,6 +6,7 @@ import javafx.util.Pair
 class Queen(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x, y, color) {
   override val dx: Array[Int] = Array()
   override val dy: Array[Int] = Array()
+  override var rank: Int = 90
   loadImage()
   var b = new Bishop(null, curRow, curCol, color)
   var c = new Rook(null, curRow, curCol, color)
