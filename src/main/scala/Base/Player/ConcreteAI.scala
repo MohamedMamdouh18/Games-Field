@@ -5,13 +5,15 @@ import javafx.scene.Node
 import javafx.scene.layout.GridPane
 
 class ConcreteAI extends Player {
-  override var gameController: Controller = _
-  override var gameDrawer: Drawer = _
-  override var gameBoard: Array[Array[Piece]] = _
+  var gameController: Controller = _
+  var gameDrawer: Drawer = _
+  var gameBoard: Array[Array[Piece]] = _
   override var observer: GameEngine = _
 
-  override def run(board: Array[Array[Piece]], controller: Controller, drawer: Drawer, buts: GridPane): Unit = {
-
+  override def run(buts: GridPane = null): Unit = {
+    gameDrawer = observer.gameDrawer
+    gameController = observer.gameController
+    gameBoard = observer.gameBoard
   }
 
   override def Movement(source: Node): Unit = {}

@@ -16,8 +16,8 @@ abstract class GameEngine(player1: Player, player2: Player, gameType: String) {
     gameDrawer.setGamePane(gamePane)
     player1.color = 1
     gameDrawer.drawPiece()
-    player1.run(gameBoard, gameController, gameDrawer)
-    player2.run(gameBoard, gameController, gameDrawer)
+    player1.run()
+    player2.run()
     gameDrawer.setEvents(Movement)
   }
 

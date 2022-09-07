@@ -5,13 +5,10 @@ import javafx.scene.Node
 import javafx.scene.layout.GridPane
 
 abstract class Player {
-  var gameController: Controller
-  var gameDrawer: Drawer
-  var gameBoard: Array[Array[Piece]]
   var observer: GameEngine
   var color: Int = 0
 
-  def run(board: Array[Array[Piece]], controller: Controller, drawer: Drawer, buts: GridPane = null): Unit
+  def run(buts: GridPane = null): Unit
 
   def Notify(): Unit = {
     observer.update()
@@ -20,7 +17,7 @@ abstract class Player {
   def Movement(source: Node): Unit
 
   def DisableMovement(): Unit = {
-    gameDrawer.gameBoard.getChildren.forEach(child => {
+    observer.gameDrawer.gameBoard.getChildren.forEach(child => {
       child.setOnMouseClicked(null)
     })
   }

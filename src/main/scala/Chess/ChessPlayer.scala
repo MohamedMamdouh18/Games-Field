@@ -7,10 +7,10 @@ import javafx.scene.Node
 import javafx.scene.layout.GridPane
 
 class ChessPlayer extends Player {
-  override var gameController: Controller = _
-  override var gameBoard: Array[Array[Piece]] = _
-  override var gameDrawer: Drawer = _
   override var observer: GameEngine = _
+  var gameController: ChessController = _
+  var gameBoard: Array[Array[Piece]] = _
+  var gameDrawer: ChessDrawer = _
   var promButs: GridPane = _
   var oldCol, oldRow: Int = 0
   var newCol, newRow: Int = 0
@@ -19,7 +19,7 @@ class ChessPlayer extends Player {
   var src: Node = _
   var promotion: Boolean = false
 
-  override def run(board: Array[Array[Piece]], controller: Controller, drawer: Drawer, buts: GridPane): Unit = {
+  override def run(buts: GridPane): Unit = {
     var s, e: Int = 0
     if (color == 1) {
       s = 0
@@ -30,11 +30,11 @@ class ChessPlayer extends Player {
     }
 
     promButs = buts
-    gameDrawer = drawer
-    gameController = controller
-    gameBoard = board
+    gameDrawer = observer.gameDrawer.asInstanceOf[ChessDrawer]
+    gameController = observer.gameController.asInstanceOf[ChessController]
+    gameBoard = observer.gameBoard
     gameDrawer.setEvents(Movement, gameBoard, s, e)
-    gameDrawer.asInstanceOf[ChessDrawer].preparePromotion(this)
+    gameDrawer.preparePromotion(this)
   }
 
   override def Movement(source: Node): Unit = {
@@ -65,16 +65,16 @@ class ChessPlayer extends Player {
         val s: State = new State(oldRow, oldCol, newRow, newCol, color)
 
         if ((newCol != oldCol || newRow != oldRow) && gameController.movementValidation(gameBoard, s).valid) {
-          val newBoard = gameController.asInstanceOf[ChessController].copyBoard(gameBoard)
+          val newBoard = gameController.copyBoard(gameBoard)
 
-          gameController.asInstanceOf[ChessController].createState(newBoard, newBoard(oldRow)(oldCol), newRow, newCol)
+          gameController.createState(newBoard, newBoard(oldRow)(oldCol), newRow, newCol)
 
-          if (!gameController.asInstanceOf[ChessController].checkMate(newBoard, color)) {
+          if (!gameController.checkMate(newBoard, color)) {
             ReleaseLogic(source)
             if (!promotion)
               Notify()
-            if (gameController.asInstanceOf[ChessController].checkMate(gameController.asInstanceOf[ChessController].copyBoard(gameBoard), 1 - color))
-              if (gameController.checkEndGame(gameController.asInstanceOf[ChessController].copyBoard(gameBoard), 1 - color))
+            if (gameController.checkMate(gameController.copyBoard(gameBoard), 1 - color))
+              if (gameController.checkEndGame(gameController.copyBoard(gameBoard), 1 - color))
                 observer.gameEnded = true
           }
         }
