@@ -19,7 +19,6 @@ class ChessPlayer extends Player {
   var x, y: Double = 0
   var src: Node = _
   var gameEnded: Boolean = false
-  var checkGameEnd: Boolean = false
   var promotion: Boolean = false
 
   override def run(board: Array[Array[Piece]], turn: Array[Int],
@@ -75,14 +74,13 @@ class ChessPlayer extends Player {
 
           if (!gameController.asInstanceOf[ChessController].checkMate(newBoard, color)) {
             ReleaseLogic(source)
-            checkGameEnd = false
             if (!promotion)
               Notify()
-          } else if (!checkGameEnd) {
-            if (gameController.checkEndGame(gameController.asInstanceOf[ChessController].copyBoard(gameBoard), color))
-              gameEnded = true
-
-            checkGameEnd = true
+            if (gameController.asInstanceOf[ChessController].checkMate(gameController.asInstanceOf[ChessController].copyBoard(gameBoard), 1 - color)) {
+              if (gameController.checkEndGame(gameController.asInstanceOf[ChessController].copyBoard(gameBoard), color)) {
+                gameEnded = true
+              }
+            }
           }
         }
       }
