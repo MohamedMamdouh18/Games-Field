@@ -63,7 +63,7 @@ class ChessEngine(player1: Player, player2: Player, gameType: String) extends Ga
 
   override def startGame(gamePane: StackPane): Unit = {
     gameDrawer.setGamePane(gamePane)
-    player1.color = 1
+    player2.color = 1
     gameDrawer.drawPiece()
     player1.run(blackPromButs)
     player2.run(whitePromButs)
