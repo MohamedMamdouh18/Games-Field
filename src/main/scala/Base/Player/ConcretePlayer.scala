@@ -1,5 +1,6 @@
-package Base
+package Base.Player
 
+import Base.{Controller, Drawer, GameEngine, Piece}
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 

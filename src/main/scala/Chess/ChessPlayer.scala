@@ -1,5 +1,6 @@
 package Chess
 
+import Base.Player.Player
 import Base._
 import Chess.Pieces._
 import javafx.scene.Node

@@ -1,4 +1,4 @@
-import Base.{ConcretePlayer, Player}
+import Base.Player.{ConcretePlayer, Player}
 import Chess.{ChessEngine, ChessPlayer}
 import Connect4.Connect4Engine
 import XO.XOEngine

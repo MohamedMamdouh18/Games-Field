@@ -1,6 +1,7 @@
 package XO
 
-import Base.{GameEngine, Piece, Player, State}
+import Base.Player.Player
+import Base.{GameEngine, Piece, State}
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 

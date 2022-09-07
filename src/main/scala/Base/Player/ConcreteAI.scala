@@ -1,4 +1,6 @@
-package Base
+package Base.Player
+
+import Base._
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 

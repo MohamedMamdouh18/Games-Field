@@ -1,5 +1,6 @@
 package Base
 
+import Base.Player.Player
 import javafx.scene.Node
 import javafx.scene.layout.StackPane
 
