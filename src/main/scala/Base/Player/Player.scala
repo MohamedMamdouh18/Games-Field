@@ -14,7 +14,7 @@ abstract class Player {
     observer.update()
   }
 
-  def Movement(source: Node): Unit
+  def Movement(source: Node = null): Unit
 
   def DisableMovement(): Unit = {
     observer.gameDrawer.gameBoard.getChildren.forEach(child => {

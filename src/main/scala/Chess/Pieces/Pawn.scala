@@ -66,16 +66,19 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
       direction = -1
     }
     var validMoves: Array[Pair[Int, Int]] = Array()
-    if (board(curRow + direction)(curCol) == null)
+    if (curRow + direction >= 0 && curRow + direction <= 7 && board(curRow + direction)(curCol) == null)
       validMoves = validMoves :+ new Pair[Int, Int](curRow + direction, curCol)
 
-    if (curCol + 1 <= 7 && board(curRow + direction)(curCol + 1) != null && board(curRow + direction)(curCol + 1).color != color)
+    if (curRow + direction >= 0 && curRow + direction <= 7 && curCol + 1 <= 7 &&
+      board(curRow + direction)(curCol + 1) != null && board(curRow + direction)(curCol + 1).color != color)
       validMoves = validMoves :+ new Pair[Int, Int](curRow + direction, curCol + 1)
 
-    if (curCol - 1 >= 0 && board(curRow + direction)(curCol - 1) != null && board(curRow + direction)(curCol - 1).color != color)
+    if (curRow + direction >= 0 && curRow + direction <= 7 && curCol - 1 >= 0 &&
+      board(curRow + direction)(curCol - 1) != null && board(curRow + direction)(curCol - 1).color != color)
       validMoves = validMoves :+ new Pair[Int, Int](curRow + direction, curCol - 1)
 
-    if (firstMove && board(curRow + direction * 2)(curCol) == null && board(curRow + direction)(curCol) == null)
+    if (curRow + direction * 2 >= 0 && curRow + direction * 2 <= 7 && firstMove &&
+      board(curRow + direction * 2)(curCol) == null && board(curRow + direction)(curCol) == null)
       validMoves = validMoves :+ new Pair[Int, Int](curRow + direction * 2, curCol)
 
     validMoves

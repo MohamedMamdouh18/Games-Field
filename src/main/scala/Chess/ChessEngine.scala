@@ -71,6 +71,11 @@ class ChessEngine(player1: Player, player2: Player, gameType: String) extends Ga
 
   override def update(): Unit = {
     turn = 1 - turn
+    if(player1.color == turn && player1.isInstanceOf[AIChess]){
+      player1.Movement()
+    }else if(player2.color == turn && player2.isInstanceOf[AIChess]){
+      player2.Movement()
+    }
   }
 
   def setPromButs(buts1: GridPane, buts2: GridPane): Unit = {
