@@ -79,10 +79,22 @@ class ChessController extends Controller {
     newBoard
   }
 
-  def createState(gameBoard: Array[Array[Piece]], modifiedPiece: Piece, newX: Int, newY: Int): Unit = {
+  def createState(gameBoard: Array[Array[Piece]], modifiedPiece: Piece, newX: Int, newY: Int): Piece = {
+    val removed = gameBoard(newX)(newY)
+
     gameBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = null
     modifiedPiece.curRow = newX
     modifiedPiece.curCol = newY
     gameBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = modifiedPiece
+
+    removed
+  }
+
+  def restoreState(gameBoard: Array[Array[Piece]], modifiedPiece: Piece, removedPiece : Piece ,oldRow : Int , oldCol :Int ,newRow: Int, newCol: Int): Unit ={
+    gameBoard(oldRow)(oldCol) = modifiedPiece
+    gameBoard(newRow)(newCol) = removedPiece
+
+    modifiedPiece.curRow = oldRow
+    modifiedPiece.curCol = oldCol
   }
 }

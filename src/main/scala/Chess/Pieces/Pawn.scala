@@ -62,9 +62,8 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
 
   override def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]] = {
     var direction = color
-    if (direction == 0) {
-      direction = -1
-    }
+    if (direction == 0) direction = -1
+
     var validMoves: Array[Pair[Int, Int]] = Array()
     if (curRow + direction >= 0 && curRow + direction <= 7 && board(curRow + direction)(curCol) == null)
       validMoves = validMoves :+ new Pair[Int, Int](curRow + direction, curCol)

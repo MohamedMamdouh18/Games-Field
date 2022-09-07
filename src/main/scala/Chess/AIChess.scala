@@ -31,7 +31,7 @@ class AIChess extends Player {
   }
 
   override def Movement(source: Node): Unit = {
-    val move: State = miniMax(gameBoard, observer.turn, if (color == 1) 1300 else -1300, 2).getKey
+    val move: State = miniMax(gameBoard, observer.turn, if (color == 1) 1300 else -1300, 5).getKey
 
     val oldRow: Int = move.oldRow
     val oldCol: Int = move.oldCol
@@ -68,14 +68,18 @@ class AIChess extends Player {
     board.foreach(_.foreach(piece => {
       if (piece != null && piece.color == t) {
         val curPiece = piece.asInstanceOf[ChessPiece]
-        val availableMoves = curPiece.validatedMoves(gameBoard)
+        val oldRow = curPiece.curRow
+        val oldCol = curPiece.curCol
+
+        val availableMoves = curPiece.validatedMoves(board)
         for (move <- availableMoves.indices) {
           val newRow = availableMoves(move).getKey
           val newCol = availableMoves(move).getValue
-          val newBoard = gameController.copyBoard(board)
 
-          gameController.createState(newBoard, newBoard(piece.curRow)(piece.curCol), newRow, newCol)
-          val currentScore = miniMax(newBoard, 1 - t, score, depth - 1)
+          val removed = gameController.createState(board, curPiece, newRow, newCol)
+          val currentScore = miniMax(board, 1 - t, score, depth - 1)
+
+          gameController.restoreState(board, curPiece, removed, oldRow, oldCol, newRow, newCol)
 
           //maximize white && minimize black
           if (t == 1) {
@@ -83,7 +87,7 @@ class AIChess extends Player {
               score = currentScore.getValue
               bestMove = new State(piece.curRow, piece.curCol, newRow, newCol, t)
             }
-            if(currentScore.getValue > bestScore){
+            if (currentScore.getValue > bestScore) {
               return new Pair[State, Int](bestMove, score)
             }
           } else {
@@ -91,7 +95,7 @@ class AIChess extends Player {
               score = currentScore.getValue
               bestMove = new State(piece.curRow, piece.curCol, newRow, newCol, t)
             }
-            if(currentScore.getValue < bestScore){
+            if (currentScore.getValue < bestScore) {
               return new Pair[State, Int](bestMove, score)
             }
           }
