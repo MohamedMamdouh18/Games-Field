@@ -1,7 +1,6 @@
 package Base
 
-import Base.Player.{ConcreteAI, ConcretePlayer, Player}
-import Chess.{AIChess, ChessEn}
+import Base.Player.Player
 import javafx.scene.Node
 import javafx.scene.layout.StackPane
 
