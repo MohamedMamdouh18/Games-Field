@@ -8,9 +8,9 @@ class Connect4Controller extends Controller {
     while (i < 6) {
       if (gameBoard(i)(state.oldCol) == null) {
         gameBoard(i)(state.oldCol) = if (state.turn == 1)
-          new Piece(Connect4PieceEn.Red, i, state.oldCol, 1)
+          new Piece(Connect4En.Red, i, state.oldCol, 1)
         else
-          new Piece(Connect4PieceEn.Yellow, i, state.oldCol, 0)
+          new Piece(Connect4En.Yellow, i, state.oldCol, 0)
         return new MoveValidation(new State(i, state.oldCol, 0, 0, 0), true)
       } else
         i += 1
@@ -18,5 +18,5 @@ class Connect4Controller extends Controller {
     new MoveValidation(null, false)
   }
 
-  override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int): Boolean = ???
+  override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int, state: State): Boolean = ???
 }

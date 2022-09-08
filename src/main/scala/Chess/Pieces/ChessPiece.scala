@@ -1,7 +1,7 @@
 package Chess.Pieces
 
 import Base.{Piece, State}
-import Chess.ChessPieceEn
+import Chess.ChessEn
 import javafx.scene.image.ImageView
 import javafx.util.Pair
 
@@ -56,7 +56,7 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
               if (execute(new State(newX, newY, validNewX, validNewY, 0)))
                 return moves
 
-            if (pieceName != ChessPieceEn.WhiteKnight && pieceName != ChessPieceEn.BlackKnight &&
+            if (pieceName != ChessEn.WhiteKnight && pieceName != ChessEn.BlackKnight &&
               board(validNewX)(validNewY) != null)
               break
           }

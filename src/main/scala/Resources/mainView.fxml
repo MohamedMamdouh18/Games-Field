@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -10,112 +11,87 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="770.0" prefWidth="1080.0" style="-fx-background-color: #312E2B;"
-            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
-   <StackPane fx:id="gamePane" layoutY="48.0" prefHeight="722.0" prefWidth="1080.0"/>
+<AnchorPane prefHeight="770.0" prefWidth="1080.0" style="-fx-background-color: #312E2B;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+   <StackPane fx:id="gamePane" layoutY="48.0" prefHeight="722.0" prefWidth="1080.0" />
    <AnchorPane fx:id="menuPane" prefHeight="770.0" prefWidth="1080.0">
-      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="364.0" layoutY="207.0" pickOnBounds="true"
-                 preserveRatio="true">
-         <Image url="@chess.png"/>
+      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="364.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@chess.png" />
       </ImageView>
-      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="795.0" layoutY="207.0" pickOnBounds="true"
-                 preserveRatio="true">
-         <Image url="@tic-tac-toe.png"/>
+      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="795.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@tic-tac-toe.png" />
       </ImageView>
-      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="413.0" layoutY="413.0" pickOnBounds="true"
-                 preserveRatio="true">
-         <Image url="@connect-four.png"/>
+      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="413.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@connect-four.png" />
       </ImageView>
-      <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="839.0" layoutY="413.0" pickOnBounds="true"
-                 preserveRatio="true">
-         <Image url="@checker-board.png"/>
-      </ImageView>
-      <JFXButton layoutX="132.0" layoutY="189.0" onAction="#ChessStart" prefHeight="107.0"
-                 prefWidth="379.0" stylesheets="@Buttons.css" text="Chess      ">
+      <JFXButton layoutX="132.0" layoutY="189.0" onAction="#ChessStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Chess      ">
          <font>
-            <Font size="50.0"/>
+            <Font size="50.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="569.0" layoutY="189.0" onAction="#XOStart" prefHeight="107.0" prefWidth="379.0"
-                 stylesheets="@Buttons.css" text="X-O        ">
+      <JFXButton layoutX="569.0" layoutY="189.0" onAction="#XOStart" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="X-O        ">
          <font>
-            <Font size="50.0"/>
+            <Font size="50.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="132.0" layoutY="395.0" onAction="#Connect4Start" prefHeight="107.0"
-                 prefWidth="379.0" stylesheets="@Buttons.css" text="Connect-4      ">
+      <JFXButton layoutX="132.0" layoutY="395.0" onAction="#Connect4Start" prefHeight="107.0" prefWidth="379.0" stylesheets="@Buttons.css" text="Connect-4      ">
          <font>
-            <Font size="50.0"/>
+            <Font size="50.0" />
          </font>
       </JFXButton>
-      <JFXButton layoutX="569.0" layoutY="395.0" prefHeight="107.0" prefWidth="379.0"
-                 stylesheets="@Buttons.css" text="Checkers       ">
-         <font>
-            <Font size="50.0"/>
-         </font>
-      </JFXButton>
+      <JFXComboBox fx:id="gameMode" layoutX="624.0" layoutY="416.0" prefHeight="65.0" prefWidth="269.0" promptText="Choose Game Mode" stylesheets="@ComboBox.css" unFocusColor="#bc3333" />
    </AnchorPane>
    <AnchorPane prefHeight="79.0" prefWidth="1080.0">
-      <JFXButton fx:id="returnButton" layoutX="839.0" layoutY="14.0" onAction="#returnMenu" prefHeight="50.0"
-                 prefWidth="196.0" stylesheets="@Buttons.css" text="Return Menu" visible="false">
+      <JFXButton fx:id="returnButton" layoutX="839.0" layoutY="14.0" onAction="#returnMenu" prefHeight="50.0" prefWidth="196.0" stylesheets="@Buttons.css" text="Return Menu" visible="false">
          <font>
-            <Font size="25.0"/>
+            <Font size="25.0" />
          </font>
       </JFXButton>
    </AnchorPane>
    <AnchorPane layoutX="14.0" layoutY="596.0" prefHeight="160.0" prefWidth="160.0">
       <GridPane fx:id="blackPromotionPieces" prefHeight="160.0" prefWidth="160.0" visible="false">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
-         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true"
-                    preserveRatio="true" GridPane.columnIndex="1">
-            <Image url="@Chess/bque.png"/>
+         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+            <Image url="@Chess/bque.png" />
          </ImageView>
-         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true"
-                    preserveRatio="true">
-            <Image url="@Chess/bcas.png"/>
+         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+            <Image url="@Chess/bcas.png" />
          </ImageView>
-         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true"
-                    preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-            <Image url="@Chess/bhor.png"/>
+         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Image url="@Chess/bhor.png" />
          </ImageView>
-         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true"
-                    preserveRatio="true" GridPane.rowIndex="1">
-            <Image url="@Chess/bele.png"/>
+         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+            <Image url="@Chess/bele.png" />
          </ImageView>
       </GridPane>
    </AnchorPane>
    <AnchorPane layoutX="906.0" layoutY="596.0" prefHeight="160.0" prefWidth="160.0">
       <GridPane fx:id="whitePromotionPieces" prefHeight="160.0" prefWidth="160.0" visible="false">
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
-         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true"
-                    preserveRatio="true" GridPane.columnIndex="1">
-            <Image url="@Chess/wcas.png"/>
+         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+            <Image url="@Chess/wcas.png" />
          </ImageView>
-         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true"
-                    preserveRatio="true">
-            <Image url="@Chess/wque.png"/>
+         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+            <Image url="@Chess/wque.png" />
          </ImageView>
-         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true"
-                    preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-            <Image url="@Chess/wele.png"/>
+         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Image url="@Chess/wele.png" />
          </ImageView>
-         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true"
-                    preserveRatio="true" GridPane.rowIndex="1">
-            <Image url="@Chess/whor.png"/>
+         <ImageView fitHeight="100.0" fitWidth="80.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+            <Image url="@Chess/whor.png" />
          </ImageView>
       </GridPane>
    </AnchorPane>

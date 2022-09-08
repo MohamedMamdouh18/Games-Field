@@ -1,6 +1,6 @@
 package Base.Player
 
-import Base.{Controller, Drawer, GameEngine, Piece}
+import Base.{Controller, Drawer, GameEngine, Piece, State}
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 
@@ -10,8 +10,10 @@ abstract class Player {
 
   def run(buts: GridPane = null): Unit
 
-  def Notify(): Unit = {
-    observer.update()
+  def Notify(state: State = null): Unit = {
+    if (state != null)
+      observer.update(state)
+    else observer.update()
   }
 
   def Movement(source: Node = null): Unit

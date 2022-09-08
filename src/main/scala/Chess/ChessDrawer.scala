@@ -15,16 +15,16 @@ class ChessDrawer extends Drawer {
   var x, y: Double = 0
   var promotionMap: Array[Map[Pair[Int, Int], Promotion]] = Array(
     Map(
-      new Pair[Int, Int](0, 0) -> ((r, c) => new Queen(ChessPieceEn.WhiteQueen, r, c, 0)),
-      new Pair[Int, Int](0, 1) -> ((r, c) => new Knight(ChessPieceEn.WhiteKnight, r, c, 0)),
-      new Pair[Int, Int](1, 1) -> ((r, c) => new Bishop(ChessPieceEn.WhiteBishop, r, c, 0)),
-      new Pair[Int, Int](1, 0) -> ((r, c) => new Rook(ChessPieceEn.WhiteRook, r, c, 0))
+      new Pair[Int, Int](0, 0) -> ((r, c) => new Queen(ChessEn.WhiteQueen, r, c, 0)),
+      new Pair[Int, Int](0, 1) -> ((r, c) => new Knight(ChessEn.WhiteKnight, r, c, 0)),
+      new Pair[Int, Int](1, 1) -> ((r, c) => new Bishop(ChessEn.WhiteBishop, r, c, 0)),
+      new Pair[Int, Int](1, 0) -> ((r, c) => new Rook(ChessEn.WhiteRook, r, c, 0))
     ),
     Map(
-      new Pair[Int, Int](1, 0) -> ((r, c) => new Queen(ChessPieceEn.BlackQueen, r, c, 1)),
-      new Pair[Int, Int](1, 1) -> ((r, c) => new Knight(ChessPieceEn.BlackKnight, r, c, 1)),
-      new Pair[Int, Int](0, 1) -> ((r, c) => new Bishop(ChessPieceEn.BlackBishop, r, c, 1)),
-      new Pair[Int, Int](0, 0) -> ((r, c) => new Rook(ChessPieceEn.BlackRook, r, c, 1))
+      new Pair[Int, Int](1, 0) -> ((r, c) => new Queen(ChessEn.BlackQueen, r, c, 1)),
+      new Pair[Int, Int](1, 1) -> ((r, c) => new Knight(ChessEn.BlackKnight, r, c, 1)),
+      new Pair[Int, Int](0, 1) -> ((r, c) => new Bishop(ChessEn.BlackBishop, r, c, 1)),
+      new Pair[Int, Int](0, 0) -> ((r, c) => new Rook(ChessEn.BlackRook, r, c, 1))
     ),
   )
 

@@ -6,7 +6,7 @@ import Chess.Pieces.ChessPiece
 import scala.util.control.Breaks.breakable
 
 class ChessController extends Controller {
-  override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
+  override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int, state: State): Boolean = {
     for (i <- gameBoard.indices) {
       for (j <- gameBoard(i).indices) {
         val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
@@ -57,7 +57,7 @@ class ChessController extends Controller {
   }
 
   def findKing(gameBoard: Array[Array[Piece]], turn: Int): ChessPiece = {
-    val kings: Array[String] = Array(ChessPieceEn.WhiteKing, ChessPieceEn.BlackKing)
+    val kings: Array[String] = Array(ChessEn.WhiteKing, ChessEn.BlackKing)
     for (i <- gameBoard.indices) {
       for (j <- gameBoard(i).indices) {
         if (gameBoard(i)(j) != null && gameBoard(i)(j).name == kings(turn))
@@ -77,24 +77,5 @@ class ChessController extends Controller {
       }
     }
     newBoard
-  }
-
-  def createState(gameBoard: Array[Array[Piece]], modifiedPiece: Piece, newX: Int, newY: Int): Piece = {
-    val removed = gameBoard(newX)(newY)
-
-    gameBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = null
-    modifiedPiece.curRow = newX
-    modifiedPiece.curCol = newY
-    gameBoard(modifiedPiece.curRow)(modifiedPiece.curCol) = modifiedPiece
-
-    removed
-  }
-
-  def restoreState(gameBoard: Array[Array[Piece]], modifiedPiece: Piece, removedPiece : Piece ,oldRow : Int , oldCol :Int ,newRow: Int, newCol: Int): Unit ={
-    gameBoard(oldRow)(oldCol) = modifiedPiece
-    gameBoard(newRow)(newCol) = removedPiece
-
-    modifiedPiece.curRow = oldRow
-    modifiedPiece.curCol = oldCol
   }
 }

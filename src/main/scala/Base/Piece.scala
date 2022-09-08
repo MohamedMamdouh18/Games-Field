@@ -1,5 +1,6 @@
 package Base
 
+import Chess.Pieces.Bishop
 import javafx.scene.image.ImageView
 
 class Piece(pieceName: String, row: Int, col: Int, team: Int) {
@@ -9,6 +10,9 @@ class Piece(pieceName: String, row: Int, col: Int, team: Int) {
   var curCol: Int = col
   var image: ImageView = _
 
-  override def clone(): Piece = ???
+  override def clone(): Piece = {
+    val x = new Piece(name, curRow, curCol, color)
+    x
+  }
 }
 

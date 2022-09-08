@@ -21,7 +21,7 @@ class ChessPlayer extends Player {
 
   override def run(buts: GridPane): Unit = {
     var s, e: Int = 0
-    if (color == 1) {
+    if (color == ChessEn.Black) {
       s = 0
       e = 1
     } else {
@@ -71,11 +71,9 @@ class ChessPlayer extends Player {
 
           if (!gameController.checkMate(newBoard, color)) {
             ReleaseLogic(source)
+
             if (!promotion)
               Notify()
-            if (gameController.checkMate(gameController.copyBoard(gameBoard), 1 - color))
-              if (gameController.checkEndGame(gameController.copyBoard(gameBoard), 1 - color))
-                observer.gameEnded = true
           }
         }
       }

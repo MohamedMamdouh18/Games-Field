@@ -1,8 +1,11 @@
 package Chess
 
-import Base.PieceType
+import Base.GameEn
 
-object ChessPieceEn extends PieceType {
+object ChessEn extends GameEn {
+  val Black = 1
+  val White = 0
+
   val BlackBishop = "bele"
   val BlackKnight = "bhor"
   val BlackKing = "bkin"

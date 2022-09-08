@@ -15,7 +15,7 @@ class AIChess extends Player {
 
   override def run(buts: GridPane = null): Unit = {
     var s, e: Int = 0
-    if (color == 1) {
+    if (color == ChessEn.Black) {
       s = 0
       e = 1
     } else {
@@ -27,30 +27,25 @@ class AIChess extends Player {
     gameController = observer.gameController.asInstanceOf[ChessController]
     gameBoard = observer.gameBoard
 
-    gameDrawer.setEvents((node: Node) => {}, gameBoard, s, e)
+    gameDrawer.setEvents((_: Node) => {}, gameBoard, s, e)
   }
 
   override def Movement(source: Node): Unit = {
     val move: State = miniMax(gameBoard, observer.turn, if (color == 1) 1300 else -1300, 5).getKey
+    val curPiece: ChessPiece = gameBoard(move.oldRow)(move.oldCol).asInstanceOf[ChessPiece]
 
-    val oldRow: Int = move.oldRow
-    val oldCol: Int = move.oldCol
-    val newRow: Int = move.newRow
-    val newCol: Int = move.newCol
-    val curPiece: ChessPiece = gameBoard(oldRow)(oldCol).asInstanceOf[ChessPiece]
-
-    if (gameBoard(newRow)(newCol) != null) {
-      observer.score(1 - color) -= gameBoard(newRow)(newCol).asInstanceOf[ChessPiece].rank
-      gameDrawer.gameBoard.getChildren.remove(gameBoard(newRow)(newCol).image)
+    if (gameBoard(move.newRow)(move.newCol) != null) {
+      observer.score(1 - color) -= gameBoard(move.newRow)(move.newCol).asInstanceOf[ChessPiece].rank
+      gameDrawer.gameBoard.getChildren.remove(gameBoard(move.newRow)(move.newCol).image)
     }
 
-    gameBoard(oldRow)(oldCol) = null
-    gameBoard(newRow)(newCol) = curPiece
-    gameDrawer.movementDraw(curPiece.image, new State(0, 0, newRow, newCol, 0), curPiece.image)
+    gameBoard(move.oldRow)(move.oldCol) = null
+    gameBoard(move.newRow)(move.newCol) = curPiece
+    gameDrawer.movementDraw(curPiece.image, new State(0, 0, move.newRow, move.newCol, 0), curPiece.image)
 
     curPiece.firstMove = false
-    curPiece.curCol = newCol
-    curPiece.curRow = newRow
+    curPiece.curCol = move.newCol
+    curPiece.curRow = move.newRow
     Notify()
   }
 
@@ -58,7 +53,7 @@ class AIChess extends Player {
     if (depth == 0) return new Pair[State, Int](null, estimator(board))
 
     var score: Int = 0
-    if (t == 1)
+    if (t == ChessEn.Black)
       score = 1300
     else
       score = -1300
@@ -82,7 +77,7 @@ class AIChess extends Player {
           gameController.restoreState(board, curPiece, removed, oldRow, oldCol, newRow, newCol)
 
           //maximize white && minimize black
-          if (t == 1) {
+          if (t == ChessEn.Black) {
             if (currentScore.getValue < score) {
               score = currentScore.getValue
               bestMove = new State(piece.curRow, piece.curCol, newRow, newCol, t)

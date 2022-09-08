@@ -1,10 +1,11 @@
 package Base
 
-import Base.Player.Player
+import Base.Player.{ConcreteAI, ConcretePlayer, Player}
+import Chess.{AIChess, ChessEn}
 import javafx.scene.Node
 import javafx.scene.layout.StackPane
 
-abstract class GameEngine(player1: Player, player2: Player, gameType: String) {
+abstract class GameEngine(players: Array[Player], gameType: String) {
   val gameController: Controller = null
   val gameDrawer: Drawer = null
   var gameBoard: Array[Array[Piece]]
@@ -14,20 +15,27 @@ abstract class GameEngine(player1: Player, player2: Player, gameType: String) {
 
   def startGame(gamePane: StackPane): Unit = {
     gameDrawer.setGamePane(gamePane)
-    player1.color = 1
+    players(1 - turn).color = 1
     gameDrawer.drawPiece()
-    player1.run()
-    player2.run()
-    gameDrawer.setEvents(Movement)
-  }
 
-  def update(): Unit = {
-    turn = 1 - turn
-    if (player1.color != turn && !player1.isInstanceOf[Player])
-      player1.DisableMovement()
-    else if (!player2.isInstanceOf[Player])
-      player2.DisableMovement()
+    players.foreach(player => player.run())
+    gameDrawer.setEvents(Movement)
+
+    play()
   }
 
   def Movement(source: Node): Unit = {}
+
+  def update(state: State = null): Unit = {
+    turn = 1 - turn
+
+    if (gameController.checkEndGame(gameBoard, state = state)) {
+      gameEnded = true
+      players.foreach(player => player.DisableMovement())
+    }
+
+    play()
+  }
+
+  def play(): Unit
 }
