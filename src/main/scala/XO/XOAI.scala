@@ -1,12 +1,12 @@
-package Base.Player
+package XO
 
-import Base._
-import XO.XOEn
+import Base.Player.Player
+import Base.{Controller, Drawer, GameEngine, Piece, State}
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 import javafx.util.Pair
 
-class ConcreteAI extends Player {
+class XOAI extends Player {
   override var observer: GameEngine = _
   private var gameController: Controller = _
   private var gameDrawer: Drawer = _

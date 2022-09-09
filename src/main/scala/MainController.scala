@@ -1,7 +1,7 @@
-import Base.Player.{ConcreteAI, ConcretePlayer, Player}
-import Chess.{AIChess, ChessEngine, ChessPlayer}
+import Base.Player.{ConcretePlayer, Player}
+import Chess.{ChessAI, ChessEngine, ChessPlayer}
 import Connect4.{Connect4AI, Connect4Engine}
-import XO.XOEngine
+import XO.{XOAI, XOEngine}
 import javafx.collections.FXCollections
 import javafx.scene.control.{Button, ComboBox}
 import javafx.scene.layout.{AnchorPane, GridPane, StackPane}
@@ -16,25 +16,25 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
   gameMode.getItems.addAll(FXCollections.observableArrayList("PvP", "PvA", "AvP", "AvA"))
   var gM: String = _
   val gameModeMap: Map[Pair[String, String], Array[Player]] = Map(
-    new Pair[String, String]("PvA", "Chess") -> Array[Player](new ChessPlayer, new AIChess),
+    new Pair[String, String]("PvA", "Chess") -> Array[Player](new ChessPlayer, new ChessAI),
     new Pair[String, String]("PvP", "Chess") -> Array[Player](new ChessPlayer, new ChessPlayer),
-    new Pair[String, String]("AvA", "Chess") -> Array[Player](new AIChess, new AIChess),
-    new Pair[String, String]("AvP", "Chess") -> Array[Player](new AIChess, new ChessPlayer),
+    new Pair[String, String]("AvA", "Chess") -> Array[Player](new ChessAI, new ChessAI),
+    new Pair[String, String]("AvP", "Chess") -> Array[Player](new ChessAI, new ChessPlayer),
 
     new Pair[String, String]("PvA", "Connect4") -> Array[Player](new ConcretePlayer, new Connect4AI),
     new Pair[String, String]("PvP", "Connect4") -> Array[Player](new ConcretePlayer, new ConcretePlayer),
     new Pair[String, String]("AvA", "Connect4") -> Array[Player](new Connect4AI, new Connect4AI),
     new Pair[String, String]("AvP", "Connect4") -> Array[Player](new Connect4AI, new ConcretePlayer),
 
-    new Pair[String, String]("PvA", "Concrete") -> Array[Player](new ConcretePlayer, new ConcreteAI),
-    new Pair[String, String]("PvP", "Concrete") -> Array[Player](new ConcretePlayer, new ConcretePlayer),
-    new Pair[String, String]("AvA", "Concrete") -> Array[Player](new ConcreteAI, new ConcreteAI),
-    new Pair[String, String]("AvP", "Concrete") -> Array[Player](new ConcreteAI, new ConcretePlayer),
+    new Pair[String, String]("PvA", "XO") -> Array[Player](new ConcretePlayer, new XOAI),
+    new Pair[String, String]("PvP", "XO") -> Array[Player](new ConcretePlayer, new ConcretePlayer),
+    new Pair[String, String]("AvA", "XO") -> Array[Player](new XOAI, new XOAI),
+    new Pair[String, String]("AvP", "XO") -> Array[Player](new XOAI, new ConcretePlayer),
   )
 
   def XOStart(): Unit = {
     init()
-    val players = gameModeMap(new Pair[String, String](gM, "Concrete"))
+    val players = gameModeMap(new Pair[String, String](gM, "XO"))
     val gameEngine = new XOEngine(players, gameMode.getValue)
     players(0).setObserver(gameEngine)
     players(1).setObserver(gameEngine)

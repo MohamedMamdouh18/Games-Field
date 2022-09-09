@@ -5,6 +5,7 @@ import Base._
 import Chess.Pieces._
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
+import javafx.util.Pair
 
 class ChessPlayer extends Player {
   override var observer: GameEngine = _
@@ -20,20 +21,14 @@ class ChessPlayer extends Player {
   var promotion: Boolean = false
 
   override def run(buts: GridPane): Unit = {
-    var s, e: Int = 0
-    if (color == ChessEn.Black) {
-      s = 0
-      e = 1
-    } else {
-      s = 6
-      e = 7
-    }
-
-    promButs = buts
     gameDrawer = observer.gameDrawer.asInstanceOf[ChessDrawer]
     gameController = observer.gameController.asInstanceOf[ChessController]
     gameBoard = observer.gameBoard
-    gameDrawer.setEvents(Movement, gameBoard, s, e)
+    promButs = buts
+
+    val p: Pair[Int, Int] = gameController.getPlayerPieces(color)
+
+    gameDrawer.setEvents(Movement, gameBoard, p.getKey, p.getValue)
     gameDrawer.preparePromotion(this)
   }
 
@@ -65,16 +60,16 @@ class ChessPlayer extends Player {
         val s: State = new State(oldRow, oldCol, newRow, newCol, color)
 
         if ((newCol != oldCol || newRow != oldRow) && gameController.movementValidation(gameBoard, s).valid) {
-          val newBoard = gameController.copyBoard(gameBoard)
+          val removed = gameController.createState(gameBoard, curPiece, newRow, newCol)
 
-          gameController.createState(newBoard, newBoard(oldRow)(oldCol), newRow, newCol)
-
-          if (!gameController.checkMate(newBoard, color)) {
+          if (!gameController.checkMate(gameBoard, color)) {
+            gameController.restoreState(gameBoard, curPiece, removed, oldRow, oldCol, newRow, newCol)
             ReleaseLogic(source)
 
             if (!promotion)
               Notify()
-          }
+          } else
+            gameController.restoreState(gameBoard, curPiece, removed, oldRow, oldCol, newRow, newCol)
         }
       }
     })

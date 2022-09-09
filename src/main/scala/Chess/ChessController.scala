@@ -2,8 +2,7 @@ package Chess
 
 import Base.{Controller, MoveValidation, Piece, State}
 import Chess.Pieces.ChessPiece
-
-import scala.util.control.Breaks.breakable
+import javafx.util.Pair
 
 class ChessController extends Controller {
   override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int, state: State): Boolean = {
@@ -35,20 +34,28 @@ class ChessController extends Controller {
   def checkMate(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
     val enemyTurn = 1 - turn
     val kingPiece: ChessPiece = findKing(gameBoard, turn)
-    for (i <- gameBoard.indices) {
+    for (i <- gameBoard.indices)
       for (j <- gameBoard(i).indices) {
-        breakable {
-          val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
-          if (curPiece != null && curPiece.color == enemyTurn) {
-            val s: State = new State(curPiece.curRow, curPiece.curCol, kingPiece.curRow, kingPiece.curCol, enemyTurn)
+        val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
+        if (curPiece != null && curPiece.color == enemyTurn) {
+          val s: State = new State(curPiece.curRow, curPiece.curCol, kingPiece.curRow, kingPiece.curCol, enemyTurn)
 
-            if (movementValidation(gameBoard, s).valid)
-              return true
-          }
+          if (movementValidation(gameBoard, s).valid)
+            return true
         }
       }
-    }
     false
+  }
+
+  def getPlayerPieces(color: Int): Pair[Int, Int] = {
+    var p: Pair[Int, Int] = null
+
+    if (color == ChessEn.Black)
+      p = new Pair[Int, Int](0, 1)
+    else
+      p = new Pair[Int, Int](6, 7)
+
+    p
   }
 
   override def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation = {
@@ -60,26 +67,12 @@ class ChessController extends Controller {
       new MoveValidation(null, false)
   }
 
-  def findKing(gameBoard: Array[Array[Piece]], turn: Int): ChessPiece = {
+  private def findKing(gameBoard: Array[Array[Piece]], turn: Int): ChessPiece = {
     val kings: Array[String] = Array(ChessEn.WhiteKing, ChessEn.BlackKing)
-    for (i <- gameBoard.indices) {
-      for (j <- gameBoard(i).indices) {
+    for (i <- gameBoard.indices)
+      for (j <- gameBoard(i).indices)
         if (gameBoard(i)(j) != null && gameBoard(i)(j).name == kings(turn))
           return gameBoard(i)(j).asInstanceOf[ChessPiece]
-      }
-    }
     null
-  }
-
-  def copyBoard(gameBoard: Array[Array[Piece]]): Array[Array[Piece]] = {
-    val newBoard: Array[Array[Piece]] = Array.tabulate(8, 8)((_, _) => null)
-    for (i <- newBoard.indices) {
-      for (j <- newBoard(i).indices) {
-        if (gameBoard(i)(j) != null) {
-          newBoard(i)(j) = gameBoard(i)(j).clone()
-        }
-      }
-    }
-    newBoard
   }
 }

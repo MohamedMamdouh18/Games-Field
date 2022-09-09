@@ -7,27 +7,19 @@ import javafx.scene.Node
 import javafx.scene.layout.GridPane
 import javafx.util.Pair
 
-class AIChess extends Player {
+class ChessAI extends Player {
   override var observer: GameEngine = _
   private var gameController: ChessController = _
   private var gameDrawer: Drawer = _
   private var gameBoard: Array[Array[Piece]] = _
 
   override def run(buts: GridPane = null): Unit = {
-    var s, e: Int = 0
-    if (color == ChessEn.Black) {
-      s = 0
-      e = 1
-    } else {
-      s = 6
-      e = 7
-    }
-
     gameDrawer = observer.gameDrawer.asInstanceOf[ChessDrawer]
     gameController = observer.gameController.asInstanceOf[ChessController]
     gameBoard = observer.gameBoard
 
-    gameDrawer.setEvents((_: Node) => {}, gameBoard, s, e)
+    val p: Pair[Int, Int] = gameController.getPlayerPieces(color)
+    gameDrawer.setEvents((_: Node) => {}, gameBoard, p.getKey, p.getKey)
   }
 
   override def Movement(source: Node): Unit = {

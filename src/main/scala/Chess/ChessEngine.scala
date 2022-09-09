@@ -71,7 +71,7 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
   }
 
   override def play(): Unit = {
-    if (players(turn).isInstanceOf[AIChess])
+    if (players(turn).isInstanceOf[ChessAI])
       players(turn).Movement()
   }
 
@@ -79,8 +79,8 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
     turn = 1 - turn
     play()
 
-    if (gameController.checkMate(gameController.copyBoard(gameBoard), turn))
-      if (gameController.checkEndGame(gameController.copyBoard(gameBoard), turn))
+    if (gameController.checkMate(gameBoard, turn))
+      if (gameController.checkEndGame(gameBoard, turn))
         gameEnded = true
   }
 

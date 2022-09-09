@@ -1,6 +1,6 @@
 package XO
 
-import Base.Player.{ConcreteAI, ConcretePlayer, Player}
+import Base.Player.{ConcretePlayer, Player}
 import Base.{GameEngine, Piece, State}
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
@@ -23,13 +23,13 @@ class XOEngine(players: Array[Player], gameType: String) extends GameEngine(play
   }
 
   override def play(): Unit = {
-    if (!players(1 - turn).isInstanceOf[ConcretePlayer] && players(turn).isInstanceOf[ConcreteAI])
+    if (!players(1 - turn).isInstanceOf[ConcretePlayer] && players(turn).isInstanceOf[XOAI])
       players(1 - turn).DisableMovement()
 
-    if (players(turn).isInstanceOf[ConcretePlayer] && players(1 - turn).isInstanceOf[ConcreteAI])
+    if (players(turn).isInstanceOf[ConcretePlayer] && players(1 - turn).isInstanceOf[XOAI])
       gameDrawer.setEvents(Movement)
 
-    if (players(turn).isInstanceOf[ConcreteAI])
+    if (players(turn).isInstanceOf[XOAI])
       players(turn).Movement()
   }
 }
