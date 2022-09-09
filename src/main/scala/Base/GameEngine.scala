@@ -26,10 +26,10 @@ abstract class GameEngine(players: Array[Player], gameType: String) {
 
   def Movement(source: Node): Unit = {}
 
-  def update(state: State = null): Unit = {
+  def update(): Unit = {
     turn = 1 - turn
 
-    if (gameController.checkEndGame(gameBoard, state = state)) {
+    if (gameController.checkEndGame(gameBoard)) {
       gameEnded = true
       players.foreach(player => player.DisableMovement())
     }

@@ -17,7 +17,7 @@ class XOEngine(players: Array[Player], gameType: String) extends GameEngine(play
       val check = gameController.movementValidation(gameBoard, s)
       if (check.valid && !gameEnded) {
         gameDrawer.movementDraw(source, s)
-        update(check.state)
+        update()
       }
     })
   }

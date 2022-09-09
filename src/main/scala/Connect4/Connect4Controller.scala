@@ -18,7 +18,7 @@ class Connect4Controller extends Controller {
     new MoveValidation(null, false)
   }
 
-  override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int, state: State): Boolean = {
+  override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
     val turns: Array[String] = Array(Connect4En.Yellow, Connect4En.Red)
     val dx: Array[Int] = Array(1, 1, 0, 0, -1, -1, 1, -1)
     val dy: Array[Int] = Array(1, -1, 1, -1, -1, 1, 0, 0)

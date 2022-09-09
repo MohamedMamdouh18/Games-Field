@@ -3,7 +3,7 @@ package Base
 abstract class Controller {
   def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation
 
-  def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int = 0, state: State = null): Boolean
+  def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int = 0): Boolean
 
   def createState(gameBoard: Array[Array[Piece]], modifiedPiece: Piece, newX: Int, newY: Int): Piece = {
     val removed = gameBoard(newX)(newY)

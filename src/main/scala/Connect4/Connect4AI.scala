@@ -17,7 +17,6 @@ class Connect4AI extends Player {
     gameDrawer = observer.gameDrawer
     gameController = observer.gameController
     gameBoard = observer.gameBoard
-
   }
 
   override def Movement(source: Node): Unit = {

@@ -19,7 +19,7 @@ class ChessAI extends Player {
     gameBoard = observer.gameBoard
 
     val p: Pair[Int, Int] = gameController.getPlayerPieces(color)
-    gameDrawer.setEvents((_: Node) => {}, gameBoard, p.getKey, p.getKey)
+    gameDrawer.setEvents((_: Node) => {}, gameBoard, p.getKey, p.getValue)
   }
 
   override def Movement(source: Node): Unit = {

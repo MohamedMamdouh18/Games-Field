@@ -10,10 +10,8 @@ abstract class Player {
 
   def run(buts: GridPane = null): Unit
 
-  def Notify(state: State = null): Unit = {
-    if (state != null)
-      observer.update(state)
-    else observer.update()
+  def Notify(): Unit = {
+    observer.update()
   }
 
   def Movement(source: Node = null): Unit

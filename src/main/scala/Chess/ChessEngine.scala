@@ -71,11 +71,11 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
   }
 
   override def play(): Unit = {
-    if (players(turn).isInstanceOf[ChessAI])
+    if (players(turn).isInstanceOf[ChessAI] && !gameEnded)
       players(turn).Movement()
   }
 
-  override def update(state: State): Unit = {
+  override def update(): Unit = {
     turn = 1 - turn
     play()
 

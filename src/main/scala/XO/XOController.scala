@@ -16,7 +16,7 @@ class XOController extends Controller {
       new MoveValidation(state, false)
   }
 
-  override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int, state: State): Boolean = {
+  override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
     for (i <- 0 until 3) {
       if (gameBoard(i)(0) != null && gameBoard(i)(1) != null && gameBoard(i)(2) != null &&
         gameBoard(i)(0).color == gameBoard(i)(1).color && gameBoard(i)(0).color == gameBoard(i)(2).color) {

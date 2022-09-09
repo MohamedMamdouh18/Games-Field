@@ -16,8 +16,6 @@ class XOAI extends Player {
     gameDrawer = observer.gameDrawer
     gameController = observer.gameController
     gameBoard = observer.gameBoard
-
-    gameDrawer.setEvents((_: Node) => {}, gameBoard)
   }
 
   override def Movement(source: Node): Unit = {

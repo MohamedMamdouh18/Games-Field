@@ -1,11 +1,11 @@
 package Chess
 
 import Base.{Controller, MoveValidation, Piece, State}
-import Chess.Pieces.{Bishop, ChessPiece, King}
+import Chess.Pieces.ChessPiece
 import javafx.util.Pair
 
 class ChessController extends Controller {
-  override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int, state: State): Boolean = {
+  override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
     for (i <- gameBoard.indices) {
       for (j <- gameBoard(i).indices) {
         val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
@@ -57,17 +57,6 @@ class ChessController extends Controller {
     false
   }
 
-  def getPlayerPieces(color: Int): Pair[Int, Int] = {
-    var p: Pair[Int, Int] = null
-
-    if (color == ChessEn.Black)
-      p = new Pair[Int, Int](0, 1)
-    else
-      p = new Pair[Int, Int](6, 7)
-
-    p
-  }
-
   override def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation = {
     val piece = gameBoard(state.oldRow)(state.oldCol).asInstanceOf[ChessPiece]
 
@@ -84,5 +73,16 @@ class ChessController extends Controller {
         if (gameBoard(i)(j) != null && gameBoard(i)(j).name == kings(turn))
           return gameBoard(i)(j).asInstanceOf[ChessPiece]
     null
+  }
+
+  def getPlayerPieces(color: Int): Pair[Int, Int] = {
+    var p: Pair[Int, Int] = null
+
+    if (color == ChessEn.Black)
+      p = new Pair[Int, Int](0, 1)
+    else
+      p = new Pair[Int, Int](6, 7)
+
+    p
   }
 }
