@@ -24,12 +24,15 @@ class ConcreteAI extends Player {
     if (observer.gameEnded)
       return
 
-    val move: State = miniMax(gameBoard, observer.turn)
+    val move: State = miniMax(gameBoard)
     var src: Node = null
 
     gameDrawer.gameBoard.getChildren.forEach(node => {
       if (GridPane.getColumnIndex(node) == move.oldCol && GridPane.getRowIndex(node) == move.oldRow) {
         src = node
+        gameBoard(move.oldRow)(move.oldCol) = new Piece(if (observer.turn == 0) XOEn.X else XOEn.O,
+          move.oldRow, move.oldCol, observer.turn)
+        move.turn = observer.turn
         gameDrawer.movementDraw(src, move)
         Notify()
         return
@@ -37,29 +40,17 @@ class ConcreteAI extends Player {
     })
   }
 
-  def max_value(board: Array[Array[Piece]], bestScore: Int, turn: Int): Pair[Int, State] = {
-    println("max")
-    for (i <- board.indices) {
-      for (j <- board.indices) {
-        if (board(i)(j) != null) print(board(i)(j).name + " ")
-        else print("| ")
-      }
-      println()
-    }
-    println()
-    if (gameController.checkEndGame(board)) {
-      println(turn)
-      return new Pair[Int, State](estimator(turn), null)
-    }
+  def max_value(board: Array[Array[Piece]], bestScore: Int): Pair[Int, State] = {
+    if (terminal(board))
+      return new Pair[Int, State](estimator(board), null)
 
     var score = Int.MinValue
     var bestState: State = null
 
     for (move <- moves(board)) {
-      val ans = min_value(result(board, move, turn), score, 1 - turn)
+      val ans = min_value(result(board, move), score)
       if (score <= ans.getKey) {
         score = ans.getKey
-        move.turn = turn
         bestState = move
       }
       if (score >= bestScore)
@@ -69,29 +60,17 @@ class ConcreteAI extends Player {
     new Pair[Int, State](score, bestState)
   }
 
-  def min_value(board: Array[Array[Piece]], bestScore: Int, turn: Int): Pair[Int, State] = {
-    println("min")
-    for (i <- board.indices) {
-      for (j <- board.indices) {
-        if (board(i)(j) != null) print(board(i)(j).name + " ")
-        else print("| ")
-      }
-      println()
-    }
-    println()
-    if (gameController.checkEndGame(board)) {
-      println(turn)
-      return new Pair[Int, State](estimator(turn), null)
-    }
+  def min_value(board: Array[Array[Piece]], bestScore: Int): Pair[Int, State] = {
+    if (terminal(board))
+      return new Pair[Int, State](estimator(board), null)
 
     var score = Int.MaxValue
     var bestState: State = null
 
     for (move <- moves(board)) {
-      val ans = max_value(result(board, move, turn), score, 1 - turn)
+      val ans = max_value(result(board, move), score)
       if (score >= ans.getKey) {
         score = ans.getKey
-        move.turn = turn
         bestState = move
       }
       if (score <= bestScore)
@@ -101,41 +80,119 @@ class ConcreteAI extends Player {
     new Pair[Int, State](score, bestState)
   }
 
-  private def moves(board: Array[Array[Piece]]): Array[State] = {
-    var moves: Array[State] = Array()
+  private def player(board: Array[Array[Piece]]): String = {
+    var cnt = 0
+
+    for (i <- 0 until 3)
+      for (j <- 0 until 3)
+        if (board(i)(j) != null)
+          cnt = cnt + 1
+
+    if ((cnt & 1) == 0)
+      XOEn.X
+    else
+      XOEn.O
+  }
+
+  private def moves(board: Array[Array[Piece]]): Set[State] = {
+    var moves: Set[State] = Set()
 
     for (i <- 0 until 3)
       for (j <- 0 until 3)
         if (board(i)(j) == null)
-          moves = moves :+ new State(i, j, 0, 0, -1)
+          moves = moves ++ Set(new State(i, j, 0, 0, -1))
 
     moves
   }
 
-  private def estimator(t: Int): Int = {
-    if (t == 0) return -1 else return 1
+  private def estimator(board: Array[Array[Piece]]): Int = {
+    val winnerName = winner(board)
 
-    0
+    if (winnerName == XOEn.X)
+      1
+    else if (winnerName == XOEn.O)
+      -1
+    else
+      0
   }
 
-  private def result(board: Array[Array[Piece]], state: State, turn: Int): Array[Array[Piece]] = {
+  private def result(board: Array[Array[Piece]], state: State): Array[Array[Piece]] = {
     val newBoard = copyBoard(board)
+    val t = player(board)
 
-    newBoard(state.oldRow)(state.oldCol) = new Piece(if (turn == 0) XOEn.X else XOEn.O,
-      state.oldRow, state.oldCol, turn)
+    newBoard(state.oldRow)(state.oldCol) = new Piece(t, state.oldRow, state.oldCol, if (t == XOEn.X) 0 else 1)
 
     newBoard
   }
 
-  private def miniMax(board: Array[Array[Piece]], t: Int): State = {
-    if (observer.gameEnded)
-      return new State(0, 0, 0, 0, 0)
+  private def terminal(board: Array[Array[Piece]]): Boolean = {
+    if (winner(board) != null)
+      return true
+
+    for (i <- 0 until 3)
+      for (j <- 0 until 3)
+        if (board(i)(j) == null)
+          return false
+
+    true
+  }
+
+  private def determineWinner(piece: Piece): String = {
+    if (piece.name == XOEn.X)
+      XOEn.X
+    else if (piece.name == XOEn.O)
+      XOEn.O
+    else
+      null
+  }
+
+  private def winner(board: Array[Array[Piece]]): String = {
+    var winnerName: String = null
+    for (i <- 0 until 3) {
+      if (board(i)(0) != null && board(i)(1) != null && board(i)(2) != null &&
+        board(i)(0).name == board(i)(1).name && board(i)(0).name == board(i)(2).name) {
+        winnerName = determineWinner(board(i)(0))
+        if (winnerName != null)
+          return winnerName
+      }
+    }
+
+    for (i <- 0 until 3) {
+      if (board(0)(i) != null && board(1)(i) != null && board(2)(i) != null &&
+        board(0)(i).name == board(1)(i).name && board(0)(i).name == board(2)(i).name) {
+        winnerName = determineWinner(board(0)(i))
+        if (winnerName != null)
+          return winnerName
+      }
+    }
+
+    if (board(0)(0) != null && board(1)(1) != null && board(2)(2) != null &&
+      board(0)(0).name == board(1)(1).name && board(0)(0).name == board(2)(2).name) {
+      winnerName = determineWinner(board(1)(1))
+      if (winnerName != null)
+        return winnerName
+    }
+
+    if (board(0)(2) != null && board(1)(1) != null && board(2)(0) != null &&
+      board(0)(2).name == board(1)(1).name && board(0)(2).name == board(2)(0).name) {
+      winnerName = determineWinner(board(1)(1))
+      if (winnerName != null)
+        return winnerName
+    }
+
+    null
+  }
+
+  private def miniMax(board: Array[Array[Piece]]): State = {
+    if (terminal(board))
+      return new State(-1, -1, -1, -1, -1)
 
     var ans: Pair[Int, State] = null
-    if (t == 0)
-      ans = max_value(board, Int.MaxValue, t)
+
+    if (player(board) == XOEn.X)
+      ans = max_value(board, Int.MaxValue)
     else
-      ans = min_value(board, Int.MinValue, t)
+      ans = min_value(board, Int.MinValue)
 
     ans.getValue
   }
