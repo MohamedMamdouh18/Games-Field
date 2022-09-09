@@ -11,16 +11,20 @@ class ChessController extends Controller {
       for (j <- gameBoard(i).indices) {
         val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
         if (curPiece != null && curPiece.color == turn) {
+          val oldRow = curPiece.curRow
+          val oldCol = curPiece.curCol
           val availableMoves = curPiece.validatedMoves(gameBoard)
+
           for (move <- availableMoves.indices) {
-            val newX = availableMoves(move).getKey
-            val newY = availableMoves(move).getValue
-            val newBoard = copyBoard(gameBoard)
+            val newRow = availableMoves(move).getKey
+            val newCol = availableMoves(move).getValue
+            val removed = createState(gameBoard, curPiece, newRow, newCol)
 
-            createState(newBoard, newBoard(i)(j), newX, newY)
-
-            if (!checkMate(newBoard, turn))
+            if (!checkMate(gameBoard, turn)) {
+              restoreState(gameBoard, curPiece, removed, oldRow, oldCol, newRow, newCol)
               return false
+            }
+            restoreState(gameBoard, curPiece, removed, oldRow, oldCol, newRow, newCol)
           }
         }
       }

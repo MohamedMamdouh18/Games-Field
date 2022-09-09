@@ -1,6 +1,6 @@
 import Base.Player.{ConcreteAI, ConcretePlayer, Player}
 import Chess.{AIChess, ChessEngine, ChessPlayer}
-import Connect4.Connect4Engine
+import Connect4.{Connect4AI, Connect4Engine}
 import XO.XOEngine
 import javafx.collections.FXCollections
 import javafx.scene.control.{Button, ComboBox}
@@ -20,6 +20,12 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
     new Pair[String, String]("PvP", "Chess") -> Array[Player](new ChessPlayer, new ChessPlayer),
     new Pair[String, String]("AvA", "Chess") -> Array[Player](new AIChess, new AIChess),
     new Pair[String, String]("AvP", "Chess") -> Array[Player](new AIChess, new ChessPlayer),
+
+    new Pair[String, String]("PvA", "Connect4") -> Array[Player](new ConcretePlayer, new Connect4AI),
+    new Pair[String, String]("PvP", "Connect4") -> Array[Player](new ConcretePlayer, new ConcretePlayer),
+    new Pair[String, String]("AvA", "Connect4") -> Array[Player](new Connect4AI, new Connect4AI),
+    new Pair[String, String]("AvP", "Connect4") -> Array[Player](new Connect4AI, new ConcretePlayer),
+
     new Pair[String, String]("PvA", "Concrete") -> Array[Player](new ConcretePlayer, new ConcreteAI),
     new Pair[String, String]("PvP", "Concrete") -> Array[Player](new ConcretePlayer, new ConcretePlayer),
     new Pair[String, String]("AvA", "Concrete") -> Array[Player](new ConcreteAI, new ConcreteAI),
@@ -47,7 +53,7 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
 
   def Connect4Start(): Unit = {
     init()
-    val players = gameModeMap(new Pair[String, String](gM, "Concrete"))
+    val players = gameModeMap(new Pair[String, String](gM, "Connect4"))
     val gameEngine = new Connect4Engine(players, gameMode.getValue)
     players(0).setObserver(gameEngine)
     players(1).setObserver(gameEngine)

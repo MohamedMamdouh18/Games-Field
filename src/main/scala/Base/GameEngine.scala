@@ -2,6 +2,7 @@ package Base
 
 import Base.Player.{ConcreteAI, ConcretePlayer, Player}
 import Chess.{AIChess, ChessEn}
+import Connect4.Connect4AI
 import javafx.scene.Node
 import javafx.scene.layout.StackPane
 
@@ -32,6 +33,9 @@ abstract class GameEngine(players: Array[Player], gameType: String) {
     if (gameController.checkEndGame(gameBoard, state = state)) {
       gameEnded = true
       players.foreach(player => player.DisableMovement())
+    }
+    if(players(turn).isInstanceOf[Connect4AI] && !gameEnded){
+      players(turn).Movement()
     }
 
     play()
