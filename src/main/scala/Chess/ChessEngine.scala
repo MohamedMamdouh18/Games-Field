@@ -79,9 +79,12 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
     turn = 1 - turn
     play()
 
-    if (gameController.checkMate(gameBoard, turn))
+    if (gameController.checkMate(gameBoard, turn)) {
+      gameController.findKing(gameBoard, turn).checked = true
       if (gameController.checkEndGame(gameBoard, turn))
         gameEnded = true
+    } else
+      gameController.findKing(gameBoard, turn).checked = false
   }
 
   def setPromButs(buts1: GridPane, buts2: GridPane): Unit = {

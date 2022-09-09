@@ -11,6 +11,8 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
   val dx: Array[Int]
   val dy: Array[Int]
   var firstMove: Boolean = true
+  var castled: Boolean = false
+  var checked: Boolean = false
   var moves: Moves = new Moves
   var rank: Int
 
@@ -53,7 +55,7 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
 
           if (validNewX <= 7 && validNewX >= 0 && validNewY >= 0 && validNewY <= 7) {
             if (canEat(board, validNewX, validNewY) || board(validNewX)(validNewY) == null)
-              if (execute(new State(newX, newY, validNewX, validNewY, 0)))
+              if (execute(new State(newX, newY, validNewX, validNewY, -1)))
                 return moves
 
             if (pieceName != ChessEn.WhiteKnight && pieceName != ChessEn.BlackKnight &&

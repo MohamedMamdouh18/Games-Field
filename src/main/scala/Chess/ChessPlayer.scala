@@ -87,9 +87,27 @@ class ChessPlayer extends Player {
       promButs.setVisible(true)
     }
 
+    if (curPiece.castled) {
+      var oldRookCol, newRookCol: Int = -1
+      if (newCol > oldCol) {
+        newRookCol = 5
+        oldRookCol = 7
+      } else {
+        newRookCol = 3
+        oldRookCol = 0
+      }
+
+      gameBoard(newRow)(newRookCol) = gameBoard(newRow)(oldRookCol)
+      gameBoard(newRow)(oldRookCol).curCol = newRookCol
+      gameBoard(newRow)(oldRookCol) = null
+      gameDrawer.movementDraw(gameBoard(newRow)(newRookCol).image,
+        new State(0, 0, newRow, newRookCol, -1), gameBoard(newRow)(newRookCol).image)
+      curPiece.castled = false
+    }
+
     gameBoard(oldRow)(oldCol) = null
     gameBoard(newRow)(newCol) = curPiece
-    gameDrawer.movementDraw(source, new State(0, 0, newRow, newCol, 0), source)
+    gameDrawer.movementDraw(source, new State(0, 0, newRow, newCol, -1), source)
 
     curPiece.firstMove = false
     curPiece.curCol = newCol

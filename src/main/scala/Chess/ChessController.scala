@@ -1,7 +1,7 @@
 package Chess
 
 import Base.{Controller, MoveValidation, Piece, State}
-import Chess.Pieces.ChessPiece
+import Chess.Pieces.{Bishop, ChessPiece, King}
 import javafx.util.Pair
 
 class ChessController extends Controller {
@@ -31,14 +31,24 @@ class ChessController extends Controller {
     true
   }
 
-  def checkMate(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
+  def checkMate(gameBoard: Array[Array[Piece]], turn: Int, r: Int = -1, c: Int = -1): Boolean = {
     val enemyTurn = 1 - turn
-    val kingPiece: ChessPiece = findKing(gameBoard, turn)
+    var row, col: Int = -1
+
+    if (r == -1) {
+      val kingPiece: ChessPiece = findKing(gameBoard, turn)
+      row = kingPiece.curRow
+      col = kingPiece.curCol
+    } else {
+      row = r
+      col = c
+    }
+
     for (i <- gameBoard.indices)
       for (j <- gameBoard(i).indices) {
         val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
         if (curPiece != null && curPiece.color == enemyTurn) {
-          val s: State = new State(curPiece.curRow, curPiece.curCol, kingPiece.curRow, kingPiece.curCol, enemyTurn)
+          val s: State = new State(curPiece.curRow, curPiece.curCol, row, col, enemyTurn)
 
           if (movementValidation(gameBoard, s).valid)
             return true
@@ -67,7 +77,7 @@ class ChessController extends Controller {
       new MoveValidation(null, false)
   }
 
-  private def findKing(gameBoard: Array[Array[Piece]], turn: Int): ChessPiece = {
+  def findKing(gameBoard: Array[Array[Piece]], turn: Int): ChessPiece = {
     val kings: Array[String] = Array(ChessEn.WhiteKing, ChessEn.BlackKing)
     for (i <- gameBoard.indices)
       for (j <- gameBoard(i).indices)
