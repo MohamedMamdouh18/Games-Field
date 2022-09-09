@@ -43,11 +43,12 @@ class ChessController extends Controller {
       row = r
       col = c
     }
+    val enemyKing = findKing(gameBoard, enemyTurn)
 
     for (i <- gameBoard.indices)
       for (j <- gameBoard(i).indices) {
         val curPiece = gameBoard(i)(j).asInstanceOf[ChessPiece]
-        if (curPiece != null && curPiece.color == enemyTurn) {
+        if (curPiece != null && curPiece.color == enemyTurn && curPiece != enemyKing) {
           val s: State = new State(curPiece.curRow, curPiece.curCol, row, col, enemyTurn)
 
           if (movementValidation(gameBoard, s).valid)

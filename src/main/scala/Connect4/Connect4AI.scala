@@ -25,14 +25,14 @@ class Connect4AI extends Player {
 
     gameBoard(move.oldRow)(move.oldCol) = new Piece(turns(color), move.oldRow, move.oldCol, color)
 
-//    for (i <- gameBoard.indices) {
-//      for (j <- gameBoard(i).indices) {
-//        if (gameBoard(i)(j) == null) print(" | ")
-//        else print(" " + gameBoard(i)(j).name(0) + " ")
-//      }
-//      println()
-//    }
-//    println("..................")
+    //    for (i <- gameBoard.indices) {
+    //      for (j <- gameBoard(i).indices) {
+    //        if (gameBoard(i)(j) == null) print(" | ")
+    //        else print(" " + gameBoard(i)(j).name(0) + " ")
+    //      }
+    //      println()
+    //    }
+    //    println("..................")
 
     var src: Node = null
     gameDrawer.gameBoard.getChildren.forEach(node => {
@@ -46,12 +46,14 @@ class Connect4AI extends Player {
   }
 
   private def miniMax(board: Array[Array[Piece]], turn: Int, bestScore: Int, depth: Int): Pair[State, Int] = {
-    if (gameController.checkEndGame(board, 1 - turn)) {
+    if (gameController.checkEndGame(board, turn))
+      return new Pair[State, Int](null, if (turn == 0) -4 else 4)
+    else if (gameController.checkEndGame(board, 1 - turn))
       return new Pair[State, Int](null, if (1 - turn == 0) -4 else 4)
-    }
-    if (checkTie(board)) {
+    else if (checkTie(board))
       return new Pair[State, Int](null, 0)
-    }
+    if(depth == 0)
+      return new Pair[State, Int](null, estimate(gameBoard , turn))
 
     var score = if (turn == 0) 5 else -5
     var bestMove: State = null
@@ -61,11 +63,7 @@ class Connect4AI extends Player {
         val freeRow = getRow(board, col)
         board(freeRow)(col) = new Piece(turns(turn), freeRow, col, turn)
 
-        var curScore: Pair[State, Int] = null
-        if (depth == 0)
-          curScore = new Pair[State, Int](null, if (turn == 0) estimate(board, turn) * -1 else estimate(board, turn))
-        else
-          curScore = miniMax(board, 1 - turn, score, depth - 1)
+        var curScore: Pair[State, Int] = miniMax(board, 1 - turn, score, depth - 1)
         board(freeRow)(col) = null
 
         if (turn == 0) {
