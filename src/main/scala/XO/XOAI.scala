@@ -51,63 +51,35 @@ class XOAI extends Player {
     var beta: Int = b
     var bestMove: State = null
 
-    for (move <- moves(board)) {
-      val newBoard = copyBoard(board)
-      newBoard(move.oldRow)(move.oldCol) = new Piece(if (turn == 0) XOEn.X else XOEn.O,
-        move.oldRow, move.oldCol, turn)
+    for (i <- 0 until 3) {
+      for (j <- 0 until 3) {
+        if (board(i)(j) == null) {
+          board(i)(j) = new Piece(if (turn == 0) XOEn.X else XOEn.O, i, j, turn)
 
-      val newScore: Int = miniMax(newBoard, 1 - turn, alpha, beta).getKey
+          val newScore: Int = miniMax(board, 1 - turn, alpha, beta).getKey
+          board(i)(j) = null
 
-      //board(move.oldRow)(move.oldCol) = new Piece(if (turn == 0) XOEn.X else XOEn.O,
-      //  move.oldRow, move.oldCol, turn)
-
-      //val newScore: Int = miniMax(board, 1 - turn, alpha, beta).getKey
-      //board(move.oldRow)(move.oldCol) = null
-
-      if (turn == 0) {
-        if (newScore > score) {
-          score = newScore
-          move.turn = turn
-          bestMove = move
+          if (turn == 0) {
+            if (newScore > score) {
+              score = newScore
+              bestMove = new State(i, j, -1, -1, turn)
+            }
+            alpha = Math.max(alpha, score)
+            if (alpha >= beta)
+              return new Pair[Int, State](score, bestMove)
+          } else {
+            if (newScore < score) {
+              score = newScore
+              bestMove = new State(i, j, -1, -1, turn)
+            }
+            beta = Math.min(beta, score)
+            if (alpha >= beta)
+              return new Pair[Int, State](score, bestMove)
+          }
         }
-        alpha = Math.max(alpha, score)
-        if (alpha >= beta)
-          return new Pair[Int, State](score, bestMove)
-      } else {
-        if (newScore < score) {
-          score = newScore
-          move.turn = turn
-          bestMove = move
-        }
-        beta = Math.min(beta, score)
-        if (alpha >= beta)
-          return new Pair[Int, State](score, bestMove)
       }
     }
 
     new Pair[Int, State](score, bestMove)
-  }
-
-  private def moves(board: Array[Array[Piece]]): Array[State] = {
-    var moves: Array[State] = Array()
-
-    for (i <- 0 until 3)
-      for (j <- 0 until 3)
-        if (board(i)(j) == null)
-          moves = moves :+ new State(i, j, 0, 0, -1)
-
-    moves
-  }
-
-  private def copyBoard(gameBoard: Array[Array[Piece]]): Array[Array[Piece]] = {
-    val newBoard: Array[Array[Piece]] = Array.tabulate(3, 3)((_, _) => null)
-    for (i <- newBoard.indices) {
-      for (j <- newBoard(i).indices) {
-        if (gameBoard(i)(j) != null) {
-          newBoard(i)(j) = gameBoard(i)(j).clone()
-        }
-      }
-    }
-    newBoard
   }
 }
