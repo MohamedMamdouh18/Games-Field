@@ -20,19 +20,9 @@ class Connect4AI extends Player {
   }
 
   override def Movement(source: Node): Unit = {
-    val move = miniMax(gameBoard, color, if (color == 0) 5 else -5, 6).getKey
-
+    val move = miniMax(gameBoard, color, if (color == 0) 1000 else -1000, if (color == 0) -1000 else 1000, 6).getKey
 
     gameBoard(move.oldRow)(move.oldCol) = new Piece(turns(color), move.oldRow, move.oldCol, color)
-
-    //    for (i <- gameBoard.indices) {
-    //      for (j <- gameBoard(i).indices) {
-    //        if (gameBoard(i)(j) == null) print(" | ")
-    //        else print(" " + gameBoard(i)(j).name(0) + " ")
-    //      }
-    //      println()
-    //    }
-    //    println("..................")
 
     var src: Node = null
     gameDrawer.gameBoard.getChildren.forEach(node => {
@@ -45,25 +35,27 @@ class Connect4AI extends Player {
     })
   }
 
-  private def miniMax(board: Array[Array[Piece]], turn: Int, bestScore: Int, depth: Int): Pair[State, Int] = {
+  private def miniMax(board: Array[Array[Piece]], turn: Int, a: Int, b: Int, depth: Int): Pair[State, Int] = {
     if (gameController.checkEndGame(board, turn))
-      return new Pair[State, Int](null, if (turn == 0) -4 else 4)
+      return new Pair[State, Int](null, if (turn == 0) -100 else 100)
     else if (gameController.checkEndGame(board, 1 - turn))
-      return new Pair[State, Int](null, if (1 - turn == 0) -4 else 4)
+      return new Pair[State, Int](null, if (1 - turn == 0) -100 else 100)
     else if (checkTie(board))
       return new Pair[State, Int](null, 0)
-    if(depth == 0)
-      return new Pair[State, Int](null, estimate(gameBoard , turn))
+    if (depth == 0)
+      return new Pair[State, Int](null, if (turn == 0) estimate(gameBoard, turn) * -1 else estimate(gameBoard, turn))
 
-    var score = if (turn == 0) 5 else -5
+    var score = if (turn == 0) 1000 else -1000
     var bestMove: State = null
+    var alpha: Int = a
+    var beta: Int = b
 
-    for (col <- 0 until 7) {
-      if (board(5)(col) == null) {
-        val freeRow = getRow(board, col)
+    for (col <- 0 until Connect4En.ColLen) {
+      val freeRow = getRow(board, col)
+      if (freeRow < Connect4En.RowLen) {
         board(freeRow)(col) = new Piece(turns(turn), freeRow, col, turn)
 
-        var curScore: Pair[State, Int] = miniMax(board, 1 - turn, score, depth - 1)
+        val curScore: Pair[State, Int] = miniMax(board, 1 - turn, alpha, beta, depth - 1)
         board(freeRow)(col) = null
 
         if (turn == 0) {
@@ -71,7 +63,8 @@ class Connect4AI extends Player {
             score = curScore.getValue
             bestMove = new State(freeRow, col, 0, 0, turn)
           }
-          if (curScore.getValue < bestScore) {
+          beta = Math.min(beta, score)
+          if (alpha >= beta) {
             return new Pair[State, Int](bestMove, score)
           }
         } else {
@@ -79,7 +72,8 @@ class Connect4AI extends Player {
             score = curScore.getValue
             bestMove = new State(freeRow, col, 0, 0, turn)
           }
-          if (curScore.getValue > bestScore) {
+          alpha = Math.max(alpha, score)
+          if (alpha >= beta) {
             return new Pair[State, Int](bestMove, score)
           }
         }
@@ -89,7 +83,7 @@ class Connect4AI extends Player {
   }
 
   private def getRow(board: Array[Array[Piece]], Col: Int): Int = {
-    for (i <- 5 to 0 by -1) {
+    for (i <- Connect4En.RowLen - 1 to 0 by -1) {
       if (board(i)(Col) != null)
         return i + 1
     }
@@ -106,36 +100,71 @@ class Connect4AI extends Player {
   }
 
   private def estimate(gameBoard: Array[Array[Piece]], turn: Int): Int = {
-    val turns: Array[String] = Array(Connect4En.Yellow, Connect4En.Red)
-    val dx: Array[Int] = Array(1, 1, 0, 0, -1, -1, 1, -1)
-    val dy: Array[Int] = Array(1, -1, 1, -1, -1, 1, 0, 0)
     var score: Int = 0
 
-    gameBoard.foreach(_.foreach(piece => {
-      if (piece != null && piece.name == turns(turn)) {
-        for (i <- 0 until 8) {
-          score = math.max(score, checkDirection(gameBoard, piece.curRow, piece.curCol, dx(i), dy(i)))
-          if (score == 4) {
-            return 4
-          }
-        }
+    //Score center column
+    var centerCount: Int = 0
+    for (row <- 0 until Connect4En.RowLen)
+      if (gameBoard(row)(3) != null && gameBoard(row)(3).color == turn) centerCount += 1
+    score += centerCount * 3
+
+    //vertical score
+    for (col <- 0 until Connect4En.ColLen) {
+      for (row <- 0 until Connect4En.RowLen - 3) {
+        var window: Array[Piece] = Array[Piece]()
+        for (i <- 0 until Connect4En.WindowLen)
+          window = window :+ gameBoard(row + i)(col)
+        score += evaluateWindow(window, turn)
       }
-    }))
+    }
+
+    //horizontal score
+    for (row <- 0 until Connect4En.RowLen) {
+      for (col <- 0 until Connect4En.ColLen - 3) {
+        var window: Array[Piece] = Array[Piece]()
+        for (i <- 0 until Connect4En.WindowLen)
+          window = window :+ gameBoard(row)(col + i)
+        score += evaluateWindow(window, turn)
+      }
+    }
+
+    //diagonal score
+    for (row <- 0 until Connect4En.RowLen - 3) {
+      for (col <- 0 until Connect4En.ColLen - 3) {
+        var window: Array[Piece] = Array[Piece]()
+        for (i <- 0 until Connect4En.WindowLen)
+          window = window :+ gameBoard(row + i)(col + i)
+        score += evaluateWindow(window, turn)
+      }
+    }
+
+    for (row <- 0 until Connect4En.RowLen - 3) {
+      for (col <- 0 until Connect4En.ColLen - 3) {
+        var window: Array[Piece] = Array[Piece]()
+        for (i <- 0 until Connect4En.WindowLen)
+          window = window :+ gameBoard(row + 3 - i)(col + i)
+        score += evaluateWindow(window, turn)
+      }
+    }
     score
   }
 
-  private def checkDirection(gameBoard: Array[Array[Piece]], row: Int, col: Int, i: Int, j: Int): Int = {
-    val turn = gameBoard(row)(col).name
-    var score: Int = 1
-    for (move <- 1 to 3) {
-      val newRow = row + move * i
-      val newCol = col + move * j
-      if (newRow < 0 || newRow > 5 || newCol < 0 || newCol > 6
-        || gameBoard(newRow)(newCol) == null || gameBoard(newRow)(newCol).name != turn) {
-        return score
-      }
-      score += 1
+  private def evaluateWindow(window: Array[Piece], turn: Int): Int = {
+    var empty: Int = 0
+    var enemy: Int = 0
+    var ally: Int = 0
+    var score: Int = 0
+    for (i <- window.indices) {
+      if (window(i) == null) empty += 1
+      else if (window(i).color == turn) ally += 1
+      else enemy += 1
     }
-    4
+    if (ally == 4) score += 100
+    else if (ally == 3 && empty == 1) score += 5
+    else if (ally == 2 && empty == 2) score += 2
+
+    if (enemy == 3 && empty == 1) score -= 4
+
+    score
   }
 }

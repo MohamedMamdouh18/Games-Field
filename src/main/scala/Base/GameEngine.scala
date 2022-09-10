@@ -1,7 +1,6 @@
 package Base
 
 import Base.Player.Player
-import Connect4.Connect4AI
 import javafx.scene.Node
 import javafx.scene.layout.StackPane
 
@@ -29,14 +28,10 @@ abstract class GameEngine(players: Array[Player], gameType: String) {
   def update(): Unit = {
     turn = 1 - turn
 
-    if (gameController.checkEndGame(gameBoard)) {
+    if (gameController.checkEndGame(gameBoard, 1 - turn)) {
       gameEnded = true
       players.foreach(player => player.DisableMovement())
     }
-    if (players(turn).isInstanceOf[Connect4AI] && !gameEnded) {
-      players(turn).Movement()
-    }
-
     play()
   }
 
