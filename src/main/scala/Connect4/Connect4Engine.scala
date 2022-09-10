@@ -13,7 +13,8 @@ class Connect4Engine(players: Array[Player], gameType: String) extends GameEngin
 
   override def Movement(source: Node): Unit = {
     source.setOnMouseClicked(_ => {
-      if (gameBoard(5 - GridPane.getRowIndex(source))(GridPane.getColumnIndex(source)) == null && !players(turn).isInstanceOf[Connect4AI]) {
+      if (players(turn).isInstanceOf[Connect4AI]) return
+      if (gameBoard(5 - GridPane.getRowIndex(source))(GridPane.getColumnIndex(source)) == null) {
         val validation = gameController.movementValidation(gameBoard,
           new State(0, GridPane.getColumnIndex(source), 0, 0, turn))
         if (validation.valid) {

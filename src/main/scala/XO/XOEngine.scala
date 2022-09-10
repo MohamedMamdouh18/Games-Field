@@ -13,6 +13,7 @@ class XOEngine(players: Array[Player], gameType: String) extends GameEngine(play
 
   override def Movement(source: Node): Unit = {
     source.setOnMouseClicked(_ => {
+      if (players(turn).isInstanceOf[XOAI]) return
       val s: State = new State(GridPane.getRowIndex(source), GridPane.getColumnIndex(source), 0, 0, turn)
       val check = gameController.movementValidation(gameBoard, s)
       if (check.valid && !gameEnded) {
@@ -23,13 +24,7 @@ class XOEngine(players: Array[Player], gameType: String) extends GameEngine(play
   }
 
   override def play(): Unit = {
-    if (!players(1 - turn).isInstanceOf[ConcretePlayer] && players(turn).isInstanceOf[XOAI])
-      players(1 - turn).DisableMovement()
-
-    if (players(turn).isInstanceOf[ConcretePlayer] && players(1 - turn).isInstanceOf[XOAI])
-      gameDrawer.setEvents(Movement)
-
-    if (players(turn).isInstanceOf[XOAI])
+    if (players(turn).isInstanceOf[XOAI] && !gameEnded)
       players(turn).Movement()
   }
 }
