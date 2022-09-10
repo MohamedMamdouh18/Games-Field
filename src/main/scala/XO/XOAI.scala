@@ -23,7 +23,6 @@ class XOAI extends Player {
       return
 
     val move: State = miniMax(gameBoard, color, Int.MinValue, Int.MaxValue).getValue
-    println(move.oldRow)
     var src: Node = null
 
     gameDrawer.gameBoard.getChildren.forEach(node => {
@@ -40,7 +39,6 @@ class XOAI extends Player {
   }
 
   private def miniMax(board: Array[Array[Piece]], turn: Int, a: Int, b: Int): Pair[Int, State] = {
-    println(a, b)
     if (gameController.checkEndGame(board))
       return new Pair[Int, State](if (turn == 0) -1 else 1, null)
     else if (gameController.checkTie(board))
@@ -64,18 +62,19 @@ class XOAI extends Player {
               score = newScore
               bestMove = new State(i, j, -1, -1, turn)
             }
+
             alpha = Math.max(alpha, score)
-            if (alpha >= beta)
-              return new Pair[Int, State](score, bestMove)
           } else {
             if (newScore < score) {
               score = newScore
               bestMove = new State(i, j, -1, -1, turn)
             }
+
             beta = Math.min(beta, score)
-            if (alpha >= beta)
-              return new Pair[Int, State](score, bestMove)
           }
+
+          if (alpha >= beta)
+            return new Pair[Int, State](score, bestMove)
         }
       }
     }
