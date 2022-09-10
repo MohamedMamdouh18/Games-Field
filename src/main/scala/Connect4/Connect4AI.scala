@@ -11,7 +11,7 @@ class Connect4AI extends Player {
   private var gameController: Controller = _
   private var gameDrawer: Drawer = _
   private var gameBoard: Array[Array[Piece]] = _
-  val turns: Array[String] = Array(Connect4En.Yellow, Connect4En.Red)
+  private val turns: Array[String] = Array(Connect4En.Yellow, Connect4En.Red)
 
   override def run(buts: GridPane = null): Unit = {
     gameDrawer = observer.gameDrawer
@@ -20,7 +20,7 @@ class Connect4AI extends Player {
   }
 
   override def Movement(source: Node): Unit = {
-    val move = miniMax(gameBoard, color, if (color == 0) 1000 else -1000, if (color == 0) -1000 else 1000, 6).getKey
+    val move = miniMax(gameBoard, color, -1000, 1000, 6).getKey
 
     gameBoard(move.oldRow)(move.oldCol) = new Piece(turns(color), move.oldRow, move.oldCol, color)
 
@@ -64,18 +64,15 @@ class Connect4AI extends Player {
             bestMove = new State(freeRow, col, 0, 0, turn)
           }
           beta = Math.min(beta, score)
-          if (alpha >= beta) {
-            return new Pair[State, Int](bestMove, score)
-          }
         } else {
           if (curScore.getValue > score) {
             score = curScore.getValue
             bestMove = new State(freeRow, col, 0, 0, turn)
           }
           alpha = Math.max(alpha, score)
-          if (alpha >= beta) {
-            return new Pair[State, Int](bestMove, score)
-          }
+        }
+        if (alpha >= beta) {
+          return new Pair[State, Int](bestMove, score)
         }
       }
     }

@@ -1,6 +1,6 @@
 package Base.Player
 
-import Base.{GameEngine, State}
+import Base.GameEngine
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 

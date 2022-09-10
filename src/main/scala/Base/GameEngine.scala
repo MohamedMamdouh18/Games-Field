@@ -14,7 +14,7 @@ abstract class GameEngine(players: Array[Player], gameType: String) {
 
   def startGame(gamePane: StackPane): Unit = {
     gameDrawer.setGamePane(gamePane)
-    players(1 - turn).color = 1
+    players(1).color = 1
     gameDrawer.drawPiece()
 
     players.foreach(player => player.run())

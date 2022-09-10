@@ -43,4 +43,13 @@ class XOController extends Controller {
 
     false
   }
+
+  override def checkTie(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
+    for (i <- 0 until 3)
+      for (j <- 0 until 3)
+        if (gameBoard(i)(j) == null)
+          return false
+
+    true
+  }
 }
