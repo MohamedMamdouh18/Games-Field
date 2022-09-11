@@ -34,12 +34,13 @@ class ChessPlayer extends Player {
 
   override def Movement(source: Node): Unit = {
     source.setOnMousePressed(e => {
-      if (!promotion && !observer.gameEnded) {
+      if (!promotion && !observer.gameEnded && observer.turn == color) {
         oldCol = GridPane.getColumnIndex(source)
         oldRow = GridPane.getRowIndex(source)
         x = e.getSceneX
         y = e.getSceneY
         curPiece = gameBoard(oldRow)(oldCol).asInstanceOf[ChessPiece]
+        gameDrawer.showAvailableMovements(this)
       }
     })
 
@@ -51,7 +52,7 @@ class ChessPlayer extends Player {
     })
 
     source.setOnMouseReleased(e => {
-      if (curPiece.color == observer.turn && !promotion && !observer.gameEnded) {
+      if (curPiece != null && curPiece.color == observer.turn && !promotion && !observer.gameEnded) {
         newRow = Math.floor((e.getSceneY - 100) / 80).toInt
         newCol = Math.floor((e.getSceneX - 220) / 80).toInt
 
@@ -71,6 +72,7 @@ class ChessPlayer extends Player {
           } else
             gameController.restoreState(gameBoard, curPiece, removed, oldRow, oldCol, newRow, newCol)
         }
+        gameDrawer.hideAvailableMovements()
       }
     })
   }

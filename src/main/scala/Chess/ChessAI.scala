@@ -65,11 +65,14 @@ class ChessAI extends Player {
 
           val removed = gameController.createState(board, curPiece, newRow, newCol)
           val fm = curPiece.firstMove
+          val c = curPiece.castled
+          curPiece.castled = false
           curPiece.firstMove = false
           val currentScore = miniMax(board, 1 - t, score, depth - 1)
 
           gameController.restoreState(board, curPiece, removed, oldRow, oldCol, newRow, newCol)
           curPiece.firstMove = fm
+          curPiece.castled = c
 
           //maximize white && minimize black
           if (t == ChessEn.Black) {
