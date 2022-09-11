@@ -1,6 +1,5 @@
 package Base
 
-import Chess.Pieces.Bishop
 import javafx.scene.image.ImageView
 
 class Piece(pieceName: String, row: Int, col: Int, team: Int) {

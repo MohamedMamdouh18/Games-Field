@@ -1,7 +1,7 @@
 package Chess
 
 import Base.Player.Player
-import Base.{GameEngine, Piece, State}
+import Base.{GameEngine, Piece}
 import Chess.Pieces._
 import javafx.scene.layout.{GridPane, StackPane}
 
@@ -70,11 +70,6 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
     play()
   }
 
-  override def play(): Unit = {
-    if (players(turn).isInstanceOf[ChessAI] && !gameEnded)
-      players(turn).Movement()
-  }
-
   override def update(): Unit = {
     turn = 1 - turn
     play()
@@ -85,6 +80,11 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
         gameEnded = true
     } else
       gameController.findKing(gameBoard, turn).checked = false
+  }
+
+  override def play(): Unit = {
+    if (players(turn).isInstanceOf[ChessAI] && !gameEnded)
+      players(turn).Movement()
   }
 
   def setPromButs(buts1: GridPane, buts2: GridPane): Unit = {

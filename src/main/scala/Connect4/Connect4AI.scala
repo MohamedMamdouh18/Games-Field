@@ -40,7 +40,7 @@ class Connect4AI extends Player {
       return new Pair[State, Int](null, if (turn == 0) -100 else 100)
     else if (gameController.checkEndGame(board, 1 - turn))
       return new Pair[State, Int](null, if (1 - turn == 0) -100 else 100)
-    else if (checkTie(board))
+    else if (gameController.checkTie(board))
       return new Pair[State, Int](null, 0)
     if (depth == 0)
       return new Pair[State, Int](null, if (turn == 0) estimate(gameBoard, turn) * -1 else estimate(gameBoard, turn))
@@ -85,15 +85,6 @@ class Connect4AI extends Player {
         return i + 1
     }
     0
-  }
-
-  private def checkTie(board: Array[Array[Piece]]): Boolean = {
-    board.foreach(_.foreach(piece => {
-      if (piece == null) {
-        return false
-      }
-    }))
-    true
   }
 
   private def estimate(gameBoard: Array[Array[Piece]], turn: Int): Int = {
