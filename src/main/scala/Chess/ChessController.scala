@@ -58,15 +58,6 @@ class ChessController extends Controller {
     false
   }
 
-  override def checkTie(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
-    if (!checkMate(gameBoard, turn))
-      gameBoard.foreach(row => row.foreach(
-        piece => return piece.asInstanceOf[ChessPiece].validatedMoves(gameBoard).length > 0)
-      )
-
-    true
-  }
-
   override def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation = {
     val piece = gameBoard(state.oldRow)(state.oldCol).asInstanceOf[ChessPiece]
 
@@ -83,6 +74,18 @@ class ChessController extends Controller {
         if (gameBoard(i)(j) != null && gameBoard(i)(j).name == kings(turn))
           return gameBoard(i)(j).asInstanceOf[ChessPiece]
     null
+  }
+
+  override def checkTie(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
+    if (!checkMate(gameBoard, turn))
+      gameBoard.foreach(row => row.foreach(
+        piece =>
+          if (piece.color == turn)
+            return piece.asInstanceOf[ChessPiece].validatedMoves(gameBoard).length > 0
+      )
+      )
+
+    true
   }
 
   def getPlayerPieces(color: Int): Pair[Int, Int] = {
