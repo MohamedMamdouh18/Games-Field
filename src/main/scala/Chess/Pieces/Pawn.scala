@@ -18,16 +18,11 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     Array(0, 0, 0, 0, 0, 0, 0, 0)
   )
   var promotedDone: Boolean = false
-  var promotion: Boolean = false
   var promotedMove: (Int, Int) => Boolean = _
   loadImage()
 
   override def wantPromote(): Boolean = {
-    if (promotion) {
-      promotion = false
-      return true
-    }
-    false
+    ((curRow == 7 && color == 1) || (curRow == 0 && color == 0))
   }
 
   override def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean = {
@@ -42,9 +37,6 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
             && board(newX)(newY).color == 0) ||
           (newY == curCol + 1 && newX == curRow + 1 && board(newX)(newY) != null
             && board(newX)(newY).color == 0)) {
-          if (newX == 7) {
-            promotion = true
-          }
           true
         }
         else false
@@ -60,9 +52,6 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
             && board(newX)(newY).color == 1) ||
           (newY == curCol + 1 && newX == curRow - 1 && board(newX)(newY) != null
             && board(newX)(newY).color == 1)) {
-          if (newX == 0) {
-            promotion = true
-          }
           true
         }
         else false
