@@ -76,7 +76,7 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
 
     if (gameController.checkMate(gameBoard, turn)) {
       gameController.findKing(gameBoard, turn).checked = true
-      if (gameController.checkEndGame(gameBoard, turn))
+      if (gameController.checkEndGame(gameBoard, turn) || gameController.checkTie(gameBoard, turn))
         gameEnded = true
     } else
       gameController.findKing(gameBoard, turn).checked = false
