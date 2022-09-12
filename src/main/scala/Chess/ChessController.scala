@@ -82,7 +82,7 @@ class ChessController extends Controller {
         piece =>
           if (piece.color == turn)
             return piece.asInstanceOf[ChessPiece].validatedMoves(gameBoard).length > 0
-      )
+        )
       )
 
     true
