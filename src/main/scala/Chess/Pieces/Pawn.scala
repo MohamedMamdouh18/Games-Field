@@ -1,6 +1,7 @@
 package Chess.Pieces
 
 import Base.Piece
+import Chess.ChessEn
 import javafx.util.Pair
 
 class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x, y, color) {
@@ -22,7 +23,7 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
   loadImage()
 
   override def wantPromote(): Boolean = {
-    ((curRow == 7 && color == 1) || (curRow == 0 && color == 0))
+    (curRow == 7 && color == ChessEn.Black) || (curRow == 0 && color == ChessEn.White)
   }
 
   override def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean = {

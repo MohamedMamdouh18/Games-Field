@@ -83,13 +83,6 @@ class ChessPlayer extends Player {
       gameDrawer.gameBoard.getChildren.remove(gameBoard(newRow)(newCol).image)
     }
 
-    if (curPiece.wantPromote()) {
-      println(newRow)
-      promotion = true
-      src = source
-      promButs.setVisible(true)
-    }
-
     if (curPiece.castled && curPiece.firstMove) {
       val newRookCol = gameController.kingCastling(gameBoard, new State(oldRow, oldCol, newRow, newCol, color))
 
@@ -105,5 +98,12 @@ class ChessPlayer extends Player {
     curPiece.firstMove = false
     curPiece.curCol = newCol
     curPiece.curRow = newRow
+
+    if (curPiece.wantPromote()) {
+      println(newRow)
+      promotion = true
+      src = source
+      promButs.setVisible(true)
+    }
   }
 }
