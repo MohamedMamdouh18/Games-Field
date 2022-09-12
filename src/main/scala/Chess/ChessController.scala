@@ -81,7 +81,7 @@ class ChessController extends Controller {
       gameBoard.foreach(row => row.foreach(
         piece =>
           if (piece.color == turn)
-            return piece.asInstanceOf[ChessPiece].validatedMoves(gameBoard).length > 0
+            return piece.asInstanceOf[ChessPiece].validatedMoves(gameBoard).length <= 0
         )
       )
 
