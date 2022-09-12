@@ -90,19 +90,9 @@ class ChessPlayer extends Player {
       promButs.setVisible(true)
     }
 
-    if (curPiece.castled) {
-      var oldRookCol, newRookCol: Int = -1
-      if (newCol > oldCol) {
-        newRookCol = 5
-        oldRookCol = 7
-      } else {
-        newRookCol = 3
-        oldRookCol = 0
-      }
+    if (curPiece.castled && curPiece.firstMove) {
+      val newRookCol = gameController.kingCastling(gameBoard, new State(oldRow, oldCol, newRow, newCol, color))
 
-      gameBoard(newRow)(newRookCol) = gameBoard(newRow)(oldRookCol)
-      gameBoard(newRow)(oldRookCol).curCol = newRookCol
-      gameBoard(newRow)(oldRookCol) = null
       gameDrawer.movementDraw(gameBoard(newRow)(newRookCol).image,
         new State(0, 0, newRow, newRookCol, -1), gameBoard(newRow)(newRookCol).image)
       curPiece.castled = false

@@ -2,7 +2,7 @@ package Chess
 
 import Base.Player.Player
 import Base._
-import Chess.Pieces.ChessPiece
+import Chess.Pieces.{ChessPiece, King}
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 import javafx.util.Pair
@@ -32,22 +32,12 @@ class ChessAI extends Player {
       gameDrawer.gameBoard.getChildren.remove(gameBoard(move.newRow)(move.newCol).image)
     }
 
-    if (curPiece.castled) {
-      var oldRookCol, newRookCol: Int = -1
-      if (move.newCol > move.oldCol) {
-        newRookCol = 5
-        oldRookCol = 7
-      } else {
-        newRookCol = 3
-        oldRookCol = 0
-      }
+    if (curPiece.isInstanceOf[King] && Math.abs(move.oldCol - move.newCol) == 2 && curPiece.firstMove) {
+      val newRookCol = gameController.kingCastling(gameBoard,
+        new State(move.oldRow, move.oldCol, move.newRow, move.newCol, color))
 
-      gameBoard(move.newRow)(newRookCol) = gameBoard(move.newRow)(oldRookCol)
-      gameBoard(move.newRow)(oldRookCol).curCol = newRookCol
-      gameBoard(move.newRow)(oldRookCol) = null
       gameDrawer.movementDraw(gameBoard(move.newRow)(newRookCol).image,
         new State(0, 0, move.newRow, newRookCol, -1), gameBoard(move.newRow)(newRookCol).image)
-      curPiece.castled = false
     }
 
     gameBoard(move.oldRow)(move.oldCol) = null
@@ -87,9 +77,10 @@ class ChessAI extends Player {
 
           val removed = gameController.createState(board, curPiece, newRow, newCol)
           val fm = curPiece.firstMove
-          val c = curPiece.castled
-          curPiece.castled = false
           curPiece.firstMove = false
+
+          if (curPiece.isInstanceOf[King] && Math.abs(curPiece.curCol - newCol) == 2)
+            gameController.kingCastling(gameBoard, new State(oldRow, oldCol, newRow, newCol, turn))
 
           var currentScore: Int = if (turn == 0) Int.MinValue else Int.MaxValue
           if (!gameController.checkMate(board, turn))
@@ -97,7 +88,6 @@ class ChessAI extends Player {
 
           gameController.restoreState(board, curPiece, removed, oldRow, oldCol, newRow, newCol)
           curPiece.firstMove = fm
-          curPiece.castled = c
 
           //maximize white && minimize black
           if (turn == ChessEn.Black) {

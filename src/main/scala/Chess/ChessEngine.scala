@@ -74,13 +74,6 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
     turn = 1 - turn
     play()
 
-    for(i <- gameBoard.indices){
-      for(j <- gameBoard.indices){
-        if(gameBoard(i)(j) != null)print(gameBoard(i)(j).name + " ")
-        else print("     ")
-      }
-      println()
-    }
     if (gameController.checkMate(gameBoard, turn)) {
       gameController.findKing(gameBoard, turn).checked = true
       if (gameController.checkEndGame(gameBoard, turn))

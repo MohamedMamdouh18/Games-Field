@@ -86,4 +86,20 @@ class ChessController extends Controller {
 
     p
   }
+
+  def kingCastling(gameBoard: Array[Array[Piece]], move: State): Int = {
+    var oldRookCol, newRookCol: Int = -1
+    if (move.newCol > move.oldCol) {
+      newRookCol = 5
+      oldRookCol = 7
+    } else {
+      newRookCol = 3
+      oldRookCol = 0
+    }
+
+    gameBoard(move.newRow)(newRookCol) = gameBoard(move.newRow)(oldRookCol)
+    gameBoard(move.newRow)(oldRookCol).curCol = newRookCol
+    gameBoard(move.newRow)(oldRookCol) = null
+    newRookCol
+  }
 }
