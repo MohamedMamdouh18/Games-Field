@@ -7,6 +7,16 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
   override val dx: Array[Int] = Array()
   override val dy: Array[Int] = Array()
   override var rank: Int = 10
+  override var evaluationMatrix: Array[Array[Double]] = Array(
+    Array(0, 0, 0, 0, 0, 0, 0, 0),
+    Array(5, 5, 5, 5, 5, 5, 5, 5),
+    Array(1, 1, 2, 3, 3, 2, 1, 1),
+    Array(0.5, 0.5, 1.0, 2.5, 2.5, 1.0, 0.5, 0.5),
+    Array(0.0, 0.0, 0.0, 2.0, 2.0, 0.0, 0.0, 0.0),
+    Array(0.5, -0.5, -1, 0, 0, -1, -0.5, 0.5),
+    Array(0.5, 1, 1, -2, -2, 1, 1, 0.5),
+    Array(0, 0, 0, 0, 0, 0, 0, 0)
+  )
   var promotedDone: Boolean = false
   var promotion: Boolean = false
   var promotedMove: (Int, Int) => Boolean = _

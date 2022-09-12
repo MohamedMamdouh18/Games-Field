@@ -71,9 +71,8 @@ class Connect4AI extends Player {
           }
           alpha = Math.max(alpha, score)
         }
-        if (alpha >= beta) {
+        if (alpha >= beta)
           return new Pair[State, Int](bestMove, score)
-        }
       }
     }
     new Pair[State, Int](bestMove, score)

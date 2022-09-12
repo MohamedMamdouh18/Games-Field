@@ -84,6 +84,7 @@ class ChessPlayer extends Player {
     }
 
     if (curPiece.wantPromote()) {
+      println(newRow)
       promotion = true
       src = source
       promButs.setVisible(true)

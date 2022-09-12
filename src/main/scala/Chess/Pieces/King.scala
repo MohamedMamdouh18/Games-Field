@@ -8,6 +8,16 @@ class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
   override val dx: Array[Int] = Array(1, 0, 0, -1, 1, 1, -1, -1)
   override val dy: Array[Int] = Array(0, -1, 1, 0, 1, -1, 1, -1)
   override var rank: Int = 900
+  override var evaluationMatrix: Array[Array[Double]] = Array(
+    Array(-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0),
+    Array(-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0),
+    Array(-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0),
+    Array(-3.0, -4.0, -4.0, -5.0, -5.0, -4.0, -4.0, -3.0),
+    Array(-2.0, -3.0, -3.0, -4.0, -4.0, -3.0, -3.0, -2.0),
+    Array(-1.0, -2.0, -2.0, -2.0, -2.0, -2.0, -2.0, -1.0),
+    Array(2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 2.0, 2.0),
+    Array(2.0, 3.0, 1.0, 0.0, 0.0, 1.0, 3.0, 2.0)
+  )
   loadImage()
 
   override def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean = {

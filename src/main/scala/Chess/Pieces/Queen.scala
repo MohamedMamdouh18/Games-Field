@@ -7,6 +7,16 @@ class Queen(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x
   override val dx: Array[Int] = Array()
   override val dy: Array[Int] = Array()
   override var rank: Int = 90
+  override var evaluationMatrix: Array[Array[Double]] = Array(
+    Array(-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0),
+    Array(-1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -1.0),
+    Array(-1.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -1.0),
+    Array(-0.5, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -0.5),
+    Array(0.0, 0.0, 0.5, 0.5, 0.5, 0.5, 0.0, -0.5),
+    Array(-1.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.0, -1.0),
+    Array(-1.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, -1.0),
+    Array(-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0)
+  )
   loadImage()
   var b = new Bishop(null, curRow, curCol, color)
   var c = new Rook(null, curRow, curCol, color)
