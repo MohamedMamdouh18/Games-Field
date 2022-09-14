@@ -32,17 +32,6 @@ class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     loopTemplate(board, newX, newY, validateMoveImpl, 1).valid
   }
 
-  override def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]] = {
-    clear()
-    castling(board)
-    loopTemplate(board, 0, 0, validatedMovesImpl, 1).validMoves
-  }
-
-  override def clone(): ChessPiece = {
-    val x = new King(name, curRow, curCol, color)
-    x
-  }
-
   private def castling(board: Array[Array[Piece]]): Unit = {
     val rightRook = board(7 * (1 - color))(7)
     val leftRook = board(7 * (1 - color))(0)
@@ -63,5 +52,16 @@ class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
       if (!firstPassedCell && !secondPassedCell)
         moves.validMoves = moves.validMoves :+ new Pair[Int, Int](7 * (1 - color), c2)
     }
+  }
+
+  override def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]] = {
+    clear()
+    castling(board)
+    loopTemplate(board, 0, 0, validatedMovesImpl, 1).validMoves
+  }
+
+  override def clone(): ChessPiece = {
+    val x = new King(name, curRow, curCol, color)
+    x
   }
 }

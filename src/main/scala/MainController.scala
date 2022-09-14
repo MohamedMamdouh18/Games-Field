@@ -6,12 +6,13 @@ import javafx.collections.FXCollections
 import javafx.scene.control.{Button, ComboBox}
 import javafx.scene.layout.{AnchorPane, GridPane, StackPane}
 import javafx.util.Pair
+import scalafx.scene.image.ImageView
 import scalafxml.core.macros.sfxml
 
 
 @sfxml
 class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
-                     val returnButton: Button, gameMode: ComboBox[String],
+                     val returnButton: Button, val returnButtonImg: ImageView, gameMode: ComboBox[String],
                      val whitePromotionPieces: GridPane, val blackPromotionPieces: GridPane) {
   gameMode.getItems.addAll(FXCollections.observableArrayList("PvP", "PvA", "AvP"))
   var gM: String = _
@@ -68,6 +69,7 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
     gameMode.setVisible(!boolean)
     menuPane.setVisible(!boolean)
     returnButton.setVisible(boolean)
+    returnButtonImg.setVisible(boolean)
     gamePane.setVisible(boolean)
   }
 

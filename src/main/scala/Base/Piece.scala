@@ -10,8 +10,7 @@ class Piece(pieceName: String, row: Int, col: Int, team: Int) {
   var image: ImageView = _
 
   override def clone(): Piece = {
-    val x = new Piece(name, curRow, curCol, color)
-    x
+    new Piece(name, curRow, curCol, color)
   }
 }
 

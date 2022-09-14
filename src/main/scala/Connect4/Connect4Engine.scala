@@ -26,7 +26,7 @@ class Connect4Engine(players: Array[Player], gameType: String) extends GameEngin
     })
   }
 
-  override def play(): Unit ={
+  override def play(): Unit = {
     if (players(turn).isInstanceOf[Connect4AI] && !gameEnded) {
       players(turn).Movement()
     }

@@ -70,16 +70,21 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
     play()
   }
 
+  override def play(): Unit = {
+    if (players(turn).isInstanceOf[ChessAI] && !gameEnded)
+      players(turn).Movement()
+  }
+
   override def update(): Unit = {
     turn = 1 - turn
 
     if (gameController.checkEndGame(gameBoard, turn)) {
       gameEnded = true
-      if (gameController.checkMate(gameBoard, turn)) {
-        // One Player Win
-      } else {
-        // Tie
-      }
+      if (gameController.checkMate(gameBoard, turn))
+        gameDrawer.drawEnd(1 - turn)
+      else
+        gameDrawer.drawEnd(-1)
+      return
     }
 
     if (gameController.checkMate(gameBoard, turn))
@@ -88,11 +93,6 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
       gameController.findKing(gameBoard, turn).checked = false
 
     play()
-  }
-
-  override def play(): Unit = {
-    if (players(turn).isInstanceOf[ChessAI] && !gameEnded)
-      players(turn).Movement()
   }
 
   def setPromButs(buts1: GridPane, buts2: GridPane): Unit = {

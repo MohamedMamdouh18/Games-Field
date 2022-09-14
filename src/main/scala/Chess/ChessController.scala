@@ -5,6 +5,12 @@ import Chess.Pieces.ChessPiece
 import javafx.util.Pair
 
 class ChessController extends Controller {
+  override def checkTie(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
+    if (checkEndGame(gameBoard, turn))
+      return !checkMate(gameBoard, turn)
+    false
+  }
+
   override def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
     for (i <- gameBoard.indices) {
       for (j <- gameBoard(i).indices) {
@@ -84,12 +90,6 @@ class ChessController extends Controller {
         if (gameBoard(i)(j) != null && gameBoard(i)(j).name == kings(turn))
           return gameBoard(i)(j).asInstanceOf[ChessPiece]
     null
-  }
-
-  override def checkTie(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
-    if (checkEndGame(gameBoard, turn))
-      return !checkMate(gameBoard, turn)
-    false
   }
 
   def getPlayerPieces(color: Int): Pair[Int, Int] = {

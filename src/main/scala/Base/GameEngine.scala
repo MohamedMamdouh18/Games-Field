@@ -28,10 +28,17 @@ abstract class GameEngine(players: Array[Player], gameType: String) {
   def update(): Unit = {
     turn = 1 - turn
 
-    if (gameController.checkEndGame(gameBoard, 1 - turn) || gameController.checkTie(gameBoard)) {
+    if (gameController.checkEndGame(gameBoard, 1 - turn)) {
       gameEnded = true
       players.foreach(player => player.DisableMovement())
+      gameDrawer.drawEnd(1 - turn)
     }
+
+    if (gameController.checkTie(gameBoard)) {
+      gameEnded = true
+      gameDrawer.drawEnd(-1)
+    }
+
     play()
   }
 

@@ -2,9 +2,11 @@ package Base
 
 import javafx.geometry.{HPos, Pos, VPos}
 import javafx.scene.Node
-import javafx.scene.layout.{GridPane, StackPane}
+import javafx.scene.control.Label
+import javafx.scene.layout._
 import javafx.scene.paint.Color
 import javafx.scene.shape.{Circle, Rectangle}
+import javafx.scene.text.{Font, FontWeight}
 
 abstract class Drawer {
   var gamePane: StackPane
@@ -59,7 +61,7 @@ abstract class Drawer {
     attackCircle.setStroke(Color.rgb(54, 69, 79, 0.5))
     attackCircle.setStrokeWidth(10)
     attackCircle.setFill(Color.TRANSPARENT)
-    lightSquare.setFill(Color.rgb(226,207,89, 0.6))
+    lightSquare.setFill(Color.rgb(226, 207, 89, 0.6))
 
     normalCircle.setVisible(false)
     attackCircle.setVisible(false)
@@ -79,6 +81,23 @@ abstract class Drawer {
   }
 
   def drawPiece(): Unit
+
+  def drawEnd(turn: Int): Unit = {
+    val text = new Label()
+    text.setFont(Font.font("Roboto", FontWeight.BOLD, 40))
+    text.setTextFill(Color.rgb(200, 200, 200, 1))
+
+    if (turn == 0) {
+      text.setText("First Player Wins")
+    } else if (turn == 1) {
+      text.setText("Second Player Wins")
+    } else {
+      text.setText("Tie")
+    }
+
+    gamePane.setAlignment(Pos.TOP_CENTER)
+    gamePane.getChildren.add(text)
+  }
 
   def setEvents(Event: Node => Unit,
                 board: Array[Array[Piece]] = Array.ofDim[Piece](0, 0), s: Int = 0, e: Int = 0): Unit
