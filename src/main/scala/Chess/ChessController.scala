@@ -85,7 +85,6 @@ class ChessController extends Controller {
             return false
         )
       )
-
     true
   }
 

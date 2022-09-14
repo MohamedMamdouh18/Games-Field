@@ -35,7 +35,7 @@ class ChessDrawer extends Drawer {
 
   override def drawPiece(): Unit = {
     gameBoard = drawBoard(8, 8,
-      Color.rgb(152, 68, 32), Color.rgb(236, 205, 153), showGridLines = false, showMovements = true)
+      Color.rgb(236, 205, 153), Color.rgb(152, 68, 32), showGridLines = false, showMovements = true)
   }
 
   override def setEvents(Event: Node => Unit, board: Array[Array[Piece]], s: Int, e: Int): Unit = {

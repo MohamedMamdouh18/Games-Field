@@ -10,14 +10,14 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
   override val gameDrawer = new ChessDrawer
   override var gameBoard: Array[Array[Piece]] = Array(
     Array(
-      null,
-      null,
-      null,
-      null,
+      new Rook(ChessEn.BlackRook, 0, 0, 1),
+      new Knight(ChessEn.BlackKnight, 0, 1, 1),
+      new Bishop(ChessEn.BlackBishop, 0, 2, 1),
+      new Queen(ChessEn.BlackQueen, 0, 3, 1),
       new King(ChessEn.BlackKing, 0, 4, 1),
-      null,
-      null,
-      null),
+      new Bishop(ChessEn.BlackBishop, 0, 5, 1),
+      new Knight(ChessEn.BlackKnight, 0, 6, 1),
+      new Rook(ChessEn.BlackRook, 0, 7, 1)),
 
     Array(
       new Pawn(ChessEn.BlackPawn, 1, 0, 1),
@@ -48,14 +48,14 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
       new Pawn(ChessEn.WhitePawn, 6, 7, 0)),
 
     Array(
-      null,
-      null,
-      null,
-      null,
+      new Rook(ChessEn.WhiteRook, 7, 0, 0),
+      new Knight(ChessEn.WhiteKnight, 7, 1, 0),
+      new Bishop(ChessEn.WhiteBishop, 7, 2, 0),
+      new Queen(ChessEn.WhiteQueen, 7, 3, 0),
       new King(ChessEn.WhiteKing, 7, 4, 0),
-      null,
-      null,
-      null)
+      new Bishop(ChessEn.WhiteBishop, 7, 5, 0),
+      new Knight(ChessEn.WhiteKnight, 7, 6, 0),
+      new Rook(ChessEn.WhiteRook, 7, 7, 0)),
   )
   override var score: Array[Int] = Array(1290, 1290)
   var whitePromButs: GridPane = _
@@ -72,14 +72,20 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
 
   override def update(): Unit = {
     turn = 1 - turn
-    play()
-
-    if (gameController.checkMate(gameBoard, turn)) {
+    if (gameController.checkEndGame(gameBoard, turn)) {
+      gameEnded = true
+      if (gameController.checkMate(gameBoard, turn)) {
+        //One Player Win
+      } else {
+        //Tie
+      }
+    }
+    if (gameController.checkMate(gameBoard, turn))
       gameController.findKing(gameBoard, turn).checked = true
-      if (gameController.checkEndGame(gameBoard, turn) || gameController.checkTie(gameBoard, turn))
-        gameEnded = true
-    } else
+    else
       gameController.findKing(gameBoard, turn).checked = false
+
+    play()
   }
 
   override def play(): Unit = {

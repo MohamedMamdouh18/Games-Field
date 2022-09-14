@@ -58,13 +58,15 @@ class ChessAI extends Player {
   }
 
   private def miniMax(board: Array[Array[Piece]], turn: Int, a: Int, b: Int, depth: Int): Pair[State, Int] = {
-    if (gameController.checkEndGame(board, turn))
-      return new Pair[State, Int](null, if (turn == 0) 20000 else -20000)
-    else if (gameController.checkEndGame(board, 1 - turn))
-      return new Pair[State, Int](null, if (1 - turn == 0) 20000 else -20000)
-    if (depth == 0)
+    if (gameController.checkEndGame(board, turn)) {
+        return new Pair[State, Int](null, if (turn == 0) 20000 else -20000)
+    } else if (gameController.checkEndGame(board, 1 - turn)) {
+        return new Pair[State, Int](null, if (1 - turn == 0) 20000 else -20000)
+    }
+    if (depth == 0) {
       return new Pair[State, Int](null, if (turn == 0) estimator.estimate(gameBoard)
       else estimator.estimate(gameBoard) * -1)
+    }
 
     var score = if (turn == 0) Int.MinValue else Int.MaxValue
     var bestMove: State = null
@@ -82,9 +84,6 @@ class ChessAI extends Player {
           val newRow = availableMoves(move).getKey
           val newCol = availableMoves(move).getValue
 
-          if (board(newRow)(newCol).name == ChessEn.WhiteKing || board(newRow)(newCol).name == ChessEn.BlackKing) {
-
-          }
           val removed = gameController.createState(board, curPiece, newRow, newCol)
           val fm = curPiece.firstMove
           curPiece.firstMove = false
