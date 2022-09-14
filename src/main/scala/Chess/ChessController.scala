@@ -80,8 +80,9 @@ class ChessController extends Controller {
     if (!checkMate(gameBoard, turn))
       gameBoard.foreach(row => row.foreach(
         piece =>
-          if (piece.color == turn && piece.asInstanceOf[ChessPiece].validatedMoves(gameBoard).length > 0)
-            false
+          if (piece != null && piece.color == turn &&
+            piece.asInstanceOf[ChessPiece].validatedMoves(gameBoard).length > 0)
+            return false
         )
       )
 
