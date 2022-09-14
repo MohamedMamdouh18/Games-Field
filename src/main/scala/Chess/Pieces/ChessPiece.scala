@@ -26,6 +26,10 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
     false
   }
 
+  def wantCastle(oldCol: Int, newCol: Int): Boolean = {
+    false
+  }
+
   def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean
 
   def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]]

@@ -33,7 +33,7 @@ class ChessAI extends Player {
       gameDrawer.gameBoard.getChildren.remove(gameBoard(move.newRow)(move.newCol).image)
     }
 
-    if (curPiece.isInstanceOf[King] && Math.abs(move.oldCol - move.newCol) == 2 && curPiece.firstMove) {
+    if (curPiece.wantCastle(move.oldCol, move.newCol)) {
       val newRookCol = gameController.kingCastling(gameBoard,
         new State(move.oldRow, move.oldCol, move.newRow, move.newCol, color))
 
@@ -53,7 +53,7 @@ class ChessAI extends Player {
       curPiece = gameBoard(move.newRow)(move.newCol).asInstanceOf[ChessPiece]
     }
 
-    gameDrawer.movementDraw(curPiece.image, new State(0, 0, move.newRow, move.newCol, 0), curPiece.image)
+    gameDrawer.movementDraw(curPiece.image, new State(0, 0, move.newRow, move.newCol, -1), curPiece.image)
 
     Notify()
   }

@@ -53,7 +53,7 @@ class ChessPlayer extends Player {
 
     source.setOnMouseReleased(e => {
       if (curPiece != null && curPiece.color == observer.turn && !promotion && !observer.gameEnded) {
-        newRow = Math.floor((e.getSceneY - 100) / 80).toInt
+        newRow = Math.floor((e.getSceneY - 65) / 80).toInt
         newCol = Math.floor((e.getSceneX - 220) / 80).toInt
 
         source.setTranslateX(0)
@@ -84,7 +84,7 @@ class ChessPlayer extends Player {
       gameDrawer.gameBoard.getChildren.remove(gameBoard(newRow)(newCol).image)
     }
 
-    if (curPiece.castled && curPiece.firstMove) {
+    if (curPiece.wantCastle(oldCol, newCol)) {
       val newRookCol = gameController.kingCastling(gameBoard, new State(oldRow, oldCol, newRow, newCol, color))
 
       gameDrawer.movementDraw(gameBoard(newRow)(newRookCol).image,

@@ -20,6 +20,10 @@ class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
   )
   loadImage()
 
+  override def wantCastle(oldCol: Int, newCol: Int): Boolean = {
+    Math.abs(oldCol - newCol) == 2 && firstMove
+  }
+
   override def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean = {
     clear()
     castling(board)
