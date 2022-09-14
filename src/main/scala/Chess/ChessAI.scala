@@ -2,7 +2,7 @@ package Chess
 
 import Base.Player.Player
 import Base._
-import Chess.Pieces.{ChessPiece, King}
+import Chess.Pieces.{ChessPiece, King, Queen}
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 import javafx.util.Pair
@@ -25,7 +25,7 @@ class ChessAI extends Player {
 
   override def Movement(source: Node): Unit = {
     val move: State = miniMax(gameBoard, observer.turn, Int.MinValue, Int.MaxValue, 5).getKey
-    val curPiece: ChessPiece = gameBoard(move.oldRow)(move.oldCol).asInstanceOf[ChessPiece]
+    var curPiece: ChessPiece = gameBoard(move.oldRow)(move.oldCol).asInstanceOf[ChessPiece]
 
     if (gameBoard(move.newRow)(move.newCol) != null) {
       observer.score(1 - color) -= gameBoard(move.newRow)(move.newCol).asInstanceOf[ChessPiece].rank
@@ -42,11 +42,18 @@ class ChessAI extends Player {
 
     gameBoard(move.oldRow)(move.oldCol) = null
     gameBoard(move.newRow)(move.newCol) = curPiece
-    gameDrawer.movementDraw(curPiece.image, new State(0, 0, move.newRow, move.newCol, 0), curPiece.image)
-
     curPiece.firstMove = false
     curPiece.curCol = move.newCol
     curPiece.curRow = move.newRow
+
+    if (curPiece.wantPromote()) {
+      gameBoard(move.newRow)(move.newCol) = new Queen(if (color == 1) ChessEn.BlackQueen else ChessEn.WhiteQueen, move.newRow, move.newCol, color)
+      gameDrawer.gameBoard.getChildren.remove(curPiece.image)
+      curPiece = gameBoard(move.newRow)(move.newCol).asInstanceOf[ChessPiece]
+    }
+
+    gameDrawer.movementDraw(curPiece.image, new State(0, 0, move.newRow, move.newCol, 0), curPiece.image)
+
     Notify()
   }
 
@@ -75,12 +82,19 @@ class ChessAI extends Player {
           val newRow = availableMoves(move).getKey
           val newCol = availableMoves(move).getValue
 
+          if (board(newRow)(newCol).name == ChessEn.WhiteKing || board(newRow)(newCol).name == ChessEn.BlackKing) {
+
+          }
           val removed = gameController.createState(board, curPiece, newRow, newCol)
           val fm = curPiece.firstMove
           curPiece.firstMove = false
 
           if (curPiece.isInstanceOf[King] && Math.abs(curPiece.curCol - newCol) == 2)
-            gameController.kingCastling(gameBoard, new State(oldRow, oldCol, newRow, newCol, turn))
+            gameController.kingCastling(board, new State(oldRow, oldCol, newRow, newCol, turn))
+
+          if (curPiece.wantPromote()) {
+            board(newRow)(newCol) = new Queen(if (turn == 1) ChessEn.BlackQueen else ChessEn.WhiteQueen, newRow, newCol, turn)
+          }
 
           var currentScore: Int = if (turn == 0) Int.MinValue else Int.MaxValue
           if (!gameController.checkMate(board, turn))
