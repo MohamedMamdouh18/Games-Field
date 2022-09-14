@@ -76,6 +76,19 @@ class ChessController extends Controller {
     null
   }
 
+  override def checkTie(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
+    if (!checkMate(gameBoard, turn))
+      gameBoard.foreach(row => row.foreach(
+        piece =>
+          if (piece != null && piece.color == turn &&
+            piece.asInstanceOf[ChessPiece].validatedMoves(gameBoard).length > 0)
+            return false
+        )
+      )
+
+    true
+  }
+
   def getPlayerPieces(color: Int): Pair[Int, Int] = {
     var p: Pair[Int, Int] = null
 

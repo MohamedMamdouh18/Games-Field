@@ -5,7 +5,7 @@ abstract class Controller {
 
   def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int = 0): Boolean
 
-  def checkTie(gameBoard: Array[Array[Piece]], turn: Int = 0): Boolean = {false}
+  def checkTie(gameBoard: Array[Array[Piece]], turn: Int = 0): Boolean
 
   def createState(gameBoard: Array[Array[Piece]], modifiedPiece: Piece, newX: Int, newY: Int): Piece = {
     val removed = gameBoard(newX)(newY)
