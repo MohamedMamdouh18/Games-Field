@@ -14,8 +14,7 @@ import java.util.function.Predicate
 class ChessDrawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
   override var gameBoard: GridPane = new GridPane()
-  var oldCol, oldRow: Int = 0
-  var x, y: Double = 0
+  var oldState: State = _
   var attackNodes: FilteredList[Node] = _
   var normalNodes: FilteredList[Node] = _
   var promotionMap: Array[Map[Pair[Int, Int], Promotion]] = Array(
@@ -128,5 +127,25 @@ class ChessDrawer extends Drawer {
   override def movementDraw(source: Node, state: State, arg: Node): Unit = {
     gameBoard.getChildren.remove(source)
     gameBoard.add(arg, state.newCol, state.newRow)
+  }
+
+  def highlightSquares(state: State): Unit = {
+    if (oldState != null)
+      highlight(oldState, visibility = false)
+    oldState = state
+    highlight(oldState, visibility = true)
+  }
+
+  def highlight(state: State, visibility: Boolean): Unit = {
+    gameBoard.getChildren.filtered(new Predicate[Node] {
+      override def test(node: Node): Boolean = {
+        if (node.getId != "Light Square") return false
+        if ((GridPane.getRowIndex(node) == state.oldRow && GridPane.getColumnIndex(node) == state.oldCol) ||
+          (GridPane.getRowIndex(node) == state.newRow && GridPane.getColumnIndex(node) == state.newCol))
+          return true
+
+        false
+      }
+    }).forEach(node => node.setVisible(visibility))
   }
 }

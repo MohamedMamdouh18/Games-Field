@@ -13,22 +13,19 @@ import scalafxml.core.macros.sfxml
 class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
                      val returnButton: Button, gameMode: ComboBox[String],
                      val whitePromotionPieces: GridPane, val blackPromotionPieces: GridPane) {
-  gameMode.getItems.addAll(FXCollections.observableArrayList("PvP", "PvA", "AvP", "AvA"))
+  gameMode.getItems.addAll(FXCollections.observableArrayList("PvP", "PvA", "AvP"))
   var gM: String = _
   val gameModeMap: Map[Pair[String, String], Array[Player]] = Map(
     new Pair[String, String]("PvA", "Chess") -> Array[Player](new ChessPlayer, new ChessAI),
     new Pair[String, String]("PvP", "Chess") -> Array[Player](new ChessPlayer, new ChessPlayer),
-    new Pair[String, String]("AvA", "Chess") -> Array[Player](new ChessAI, new ChessAI),
     new Pair[String, String]("AvP", "Chess") -> Array[Player](new ChessAI, new ChessPlayer),
 
     new Pair[String, String]("PvA", "Connect4") -> Array[Player](new ConcretePlayer, new Connect4AI),
     new Pair[String, String]("PvP", "Connect4") -> Array[Player](new ConcretePlayer, new ConcretePlayer),
-    new Pair[String, String]("AvA", "Connect4") -> Array[Player](new Connect4AI, new Connect4AI),
     new Pair[String, String]("AvP", "Connect4") -> Array[Player](new Connect4AI, new ConcretePlayer),
 
     new Pair[String, String]("PvA", "XO") -> Array[Player](new ConcretePlayer, new XOAI),
     new Pair[String, String]("PvP", "XO") -> Array[Player](new ConcretePlayer, new ConcretePlayer),
-    new Pair[String, String]("AvA", "XO") -> Array[Player](new XOAI, new XOAI),
     new Pair[String, String]("AvP", "XO") -> Array[Player](new XOAI, new ConcretePlayer),
   )
 

@@ -8,11 +8,11 @@ import javafx.scene.layout.GridPane
 import javafx.util.Pair
 
 class ChessAI extends Player {
+  private val estimator: ChessEstimator = new ChessEstimator
   override var observer: GameEngine = _
   private var gameController: ChessController = _
   private var gameDrawer: Drawer = _
   private var gameBoard: Array[Array[Piece]] = _
-  private val estimator: ChessEstimator = new ChessEstimator
 
   override def run(buts: GridPane = null): Unit = {
     gameDrawer = observer.gameDrawer.asInstanceOf[ChessDrawer]
@@ -26,6 +26,7 @@ class ChessAI extends Player {
   override def Movement(source: Node): Unit = {
     val move: State = miniMax(gameBoard, observer.turn, Int.MinValue, Int.MaxValue, 5).getKey
     var curPiece: ChessPiece = gameBoard(move.oldRow)(move.oldCol).asInstanceOf[ChessPiece]
+    gameDrawer.asInstanceOf[ChessDrawer].highlightSquares(move)
 
     if (gameBoard(move.newRow)(move.newCol) != null) {
       observer.score(1 - color) -= gameBoard(move.newRow)(move.newCol).asInstanceOf[ChessPiece].rank
@@ -59,14 +60,20 @@ class ChessAI extends Player {
 
   private def miniMax(board: Array[Array[Piece]], turn: Int, a: Int, b: Int, depth: Int): Pair[State, Int] = {
     if (gameController.checkEndGame(board, turn)) {
-        return new Pair[State, Int](null, if (turn == 0) 20000 else -20000)
+      if (gameController.checkMate(board, turn))
+        return new Pair[State, Int](null, if (1 - turn == ChessEn.White) 20000 else -20000)
+      else
+        return new Pair[State, Int](null, 0)
     } else if (gameController.checkEndGame(board, 1 - turn)) {
-        return new Pair[State, Int](null, if (1 - turn == 0) 20000 else -20000)
+      if (gameController.checkMate(board, 1 - turn))
+        return new Pair[State, Int](null, if (turn == ChessEn.White) 20000 else -20000)
+      else
+        return new Pair[State, Int](null, 0)
     }
-    if (depth == 0) {
+
+    if (depth == 0)
       return new Pair[State, Int](null, if (turn == 0) estimator.estimate(gameBoard)
       else estimator.estimate(gameBoard) * -1)
-    }
 
     var score = if (turn == 0) Int.MinValue else Int.MaxValue
     var bestMove: State = null
@@ -84,6 +91,10 @@ class ChessAI extends Player {
           val newRow = availableMoves(move).getKey
           val newCol = availableMoves(move).getValue
 
+          if (board(newRow)(newCol).isInstanceOf[King]) {
+            println("in")
+          }
+
           val removed = gameController.createState(board, curPiece, newRow, newCol)
           val fm = curPiece.firstMove
           curPiece.firstMove = false
@@ -91,9 +102,8 @@ class ChessAI extends Player {
           if (curPiece.isInstanceOf[King] && Math.abs(curPiece.curCol - newCol) == 2)
             gameController.kingCastling(board, new State(oldRow, oldCol, newRow, newCol, turn))
 
-          if (curPiece.wantPromote()) {
+          if (curPiece.wantPromote())
             board(newRow)(newCol) = new Queen(if (turn == 1) ChessEn.BlackQueen else ChessEn.WhiteQueen, newRow, newCol, turn)
-          }
 
           var currentScore: Int = if (turn == 0) Int.MinValue else Int.MaxValue
           if (!gameController.checkMate(board, turn))

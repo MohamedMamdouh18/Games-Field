@@ -65,6 +65,7 @@ class ChessPlayer extends Player {
 
           if (!gameController.checkMate(gameBoard, color)) {
             gameController.restoreState(gameBoard, curPiece, removed, oldRow, oldCol, newRow, newCol)
+            gameDrawer.highlightSquares(s)
             ReleaseLogic(source)
 
             if (!promotion)

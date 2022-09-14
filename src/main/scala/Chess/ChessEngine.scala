@@ -72,14 +72,16 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
 
   override def update(): Unit = {
     turn = 1 - turn
+
     if (gameController.checkEndGame(gameBoard, turn)) {
       gameEnded = true
       if (gameController.checkMate(gameBoard, turn)) {
-        //One Player Win
+        // One Player Win
       } else {
-        //Tie
+        // Tie
       }
     }
+
     if (gameController.checkMate(gameBoard, turn))
       gameController.findKing(gameBoard, turn).checked = true
     else

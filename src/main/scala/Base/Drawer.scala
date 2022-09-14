@@ -49,25 +49,33 @@ abstract class Drawer {
   private def showMoves(board: GridPane, j: Int, i: Int): Unit = {
     val normalCircle = new Circle(15)
     val attackCircle = new Circle(30)
+    val lightSquare = new Rectangle(80, 80)
 
     normalCircle.setId("Normal Move")
     attackCircle.setId("Attack Move")
+    lightSquare.setId("Light Square")
 
     normalCircle.setFill(Color.rgb(54, 69, 79, 0.5))
     attackCircle.setStroke(Color.rgb(54, 69, 79, 0.5))
     attackCircle.setStrokeWidth(10)
     attackCircle.setFill(Color.TRANSPARENT)
+    lightSquare.setFill(Color.rgb(226,207,89, 0.6))
 
     normalCircle.setVisible(false)
     attackCircle.setVisible(false)
+    lightSquare.setVisible(false)
 
     GridPane.setHalignment(normalCircle, HPos.CENTER)
     GridPane.setValignment(normalCircle, VPos.CENTER)
     GridPane.setHalignment(attackCircle, HPos.CENTER)
     GridPane.setValignment(attackCircle, VPos.CENTER)
+    GridPane.setHalignment(lightSquare, HPos.CENTER)
+    GridPane.setValignment(lightSquare, VPos.CENTER)
 
     board.add(normalCircle, j, i)
     board.add(attackCircle, j, i)
+    board.add(lightSquare, j, i)
+
   }
 
   def drawPiece(): Unit
