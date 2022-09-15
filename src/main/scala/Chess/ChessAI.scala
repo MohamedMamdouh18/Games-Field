@@ -8,11 +8,12 @@ import javafx.scene.layout.GridPane
 import javafx.util.Pair
 
 class ChessAI extends Player {
-  private val estimator: ChessEstimator = new ChessEstimator
   override var observer: GameEngine = _
+  private val estimator: ChessEstimator = new ChessEstimator
   private var gameController: ChessController = _
   private var gameDrawer: Drawer = _
   private var gameBoard: Array[Array[Piece]] = _
+  private var move: State = _
 
   override def run(buts: GridPane = null): Unit = {
     gameDrawer = observer.gameDrawer.asInstanceOf[ChessDrawer]
@@ -23,38 +24,13 @@ class ChessAI extends Player {
     gameDrawer.setEvents((_: Node) => {}, gameBoard, p.getKey, p.getValue)
   }
 
+  override def Notify(): Unit = {
+    observer.asInstanceOf[ChessEngine].ReleaseLogic(null, move)
+    observer.update()
+  }
+
   override def Movement(source: Node): Unit = {
-    val move: State = miniMax(gameBoard, observer.turn, Int.MinValue, Int.MaxValue, 5).getKey
-    var curPiece: ChessPiece = gameBoard(move.oldRow)(move.oldCol).asInstanceOf[ChessPiece]
-    gameDrawer.asInstanceOf[ChessDrawer].highlightSquares(move)
-
-    if (gameBoard(move.newRow)(move.newCol) != null) {
-      observer.score(1 - color) -= gameBoard(move.newRow)(move.newCol).asInstanceOf[ChessPiece].rank
-      gameDrawer.gameBoard.getChildren.remove(gameBoard(move.newRow)(move.newCol).image)
-    }
-
-    if (curPiece.wantCastle(move.oldCol, move.newCol)) {
-      val newRookCol = gameController.kingCastling(gameBoard,
-        new State(move.oldRow, move.oldCol, move.newRow, move.newCol, color))
-
-      gameDrawer.movementDraw(gameBoard(move.newRow)(newRookCol).image,
-        new State(0, 0, move.newRow, newRookCol, -1), gameBoard(move.newRow)(newRookCol).image)
-    }
-
-    gameBoard(move.oldRow)(move.oldCol) = null
-    gameBoard(move.newRow)(move.newCol) = curPiece
-    curPiece.firstMove = false
-    curPiece.curCol = move.newCol
-    curPiece.curRow = move.newRow
-
-    if (curPiece.wantPromote()) {
-      gameBoard(move.newRow)(move.newCol) = new Queen(if (color == 1) ChessEn.BlackQueen else ChessEn.WhiteQueen, move.newRow, move.newCol, color)
-      gameDrawer.gameBoard.getChildren.remove(curPiece.image)
-      curPiece = gameBoard(move.newRow)(move.newCol).asInstanceOf[ChessPiece]
-    }
-
-    gameDrawer.movementDraw(curPiece.image, new State(0, 0, move.newRow, move.newCol, -1), curPiece.image)
-
+    move = miniMax(gameBoard, observer.turn, Int.MinValue, Int.MaxValue, 5).getKey
     Notify()
   }
 
@@ -90,6 +66,7 @@ class ChessAI extends Player {
         for (move <- availableMoves.indices) {
           val newRow = availableMoves(move).getKey
           val newCol = availableMoves(move).getValue
+          val state: State = new State(oldRow, oldCol, newRow, newCol, turn)
 
           if (board(newRow)(newCol).isInstanceOf[King]) {
             println("in")
@@ -100,7 +77,7 @@ class ChessAI extends Player {
           curPiece.firstMove = false
 
           if (curPiece.isInstanceOf[King] && Math.abs(curPiece.curCol - newCol) == 2)
-            gameController.kingCastling(board, new State(oldRow, oldCol, newRow, newCol, turn))
+            gameController.kingCastling(board, state)
 
           if (curPiece.wantPromote())
             board(newRow)(newCol) = new Queen(if (turn == 1) ChessEn.BlackQueen else ChessEn.WhiteQueen, newRow, newCol, turn)
@@ -109,7 +86,7 @@ class ChessAI extends Player {
           if (!gameController.checkMate(board, turn))
             currentScore = miniMax(board, 1 - turn, alpha, beta, depth - 1).getValue
 
-          gameController.restoreState(board, curPiece, removed, oldRow, oldCol, newRow, newCol)
+          gameController.restoreState(board, curPiece, removed, state)
           curPiece.firstMove = fm
 
           //maximize white && minimize black

@@ -13,10 +13,9 @@ class ChessPlayer extends Player {
   var gameBoard: Array[Array[Piece]] = _
   var gameDrawer: ChessDrawer = _
   var promButs: GridPane = _
-  var oldCol, oldRow: Int = 0
-  var newCol, newRow: Int = 0
+  val state: State = new State(-1, -1, -1, -1, color)
   var curPiece: ChessPiece = _
-  var x, y: Double = 0
+  private var x, y: Double = 0
   var src: Node = _
   var promotion: Boolean = false
 
@@ -35,11 +34,11 @@ class ChessPlayer extends Player {
   override def Movement(source: Node): Unit = {
     source.setOnMousePressed(e => {
       if (!promotion && !observer.gameEnded && observer.turn == color) {
-        oldCol = GridPane.getColumnIndex(source)
-        oldRow = GridPane.getRowIndex(source)
+        state.oldCol = GridPane.getColumnIndex(source)
+        state.oldRow = GridPane.getRowIndex(source)
         x = e.getSceneX
         y = e.getSceneY
-        curPiece = gameBoard(oldRow)(oldCol).asInstanceOf[ChessPiece]
+        curPiece = gameBoard(state.oldRow)(state.oldCol).asInstanceOf[ChessPiece]
         gameDrawer.showAvailableMovements(this)
       }
     })
@@ -53,57 +52,20 @@ class ChessPlayer extends Player {
 
     source.setOnMouseReleased(e => {
       if (curPiece != null && curPiece.color == observer.turn && !promotion && !observer.gameEnded) {
-        newRow = Math.floor((e.getSceneY - 65) / 80).toInt
-        newCol = Math.floor((e.getSceneX - 220) / 80).toInt
+        state.newRow = Math.floor((e.getSceneY - 65) / 80).toInt
+        state.newCol = Math.floor((e.getSceneX - 220) / 80).toInt
 
         source.setTranslateX(0)
         source.setTranslateY(0)
-        val s: State = new State(oldRow, oldCol, newRow, newCol, color)
+        src = source
 
-        if ((newCol != oldCol || newRow != oldRow) && gameController.movementValidation(gameBoard, s).valid) {
-          val removed = gameController.createState(gameBoard, curPiece, newRow, newCol)
-
-          if (!gameController.checkMate(gameBoard, color)) {
-            gameController.restoreState(gameBoard, curPiece, removed, oldRow, oldCol, newRow, newCol)
-            gameDrawer.highlightSquares(s)
-            ReleaseLogic(source)
-
-            if (!promotion)
-              Notify()
-          } else
-            gameController.restoreState(gameBoard, curPiece, removed, oldRow, oldCol, newRow, newCol)
-        }
+        Notify()
         gameDrawer.hideAvailableMovements()
       }
     })
   }
 
-  private def ReleaseLogic(source: Node): Unit = {
-    if (gameBoard(newRow)(newCol) != null) {
-      observer.score(1 - color) -= gameBoard(newRow)(newCol).asInstanceOf[ChessPiece].rank
-      gameDrawer.gameBoard.getChildren.remove(gameBoard(newRow)(newCol).image)
-    }
-
-    if (curPiece.wantCastle(oldCol, newCol)) {
-      val newRookCol = gameController.kingCastling(gameBoard, new State(oldRow, oldCol, newRow, newCol, color))
-
-      gameDrawer.movementDraw(gameBoard(newRow)(newRookCol).image,
-        new State(0, 0, newRow, newRookCol, -1), gameBoard(newRow)(newRookCol).image)
-      curPiece.castled = false
-    }
-
-    gameBoard(oldRow)(oldCol) = null
-    gameBoard(newRow)(newCol) = curPiece
-    gameDrawer.movementDraw(source, new State(0, 0, newRow, newCol, -1), source)
-
-    curPiece.firstMove = false
-    curPiece.curCol = newCol
-    curPiece.curRow = newRow
-
-    if (curPiece.wantPromote()) {
-      promotion = true
-      src = source
-      promButs.setVisible(true)
-    }
+  override def Notify(): Unit = {
+    observer.setPlayerMove(src)
   }
 }

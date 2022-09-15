@@ -18,12 +18,11 @@ abstract class Controller {
     removed
   }
 
-  def restoreState(gameBoard: Array[Array[Piece]], modifiedPiece: Piece, removedPiece: Piece,
-                   oldRow: Int, oldCol: Int, newRow: Int, newCol: Int): Unit = {
-    gameBoard(oldRow)(oldCol) = modifiedPiece
-    gameBoard(newRow)(newCol) = removedPiece
+  def restoreState(gameBoard: Array[Array[Piece]], modifiedPiece: Piece, removedPiece: Piece, state: State): Unit = {
+    gameBoard(state.oldRow)(state.oldCol) = modifiedPiece
+    gameBoard(state.newRow)(state.newCol) = removedPiece
 
-    modifiedPiece.curRow = oldRow
-    modifiedPiece.curCol = oldCol
+    modifiedPiece.curRow = state.oldRow
+    modifiedPiece.curCol = state.oldCol
   }
 }

@@ -24,12 +24,13 @@ class ChessController extends Controller {
             val newRow = availableMoves(move).getKey
             val newCol = availableMoves(move).getValue
             val removed = createState(gameBoard, curPiece, newRow, newCol)
+            val state: State = new State(oldRow, oldCol, newRow, newCol, turn)
 
             if (!checkMate(gameBoard, turn)) {
-              restoreState(gameBoard, curPiece, removed, oldRow, oldCol, newRow, newCol)
+              restoreState(gameBoard, curPiece, removed, state)
               return false
             }
-            restoreState(gameBoard, curPiece, removed, oldRow, oldCol, newRow, newCol)
+            restoreState(gameBoard, curPiece, removed, state)
           }
         }
       }

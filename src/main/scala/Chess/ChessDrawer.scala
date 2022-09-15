@@ -60,7 +60,7 @@ class ChessDrawer extends Drawer {
         moves = moves :+ move
 
       player.gameController.restoreState(player.gameBoard, player.curPiece, removed,
-        player.oldRow, player.oldCol, move.getKey, move.getValue)
+        new State(player.state.oldRow, player.state.oldCol, move.getKey, move.getValue, player.state.turn))
     }
 
     normalNodes = gameBoard.getChildren.filtered(new Predicate[Node] {
@@ -111,16 +111,16 @@ class ChessDrawer extends Drawer {
     buts.forEach(but => but.setOnMousePressed(_ => {
       val x: Int = GridPane.getColumnIndex(but)
       val y: Int = GridPane.getRowIndex(but)
-      val ps: ChessPiece = promotionMap(player.color)(new Pair[Int, Int](x, y)).promote(player.newRow, player.newCol)
+      val ps: ChessPiece = promotionMap(player.color)(new Pair[Int, Int](x, y)).promote(player.state.newRow, player.state.newCol)
       player.Movement(ps.image)
 
-      player.gameBoard(player.newRow)(player.newCol) = ps
+      player.gameBoard(player.state.newRow)(player.state.newCol) = ps
       player.observer.score(player.color) += ps.rank - 10
-      movementDraw(player.src, new State(0, 0, player.newRow, player.newCol, 0), ps.image)
+      movementDraw(player.src, new State(0, 0, player.state.newRow, player.state.newCol, 0), ps.image)
 
       player.promButs.setVisible(false)
       player.promotion = false
-      player.Notify()
+      player.observer.update()
     }))
   }
 

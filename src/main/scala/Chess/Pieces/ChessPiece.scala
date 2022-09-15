@@ -11,7 +11,6 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
   val dx: Array[Int]
   val dy: Array[Int]
   var firstMove: Boolean = true
-  var castled: Boolean = false
   var checked: Boolean = false
   var moves: Moves = new Moves
   var rank: Int

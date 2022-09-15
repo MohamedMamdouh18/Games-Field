@@ -1,7 +1,7 @@
 package Chess
 
 import Base.Piece
-import Chess.Pieces.ChessPiece
+import Chess.Pieces.{ChessPiece, Queen}
 
 class ChessEstimator {
   def estimate(board: Array[Array[Piece]]): Int = {
@@ -15,7 +15,12 @@ class ChessEstimator {
   }
 
   private def getPieceRank(piece: ChessPiece, i: Int, j: Int): Int = {
-    if (piece.color == ChessEn.Black) piece.rank + piece.evaluationMatrix.reverse(i)(j).toInt * 10
-    else piece.rank + piece.evaluationMatrix(i)(j).toInt * 10
+    var score: Int = 0
+    if (!piece.isInstanceOf[Queen] && piece.color == ChessEn.Black)
+      score = piece.evaluationMatrix.reverse(i)(j).toInt
+    else
+      score = piece.evaluationMatrix(i)(j).toInt
+
+    piece.rank + score * 10
   }
 }

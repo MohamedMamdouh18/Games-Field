@@ -29,8 +29,9 @@ class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     castling(board)
 
     moves.validMoves.foreach(move => {
-      castled = validateMoveImpl(new State(newX, newY, move.getKey, move.getValue, -1))
-      castled
+      validateMoveImpl(new State(newX, newY, move.getKey, move.getValue, -1))
+      if (moves.valid)
+        return moves.valid
     })
 
     loopTemplate(board, newX, newY, validateMoveImpl, 1).valid

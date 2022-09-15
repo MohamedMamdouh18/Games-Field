@@ -42,5 +42,9 @@ abstract class GameEngine(players: Array[Player], gameType: String) {
     play()
   }
 
+  def setPlayerMove(source: Node = null): Unit = {
+
+  }
+
   def play(): Unit
 }
