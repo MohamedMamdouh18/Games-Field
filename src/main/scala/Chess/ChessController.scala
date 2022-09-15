@@ -105,6 +105,17 @@ class ChessController extends Controller {
   }
 
   def kingCastling(gameBoard: Array[Array[Piece]], move: State): Int = {
+    val p = getRookPlace(move)
+    val oldRookCol = p.getKey
+    val newRookCol = p.getValue
+
+    gameBoard(move.newRow)(newRookCol) = gameBoard(move.newRow)(oldRookCol)
+    gameBoard(move.newRow)(oldRookCol).curCol = newRookCol
+    gameBoard(move.newRow)(oldRookCol) = null
+    newRookCol
+  }
+
+  def getRookPlace(move: State): Pair[Int, Int] = {
     var oldRookCol, newRookCol: Int = -1
     if (move.newCol > move.oldCol) {
       newRookCol = 5
@@ -114,9 +125,6 @@ class ChessController extends Controller {
       oldRookCol = 0
     }
 
-    gameBoard(move.newRow)(newRookCol) = gameBoard(move.newRow)(oldRookCol)
-    gameBoard(move.newRow)(oldRookCol).curCol = newRookCol
-    gameBoard(move.newRow)(oldRookCol) = null
-    newRookCol
+    new Pair[Int, Int](oldRookCol, newRookCol)
   }
 }

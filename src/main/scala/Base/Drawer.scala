@@ -61,7 +61,8 @@ abstract class Drawer {
     attackCircle.setStroke(Color.rgb(54, 69, 79, 0.5))
     attackCircle.setStrokeWidth(10)
     attackCircle.setFill(Color.TRANSPARENT)
-    lightSquare.setFill(Color.rgb(226, 207, 89, 0.6))
+    lightSquare.setFill(Color.GOLD)
+    lightSquare.setOpacity(0.35)
 
     normalCircle.setVisible(false)
     attackCircle.setVisible(false)

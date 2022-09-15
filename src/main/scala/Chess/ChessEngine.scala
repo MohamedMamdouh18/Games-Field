@@ -18,7 +18,8 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
       new King(ChessEn.BlackKing, 0, 4, 1),
       new Bishop(ChessEn.BlackBishop, 0, 5, 1),
       new Knight(ChessEn.BlackKnight, 0, 6, 1),
-      new Rook(ChessEn.BlackRook, 0, 7, 1)),
+      new Rook(ChessEn.BlackRook, 0, 7, 1)
+    ),
 
     Array(
       new Pawn(ChessEn.BlackPawn, 1, 0, 1),
@@ -28,7 +29,8 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
       new Pawn(ChessEn.BlackPawn, 1, 4, 1),
       new Pawn(ChessEn.BlackPawn, 1, 5, 1),
       new Pawn(ChessEn.BlackPawn, 1, 6, 1),
-      new Pawn(ChessEn.BlackPawn, 1, 7, 1)),
+      new Pawn(ChessEn.BlackPawn, 1, 7, 1)
+    ),
 
     Array(null, null, null, null, null, null, null, null),
 
@@ -46,7 +48,8 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
       new Pawn(ChessEn.WhitePawn, 6, 4, 0),
       new Pawn(ChessEn.WhitePawn, 6, 5, 0),
       new Pawn(ChessEn.WhitePawn, 6, 6, 0),
-      new Pawn(ChessEn.WhitePawn, 6, 7, 0)),
+      new Pawn(ChessEn.WhitePawn, 6, 7, 0)
+    ),
 
     Array(
       new Rook(ChessEn.WhiteRook, 7, 0, 0),
@@ -56,7 +59,8 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
       new King(ChessEn.WhiteKing, 7, 4, 0),
       new Bishop(ChessEn.WhiteBishop, 7, 5, 0),
       new Knight(ChessEn.WhiteKnight, 7, 6, 0),
-      new Rook(ChessEn.WhiteRook, 7, 7, 0)),
+      new Rook(ChessEn.WhiteRook, 7, 7, 0)
+    ),
   )
   override var score: Array[Int] = Array(1290, 1290)
   var whitePromButs: GridPane = _
@@ -155,7 +159,7 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
 
         if (curPiece.wantPromote()) {
           gameBoard(s.newRow)(s.newCol) =
-            new Queen(if (turn == 1) ChessEn.BlackQueen else ChessEn.WhiteQueen, s.newRow, s.newCol, turn)
+            new Queen(if (turn == ChessEn.Black) ChessEn.BlackQueen else ChessEn.WhiteQueen, s.newRow, s.newCol, turn)
           gameDrawer.gameBoard.getChildren.remove(curPiece.image)
           curPiece = gameBoard(s.newRow)(s.newCol).asInstanceOf[ChessPiece]
         }

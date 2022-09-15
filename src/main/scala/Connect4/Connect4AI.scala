@@ -89,13 +89,11 @@ class Connect4AI extends Player {
   private def estimate(gameBoard: Array[Array[Piece]], turn: Int): Int = {
     var score: Int = 0
 
-    //Score center column
     var centerCount: Int = 0
     for (row <- 0 until Connect4En.RowLen)
       if (gameBoard(row)(3) != null && gameBoard(row)(3).color == turn) centerCount += 1
     score += centerCount * 3
 
-    //vertical score
     for (col <- 0 until Connect4En.ColLen) {
       for (row <- 0 until Connect4En.RowLen - 3) {
         var window: Array[Piece] = Array[Piece]()
@@ -105,7 +103,6 @@ class Connect4AI extends Player {
       }
     }
 
-    //horizontal score
     for (row <- 0 until Connect4En.RowLen) {
       for (col <- 0 until Connect4En.ColLen - 3) {
         var window: Array[Piece] = Array[Piece]()
@@ -115,7 +112,6 @@ class Connect4AI extends Player {
       }
     }
 
-    //diagonal score
     for (row <- 0 until Connect4En.RowLen - 3) {
       for (col <- 0 until Connect4En.ColLen - 3) {
         var window: Array[Piece] = Array[Piece]()
