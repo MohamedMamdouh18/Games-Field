@@ -16,7 +16,7 @@ class ChessEstimator {
 
   private def getPieceRank(piece: ChessPiece, i: Int, j: Int): Int = {
     var score: Int = 0
-    if ((!piece.isInstanceOf[Queen] || piece.isInstanceOf[Knight]) && piece.color == ChessEn.Black)
+    if (!piece.isInstanceOf[Queen] && !piece.isInstanceOf[Knight] && piece.color == ChessEn.Black)
       score = piece.evaluationMatrix.reverse(i)(j).toInt
     else
       score = piece.evaluationMatrix(i)(j).toInt

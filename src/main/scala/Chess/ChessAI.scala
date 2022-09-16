@@ -40,6 +40,11 @@ class ChessAI extends Player {
         return new Pair[State, Int](null, if (1 - turn == ChessEn.White) 20000 else -20000)
       else
         return new Pair[State, Int](null, 0)
+    } else if (gameController.checkEndGame(board, 1 - turn)) {
+      if (gameController.checkMate(board, 1 - turn))
+        return new Pair[State, Int](null, if (turn == ChessEn.White) 20000 else -20000)
+      else
+        return new Pair[State, Int](null, 0)
     }
 
     if (depth == 0)
