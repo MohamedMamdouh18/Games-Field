@@ -7,7 +7,6 @@
 > **Mohamed Mamdouh Rashad**
 >
 > **Youssef Ali Bazina**
->
 
 ## Table of Contents
 
