@@ -59,7 +59,6 @@
 - In each game, there can be a pieces which are separate components that carry the data of each piece. Each piece is
   assigned to a player which can control it in his game.
 
-en passant - rule 50
 
 - We didn't use some rules in the Chess game like en passant and rule fifty , but we put many other rules and features
   like castling and promotion.
