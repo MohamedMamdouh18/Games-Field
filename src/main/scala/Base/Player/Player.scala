@@ -11,7 +11,7 @@ abstract class Player {
 
   def run(buts: GridPane = null): Unit
 
-  def setDepth(dep : Int) : Unit= {
+  def setDepth(dep: Int): Unit = {
     depth = dep
   }
 

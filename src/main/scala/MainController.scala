@@ -12,7 +12,8 @@ import scalafxml.core.macros.sfxml
 
 @sfxml
 class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
-                     val returnButton: Button, val returnButtonImg: ImageView, gameMode: ComboBox[String], difficulty: ComboBox[String],
+                     val returnButton: Button, val returnButtonImg: ImageView,
+                     gameMode: ComboBox[String], difficulty: ComboBox[String],
                      val whitePromotionPieces: GridPane, val blackPromotionPieces: GridPane) {
   gameMode.getItems.addAll(FXCollections.observableArrayList("PvP", "PvA", "AvP"))
   difficulty.getItems.addAll(FXCollections.observableArrayList("Easy", "Normal", "Hard"))

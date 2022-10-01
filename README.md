@@ -61,7 +61,7 @@
     - The drawer component is in charge of drawing board, pieces and update them according to the valid moves that was
       made.
     - The player components is responsible for taking the input of each player in the case of human players and to make
-      the best move in the case of AI player then it notifys the engine -its observer- to validate the move.
+      the best move in the case of AI player then it notifies the engine -its observer- to validate the move.
 
 
 - In each game, there can be a pieces which are separate components that carry the data of each piece. Each piece is
@@ -97,30 +97,26 @@
 
 ### UI Samples
 
-- Main Menu.
+- Main Menu 1.
 
-![image](https://drive.google.com/uc?export=view&id=1nH8Jqw6ucJfhvAFgt9FOzC0o4LDx-pje)
+![image](https://drive.google.com/uc?export=view&id=1SxRkbAeN9FQrAsRVoOFxzdX3RYv1F1tu)
 
-- Chess Sample 1.
+- Main Menu 2.
 
-![image](https://drive.google.com/uc?export=view&id=1xGA4a0jNgUFaKdHJGVFGZpuerwVM-IaT)
+![image](https://drive.google.com/uc?export=view&id=18DyBMSBORJMSVyC51hk1X9_gTFXjHdUB)
 
-- Chess Sample 2.
+- Chess.
 
-![image](https://drive.google.com/uc?export=view&id=1YML-Tncfp1HEaKKBlUNv0hfj8PwuUR5T)
-
-- Chess Sample 3.
-
-![image](https://drive.google.com/uc?export=view&id=1NbRPo1qg1Ypq_wQfOkNai8LQTgMmdasY)
-
-- Connect-4.
-
-![image](https://drive.google.com/uc?export=view&id=1xAKPkq2W0BToWjqYz8MRGqx30GUDrIZ0)
+![image](https://drive.google.com/uc?export=view&id=1ijrYQpYjwks6fBdw4pPxz6MuAUMSPlTZ)
 
 - Tic-Tac-Toe.
 
-![image](https://drive.google.com/uc?export=view&id=1jCFwh8PBdieP5sas9DgD1d4T5GDIPir9)
+![image](https://drive.google.com/uc?export=view&id=1cchQZHvFvYJE5WzqTekQ9eSYf4Ab9lP_)
+
+- Connect-4.
+
+![image](https://drive.google.com/uc?export=view&id=1cZmmaWHwLWmqelnP9I5j-Fl_OCpJcQns)
 
 - Gameplay.
 
-![image](https://drive.google.com/uc?export=view&id=1SyAqIbW-H_23aWvRZdXwchLRBdOoDC9J)
+![image](https://drive.google.com/uc?export=view&id=1itVk68lyXHdWMnsHG1UkY1DBDA98NQom)

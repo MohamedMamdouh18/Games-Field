@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="770.0" prefWidth="1080.0" style="-fx-background-color: #312E2B;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+<AnchorPane prefHeight="770.0" prefWidth="1080.0" style="-fx-background-color: #312E2B;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
    <StackPane fx:id="gamePane" prefHeight="770.0" prefWidth="1080.0" />
    <AnchorPane fx:id="menuPane" prefHeight="770.0" prefWidth="1080.0">
       <ImageView fitHeight="71.0" fitWidth="75.0" layoutX="364.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
@@ -38,12 +38,12 @@
             <Font size="50.0" />
          </font>
       </JFXButton>
-      <JFXComboBox fx:id="gameMode" layoutX="624.0" layoutY="340.0" prefHeight="65.0" prefWidth="269.0" promptText="Choose Game Mode" stylesheets="@ComboBox.css" unFocusColor="#bc3333" />
-      <JFXComboBox fx:id="difficulty" layoutX="624.0" layoutY="413.0" prefHeight="65.0" prefWidth="269.0" promptText="Choose Difficulty" stylesheets="@ComboBox.css" unFocusColor="#bc3333" />
+      <JFXComboBox fx:id="gameMode" layoutX="619.0" layoutY="416.0" prefHeight="65.0" prefWidth="140.0" promptText="Choose Game Mode" stylesheets="@ComboBox.css" unFocusColor="#bc3333" />
+      <JFXComboBox fx:id="difficulty" layoutX="764.0" layoutY="416.0" prefHeight="65.0" prefWidth="134.0" promptText="Choose Difficulty" stylesheets="@ComboBox.css" unFocusColor="#bc3333" />
    </AnchorPane>
    <AnchorPane prefHeight="79.0" prefWidth="1080.0">
       <ImageView fx:id="returnButtonImg" fitHeight="28.0" fitWidth="51.0" layoutX="31.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <Image url="@Asset%204.png" />
+         <Image url="@back.png" />
       </ImageView>
       <JFXButton fx:id="returnButton" layoutX="14.0" layoutY="14.0" onAction="#returnMenu" prefHeight="70.0" prefWidth="70.0" style="-fx-background-radius: 50%;" stylesheets="@Buttons.css" textFill="TRANSPARENT" visible="false">
          <font>
