@@ -34,7 +34,7 @@ abstract class GameEngine(players: Array[Player], gameType: String) {
       gameDrawer.drawEnd(1 - turn)
     }
 
-    if (gameController.checkTie(gameBoard)) {
+    if (gameController.checkTie(gameBoard) && !gameEnded) {
       gameEnded = true
       gameDrawer.drawEnd(-1)
     }
