@@ -1,7 +1,6 @@
 # ***Games-Field***
 
-- This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.12, and Spring Boot
-  version 2.5.7 [Spring Boot](https://start.spring.io/).
+- This project was built with [Scala](https://www.scala-lang.org/download/2.13.8.html) version 2.13.8.
 
 ## Authors:
 
@@ -13,7 +12,6 @@
 ## Table of Contents
 
 - [Setup](#Setup)
-    - [Packages and Running](#Packages-and-Running)
 - [Design Patterns](#Design-Patterns)
 - [Design Decisions](#Design-Decisions)
 - [Features and User Guide](#Features-and-User-Guide)
@@ -23,9 +21,7 @@
 
 ## Setup
 
-### Packages and Running
-
-- The `pom.xml` will do the package installation for back-end but if anything goes wrong.
+- The `build.sbt` will do the package installation for the app.
 
 ## Design Patterns
 
