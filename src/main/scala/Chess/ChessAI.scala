@@ -30,7 +30,7 @@ class ChessAI extends Player {
   }
 
   override def Movement(source: Node): Unit = {
-    move = miniMax(gameBoard, observer.turn, Int.MinValue, Int.MaxValue, 5).getKey
+    move = miniMax(gameBoard, observer.turn, Int.MinValue, Int.MaxValue, depth).getKey
     Notify()
   }
 

@@ -32,11 +32,19 @@
 |    Mediator Pattern     |
 |     Command Pattern     |
 
-- **Factory Pattern** holds almost all the families in our app such that each game has its controller that inherits form the base controller same for game engine, drawer, pieces for each game and player classes for each game.
-- **Template Method Pattern** the golden piece in our project it plays a vital role as it reduced number of lines in the chess pieces classes as almost all the pieces has the same logic but in different directions, so they have the same skeleton with some changes in the middle where the template method fits in like a charm.
-- **Observer Pattern** holds the communication between the players and the game engine as the engine observes the players and the players hit the notify function when they play their move, then the engine checks if this was an available move or not after and if it was right it is executed and the engine flips the turn.
-- **Mediator Pattern** where all classes talk to him, almost all calls from the players are redirected by it, for example when the player finishes his move, he calls the engine and tells him the move then the engine calls the controller to validate the move and if it was right the engine calls the drawer to draw the move.
-- **Command Pattern** which it was used in small section, just to create the game player objects or get the new promoted piece in chess using a map.
+- **Factory Pattern** holds almost all the families in our app such that each game has its controller that inherits form
+  the base controller same for game engine, drawer, pieces for each game and player classes for each game.
+- **Template Method Pattern** the golden piece in our project it plays a vital role as it reduced number of lines in the
+  chess pieces classes as almost all the pieces has the same logic but in different directions, so they have the same
+  skeleton with some changes in the middle where the template method fits in like a charm.
+- **Observer Pattern** holds the communication between the players and the game engine as the engine observes the
+  players and the players hit the notify function when they play their move, then the engine checks if this was an
+  available move or not after and if it was right it is executed and the engine flips the turn.
+- **Mediator Pattern** where all classes talk to him, almost all calls from the players are redirected by it, for
+  example when the player finishes his move, he calls the engine and tells him the move then the engine calls the
+  controller to validate the move and if it was right the engine calls the drawer to draw the move.
+- **Command Pattern** which it was used in small section, just to create the game player objects or get the new promoted
+  piece in chess using a map.
 
 ## Design Decisions
 
@@ -74,6 +82,10 @@
 
 
 - The application support three games : Chess , Tic-tac-toe and Connect-4.
+
+
+- In each game if you decided to play with the AI you can select the difficulty of the AI from Easy, Normal and Hard but
+  , it won't make any change if you choose a difficulty in PVP mode.
 
 
 - In Chess game, every time you click on a piece of yours the board highlights the valid moves for this piece and if you

@@ -12,10 +12,12 @@ import scalafxml.core.macros.sfxml
 
 @sfxml
 class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
-                     val returnButton: Button, val returnButtonImg: ImageView, gameMode: ComboBox[String],
+                     val returnButton: Button, val returnButtonImg: ImageView, gameMode: ComboBox[String], difficulty: ComboBox[String],
                      val whitePromotionPieces: GridPane, val blackPromotionPieces: GridPane) {
   gameMode.getItems.addAll(FXCollections.observableArrayList("PvP", "PvA", "AvP"))
+  difficulty.getItems.addAll(FXCollections.observableArrayList("Easy", "Normal", "Hard"))
   var gM: String = _
+  var diff: String = _
   val gameModeMap: Map[Pair[String, String], Array[Player]] = Map(
     new Pair[String, String]("PvA", "Chess") -> Array[Player](new ChessPlayer, new ChessAI),
     new Pair[String, String]("PvP", "Chess") -> Array[Player](new ChessPlayer, new ChessPlayer),
@@ -30,6 +32,12 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
     new Pair[String, String]("AvP", "XO") -> Array[Player](new XOAI, new ConcretePlayer),
   )
 
+  val difficultyMap: Map[String, Int] = Map(
+    "Easy" -> 1,
+    "Normal" -> 3,
+    "Hard" -> 5,
+  )
+
   def XOStart(): Unit = {
     init()
     val players = gameModeMap(new Pair[String, String](gM, "XO"))
@@ -42,6 +50,9 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
   def ChessStart(): Unit = {
     init()
     val players = gameModeMap(new Pair[String, String](gM, "Chess"))
+    val depth = difficultyMap(diff)
+    players(0).setDepth(depth)
+    players(1).setDepth(depth)
     val gameEngine = new ChessEngine(players, gameMode.getValue)
     players(0).setObserver(gameEngine)
     players(1).setObserver(gameEngine)
@@ -52,6 +63,9 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
   def Connect4Start(): Unit = {
     init()
     val players = gameModeMap(new Pair[String, String](gM, "Connect4"))
+    val depth = difficultyMap(diff)
+    players(0).setDepth(depth)
+    players(1).setDepth(depth)
     val gameEngine = new Connect4Engine(players, gameMode.getValue)
     players(0).setObserver(gameEngine)
     players(1).setObserver(gameEngine)
@@ -76,6 +90,7 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
   def init(): Unit = {
     gameMode(true)
     gM = if (gameMode.getValue == null) "PvP" else gameMode.getValue
+    diff = if (difficulty.getValue == null) "Normal" else difficulty.getValue
   }
 
 }

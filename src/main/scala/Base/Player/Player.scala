@@ -7,8 +7,13 @@ import javafx.scene.layout.GridPane
 abstract class Player {
   var observer: GameEngine
   var color: Int = 0
+  var depth: Int = 0
 
   def run(buts: GridPane = null): Unit
+
+  def setDepth(dep : Int) : Unit= {
+    depth = dep
+  }
 
   def Notify(): Unit = {
     observer.update()

@@ -20,7 +20,7 @@ class Connect4AI extends Player {
   }
 
   override def Movement(source: Node): Unit = {
-    val move = miniMax(gameBoard, color, -1000, 1000, 6).getKey
+    val move = miniMax(gameBoard, color, -1000, 1000, depth).getKey
 
     gameBoard(move.oldRow)(move.oldCol) = new Piece(turns(color), move.oldRow, move.oldCol, color)
 
