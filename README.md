@@ -128,4 +128,4 @@
 
 - Gameplay.
 
-![image](https://drive.google.com/uc?export=view&id=1itVk68lyXHdWMnsHG1UkY1DBDA98NQom)
+![image](https://drive.google.com/uc?export=view&id=19rq8MakA5EYObI2usjN9zuV4YmS2hrn4)
