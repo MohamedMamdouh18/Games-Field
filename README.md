@@ -76,7 +76,7 @@
 ### Features
 
 - A friendly GUI that allows user to choose a game to play then change a mode among three modes :
-    - PVP : player versus player
+    - PVP : player versus player and this is the default mode if you didn't choose any mode
     - PVA : player versus AI
     - AVP : AI versus player
 
@@ -84,8 +84,8 @@
 - The application support three games : Chess , Tic-tac-toe and Connect-4.
 
 
-- In each game if you decided to play with the AI you can select the difficulty of the AI from Easy, Normal and Hard but
-  , it won't make any change if you choose a difficulty in PVP mode.
+- In each game if you decided to play with the AI you can select the difficulty of the AI from Easy, Normal -the default
+  difficulty- and Hard but , it won't make any change if you choose a difficulty in PVP mode.
 
 
 - In Chess game, every time you click on a piece of yours the board highlights the valid moves for this piece and if you
@@ -94,6 +94,10 @@
 ### User Guide
 
 - Choose the mode that you want to play in then choose the game that you desire to play.
+
+
+- **Note** When choosing hard difficulty in chess game, It may take up to three minutes for the AI to calculate the best
+  move.
 
 ### UI Samples
 

@@ -48,8 +48,7 @@ class ChessAI extends Player {
     }
 
     if (depth == 0)
-      return new Pair[State, Int](null, if (turn == 0) estimator.estimate(gameBoard)
-      else estimator.estimate(gameBoard) * -1)
+      return new Pair[State, Int](null, estimator.estimate(gameBoard))
 
     var score = if (turn == ChessEn.White) Int.MinValue else Int.MaxValue
     var bestMove: State = null
