@@ -1,7 +1,9 @@
 # ***Games-Field***
 
-- This project was built with [Scala](https://www.scala-lang.org/download/2.13.8.html) version 2.13.8.
+- This project was built with [Scala](https://www.scala-lang.org/download/2.13.8.html) version 2.13.8
+  and [Java](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) version 17.0.2.
 - The Executable file [link](https://github.com/MohamedMamdouh18/Games-Field/tree/master/out/artifacts/Games_Field_jar).
+  Download it then open the cmd where the file lies in and write this command `java -jar GamesField.jar`.
 
 ## Authors:
 
@@ -89,7 +91,8 @@
 
 - The application supports three games: Chess, Tic-tac-toe and Connect-4.
 
-- In each game session, if you decide to play against an AI, you can select the difficulty of the AI from Easy, Normal -the
+- In each game session, if you decide to play against an AI, you can select the difficulty of the AI from Easy, Normal
+  -the
   default difficulty- and Hard, but it won't make any changes if you choose a difficulty level in PVP mode.
 
 - In a Chess game, every time you click on a piece of yours. The board highlights the valid movements for this piece,
