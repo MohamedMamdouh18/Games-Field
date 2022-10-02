@@ -1,14 +1,11 @@
 package Chess
 
-import Base.Player.Player
-import Base.{GameEngine, Piece, State}
+import Base.{GameEngine, Piece, Player, State}
 import Chess.Pieces._
 import javafx.scene.Node
 import javafx.scene.layout.{GridPane, StackPane}
 
 class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(players, gameType) {
-  override val gameController = new ChessController
-  override val gameDrawer = new ChessDrawer
   override var gameBoard: Array[Array[Piece]] = Array(
     Array(
       new Rook(ChessEn.BlackRook, 0, 0, 1),
@@ -63,13 +60,13 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
     ),
   )
   override var score: Array[Int] = Array(1290, 1290)
-  var whitePromButs: GridPane = _
-  var blackPromButs: GridPane = _
+  protected var whitePromButs: GridPane = _
+  protected var blackPromButs: GridPane = _
 
   override def startGame(gamePane: StackPane): Unit = {
-    gameDrawer.setGamePane(gamePane)
+    ChessDrawer.setGamePane(gamePane)
     players(1 - turn).color = ChessEn.Black
-    gameDrawer.drawPiece()
+    ChessDrawer.drawPiece()
     players(ChessEn.Black).run(blackPromButs)
     players(ChessEn.White).run(whitePromButs)
     play()
@@ -84,53 +81,53 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
     val player = players(turn).asInstanceOf[ChessPlayer]
 
     if ((player.state.newCol != player.state.oldCol || player.state.newRow != player.state.oldRow) &&
-      gameController.movementValidation(gameBoard, player.state).valid) {
-      val removed = gameController.createState(gameBoard, player.curPiece, player.state.newRow, player.state.newCol)
+      ChessController.movementValidation(gameBoard, player.state).valid) {
+      val removed = ChessController.createState(gameBoard, player.curPiece, player.state.newRow, player.state.newCol)
 
-      if (!gameController.checkMate(gameBoard, player.curPiece.color)) {
-        gameController.restoreState(gameBoard, player.curPiece, removed, player.state)
+      if (!ChessController.checkMate(gameBoard, player.curPiece.color)) {
+        ChessController.restoreState(gameBoard, player.curPiece, removed, player.state)
         ReleaseLogic(source, player.state)
 
         if (!player.promotion)
           update()
       } else
-        gameController.restoreState(gameBoard, player.curPiece, removed, player.state)
+        ChessController.restoreState(gameBoard, player.curPiece, removed, player.state)
     }
   }
 
   override def update(): Unit = {
     turn = 1 - turn
 
-    if (gameController.checkEndGame(gameBoard, turn)) {
+    if (ChessController.checkEndGame(gameBoard, turn)) {
       gameEnded = true
-      if (gameController.checkMate(gameBoard, turn))
-        gameDrawer.drawEnd(1 - turn)
+      if (ChessController.checkMate(gameBoard, turn))
+        ChessDrawer.drawEnd(1 - turn)
       else
-        gameDrawer.drawEnd(-1)
+        ChessDrawer.drawEnd(-1)
       return
     }
 
-    if (gameController.checkMate(gameBoard, turn))
-      gameController.findKing(gameBoard, turn).checked = true
+    if (ChessController.checkMate(gameBoard, turn))
+      ChessController.findKing(gameBoard, turn).checked = true
     else
-      gameController.findKing(gameBoard, turn).checked = false
+      ChessController.findKing(gameBoard, turn).checked = false
 
     play()
   }
 
   def ReleaseLogic(source: Node, s: State): Unit = {
-    gameDrawer.highlightSquares(s)
+    ChessDrawer.highlightSquares(s)
 
     var curPiece = gameBoard(s.oldRow)(s.oldCol).asInstanceOf[ChessPiece]
     if (gameBoard(s.newRow)(s.newCol) != null) {
       score(1 - turn) -= gameBoard(s.newRow)(s.newCol).asInstanceOf[ChessPiece].rank
-      gameDrawer.gameBoard.getChildren.remove(gameBoard(s.newRow)(s.newCol).image)
+      ChessDrawer.gameBoard.getChildren.remove(gameBoard(s.newRow)(s.newCol).image)
     }
 
     if (curPiece.wantCastle(s.oldCol, s.newCol)) {
-      val newRookCol = gameController.kingCastling(gameBoard, s)
+      val newRookCol = ChessController.kingCastling(gameBoard, s)
 
-      gameDrawer.movementDraw(gameBoard(s.newRow)(newRookCol).image,
+      ChessDrawer.movementDraw(gameBoard(s.newRow)(newRookCol).image,
         new State(0, 0, s.newRow, newRookCol, -1),
         gameBoard(s.newRow)(newRookCol).image)
     }
@@ -140,7 +137,7 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
 
     players(turn) match {
       case player: ChessPlayer =>
-        gameDrawer.movementDraw(source, new State(0, 0, s.newRow, s.newCol, -1), source)
+        ChessDrawer.movementDraw(source, new State(0, 0, s.newRow, s.newCol, -1), source)
 
         curPiece.firstMove = false
         curPiece.curCol = s.newCol
@@ -152,7 +149,7 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
           player.promButs.setVisible(true)
         }
 
-      case player: ChessAI =>
+      case _: ChessAI =>
         curPiece.firstMove = false
         curPiece.curCol = s.newCol
         curPiece.curRow = s.newRow
@@ -160,15 +157,13 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
         if (curPiece.wantPromote()) {
           gameBoard(s.newRow)(s.newCol) =
             new Queen(if (turn == ChessEn.Black) ChessEn.BlackQueen else ChessEn.WhiteQueen, s.newRow, s.newCol, turn)
-          gameDrawer.gameBoard.getChildren.remove(curPiece.image)
+          ChessDrawer.gameBoard.getChildren.remove(curPiece.image)
           curPiece = gameBoard(s.newRow)(s.newCol).asInstanceOf[ChessPiece]
         }
 
-        gameDrawer.movementDraw(curPiece.image, new State(0, 0, s.newRow, s.newCol, -1), curPiece.image)
+        ChessDrawer.movementDraw(curPiece.image, new State(0, 0, s.newRow, s.newCol, -1), curPiece.image)
       case _ =>
     }
-
-
   }
 
   def setPromButs(buts1: GridPane, buts2: GridPane): Unit = {

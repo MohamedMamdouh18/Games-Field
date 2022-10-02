@@ -9,7 +9,7 @@ import javafx.scene.shape.Circle
 
 import scala.util.control.Breaks.{break, breakable}
 
-class Connect4Drawer extends Drawer {
+object Connect4Drawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
   override var gameBoard: GridPane = new GridPane()
 

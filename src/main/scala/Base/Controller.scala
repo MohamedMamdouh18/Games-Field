@@ -1,6 +1,6 @@
 package Base
 
-abstract class Controller {
+trait Controller {
   def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation
 
   def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int = 0): Boolean

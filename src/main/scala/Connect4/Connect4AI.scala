@@ -1,6 +1,5 @@
 package Connect4
 
-import Base.Player.Player
 import Base._
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
@@ -9,13 +8,9 @@ import javafx.util.Pair
 class Connect4AI extends Player {
   private val turns: Array[String] = Array(Connect4En.Yellow, Connect4En.Red)
   override var observer: GameEngine = _
-  private var gameController: Controller = _
-  private var gameDrawer: Drawer = _
   private var gameBoard: Array[Array[Piece]] = _
 
   override def run(buts: GridPane = null): Unit = {
-    gameDrawer = observer.gameDrawer
-    gameController = observer.gameController
     gameBoard = observer.gameBoard
   }
 
@@ -25,10 +20,10 @@ class Connect4AI extends Player {
     gameBoard(move.oldRow)(move.oldCol) = new Piece(turns(color), move.oldRow, move.oldCol, color)
 
     var src: Node = null
-    gameDrawer.gameBoard.getChildren.forEach(node => {
+    Connect4Drawer.gameBoard.getChildren.forEach(node => {
       if (GridPane.getColumnIndex(node) == move.oldCol && GridPane.getRowIndex(node) == move.oldRow) {
         src = node
-        gameDrawer.movementDraw(src, move)
+        Connect4Drawer.movementDraw(src, move)
         Notify()
         return
       }
@@ -36,11 +31,11 @@ class Connect4AI extends Player {
   }
 
   private def miniMax(board: Array[Array[Piece]], turn: Int, a: Int, b: Int, depth: Int): Pair[State, Int] = {
-    if (gameController.checkEndGame(board, turn))
+    if (Connect4Controller.checkEndGame(board, turn))
       return new Pair[State, Int](null, if (turn == 0) -100 else 100)
-    else if (gameController.checkEndGame(board, 1 - turn))
+    else if (Connect4Controller.checkEndGame(board, 1 - turn))
       return new Pair[State, Int](null, if (1 - turn == 0) -100 else 100)
-    else if (gameController.checkTie(board))
+    else if (Connect4Controller.checkTie(board))
       return new Pair[State, Int](null, 0)
     if (depth == 0)
       return new Pair[State, Int](null, if (turn == 0) estimate(gameBoard, turn) * -1 else estimate(gameBoard, turn))

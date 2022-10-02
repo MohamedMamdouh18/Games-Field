@@ -1,6 +1,5 @@
 package XO
 
-import Base.Player.Player
 import Base._
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
@@ -8,13 +7,9 @@ import javafx.util.Pair
 
 class XOAI extends Player {
   override var observer: GameEngine = _
-  private var gameController: Controller = _
-  private var gameDrawer: Drawer = _
   private var gameBoard: Array[Array[Piece]] = _
 
   override def run(buts: GridPane = null): Unit = {
-    gameDrawer = observer.gameDrawer
-    gameController = observer.gameController
     gameBoard = observer.gameBoard
   }
 
@@ -25,13 +20,13 @@ class XOAI extends Player {
     val move: State = miniMax(gameBoard, color, Int.MinValue, Int.MaxValue).getValue
     var src: Node = null
 
-    gameDrawer.gameBoard.getChildren.forEach(node => {
+    XODrawer.gameBoard.getChildren.forEach(node => {
       if (GridPane.getColumnIndex(node) == move.oldCol && GridPane.getRowIndex(node) == move.oldRow) {
         src = node
         gameBoard(move.oldRow)(move.oldCol) = new Piece(if (observer.turn == 0) XOEn.X else XOEn.O,
           move.oldRow, move.oldCol, observer.turn)
         move.turn = observer.turn
-        gameDrawer.movementDraw(src, move)
+        XODrawer.movementDraw(src, move)
         Notify()
         return
       }
@@ -39,9 +34,9 @@ class XOAI extends Player {
   }
 
   private def miniMax(board: Array[Array[Piece]], turn: Int, a: Int, b: Int): Pair[Int, State] = {
-    if (gameController.checkEndGame(board))
+    if (XOController.checkEndGame(board))
       return new Pair[Int, State](if (turn == 0) -1 else 1, null)
-    else if (gameController.checkTie(board))
+    else if (XOController.checkTie(board))
       return new Pair[Int, State](0, null)
 
     var score: Int = if (turn == 0) Int.MinValue else Int.MaxValue

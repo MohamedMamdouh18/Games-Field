@@ -1,7 +1,7 @@
-import Base.Player.{ConcretePlayer, Player}
+import Base.Player
 import Chess.{ChessAI, ChessEngine, ChessPlayer}
-import Connect4.{Connect4AI, Connect4Engine}
-import XO.{XOAI, XOEngine}
+import Connect4.{Connect4AI, Connect4Engine, Connect4Player}
+import XO.{XOAI, XOEngine, XOPlayer}
 import javafx.collections.FXCollections
 import javafx.scene.control.{Button, ComboBox}
 import javafx.scene.layout.{AnchorPane, GridPane, StackPane}
@@ -24,13 +24,13 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
     new Pair[String, String]("PvP", "Chess") -> Array[Player](new ChessPlayer, new ChessPlayer),
     new Pair[String, String]("AvP", "Chess") -> Array[Player](new ChessAI, new ChessPlayer),
 
-    new Pair[String, String]("PvA", "Connect4") -> Array[Player](new ConcretePlayer, new Connect4AI),
-    new Pair[String, String]("PvP", "Connect4") -> Array[Player](new ConcretePlayer, new ConcretePlayer),
-    new Pair[String, String]("AvP", "Connect4") -> Array[Player](new Connect4AI, new ConcretePlayer),
+    new Pair[String, String]("PvA", "Connect4") -> Array[Player](new Connect4Player, new Connect4AI),
+    new Pair[String, String]("PvP", "Connect4") -> Array[Player](new Connect4Player, new Connect4Player),
+    new Pair[String, String]("AvP", "Connect4") -> Array[Player](new Connect4AI, new Connect4Player),
 
-    new Pair[String, String]("PvA", "XO") -> Array[Player](new ConcretePlayer, new XOAI),
-    new Pair[String, String]("PvP", "XO") -> Array[Player](new ConcretePlayer, new ConcretePlayer),
-    new Pair[String, String]("AvP", "XO") -> Array[Player](new XOAI, new ConcretePlayer),
+    new Pair[String, String]("PvA", "XO") -> Array[Player](new XOPlayer, new XOAI),
+    new Pair[String, String]("PvP", "XO") -> Array[Player](new XOPlayer, new XOPlayer),
+    new Pair[String, String]("AvP", "XO") -> Array[Player](new XOAI, new XOPlayer),
   )
 
   val difficultyMap: Map[String, Int] = Map(

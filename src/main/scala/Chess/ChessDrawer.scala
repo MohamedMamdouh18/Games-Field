@@ -11,7 +11,7 @@ import javafx.util.Pair
 
 import java.util.function.Predicate
 
-class ChessDrawer extends Drawer {
+object ChessDrawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
   override var gameBoard: GridPane = new GridPane()
   var oldState: State = _
@@ -53,13 +53,13 @@ class ChessDrawer extends Drawer {
     var moves: Array[Pair[Int, Int]] = Array()
 
     for (move <- player.curPiece.validatedMoves(player.gameBoard)) {
-      val removed = player.gameController.createState(player.gameBoard, player.curPiece,
+      val removed = ChessController.createState(player.gameBoard, player.curPiece,
         move.getKey, move.getValue)
 
-      if (!player.gameController.checkMate(player.gameBoard, player.color))
+      if (!ChessController.checkMate(player.gameBoard, player.color))
         moves = moves :+ move
 
-      player.gameController.restoreState(player.gameBoard, player.curPiece, removed,
+      ChessController.restoreState(player.gameBoard, player.curPiece, removed,
         new State(player.state.oldRow, player.state.oldCol, move.getKey, move.getValue, player.state.turn))
     }
 

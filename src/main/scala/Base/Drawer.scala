@@ -8,7 +8,7 @@ import javafx.scene.paint.Color
 import javafx.scene.shape.{Circle, Rectangle}
 import javafx.scene.text.{Font, FontWeight}
 
-abstract class Drawer {
+trait Drawer {
   var gamePane: StackPane
   var gameBoard: GridPane
 

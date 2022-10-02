@@ -42,18 +42,17 @@ class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     val leftRook = board(7 * (1 - color))(0)
 
     if (this.firstMove && !this.checked) {
-      val controller = new ChessController
-      checkCastling(controller, rightRook, board, 5, 6)
-      checkCastling(controller, leftRook, board, 3, 2)
+      checkCastling(rightRook, board, 5, 6)
+      checkCastling(leftRook, board, 3, 2)
     }
   }
 
-  private def checkCastling(controller: ChessController, rook: Piece, board: Array[Array[Piece]],
+  private def checkCastling(rook: Piece, board: Array[Array[Piece]],
                             c1: Int, c2: Int): Unit = {
     if (rook != null && rook.isInstanceOf[Rook] && rook.asInstanceOf[ChessPiece].firstMove
       && board(7 * (1 - color))(c1) == null && board(7 * (1 - color))(c2) == null) {
-      val firstPassedCell = controller.checkMate(board, color, 7 * (1 - color), c1)
-      val secondPassedCell = controller.checkMate(board, color, 7 * (1 - color), c2)
+      val firstPassedCell = ChessController.checkMate(board, color, 7 * (1 - color), c1)
+      val secondPassedCell = ChessController.checkMate(board, color, 7 * (1 - color), c2)
       if (!firstPassedCell && !secondPassedCell)
         moves.validMoves = moves.validMoves :+ new Pair[Int, Int](7 * (1 - color), c2)
     }

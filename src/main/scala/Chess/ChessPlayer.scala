@@ -1,6 +1,5 @@
 package Chess
 
-import Base.Player.Player
 import Base._
 import Chess.Pieces._
 import javafx.scene.Node
@@ -8,27 +7,23 @@ import javafx.scene.layout.GridPane
 import javafx.util.Pair
 
 class ChessPlayer extends Player {
-  override var observer: GameEngine = _
-  var gameController: ChessController = _
-  var gameBoard: Array[Array[Piece]] = _
-  var gameDrawer: ChessDrawer = _
-  var promButs: GridPane = _
   val state: State = new State(-1, -1, -1, -1, color)
+  override var observer: GameEngine = _
+  var gameBoard: Array[Array[Piece]] = _
+  var promButs: GridPane = _
   var curPiece: ChessPiece = _
-  private var x, y: Double = 0
   var src: Node = _
   var promotion: Boolean = false
+  private var x, y: Double = 0
 
   override def run(buts: GridPane): Unit = {
-    gameDrawer = observer.gameDrawer.asInstanceOf[ChessDrawer]
-    gameController = observer.gameController.asInstanceOf[ChessController]
     gameBoard = observer.gameBoard
     promButs = buts
 
-    val p: Pair[Int, Int] = gameController.getPlayerPieces(color)
+    val p: Pair[Int, Int] = ChessController.getPlayerPieces(color)
 
-    gameDrawer.setEvents(Movement, gameBoard, p.getKey, p.getValue)
-    gameDrawer.preparePromotion(this)
+    ChessDrawer.setEvents(Movement, gameBoard, p.getKey, p.getValue)
+    ChessDrawer.preparePromotion(this)
   }
 
   override def Movement(source: Node): Unit = {
@@ -39,7 +34,7 @@ class ChessPlayer extends Player {
         x = e.getSceneX
         y = e.getSceneY
         curPiece = gameBoard(state.oldRow)(state.oldCol).asInstanceOf[ChessPiece]
-        gameDrawer.showAvailableMovements(this)
+        ChessDrawer.showAvailableMovements(this)
       }
     })
 
@@ -60,7 +55,7 @@ class ChessPlayer extends Player {
         src = source
 
         Notify()
-        gameDrawer.hideAvailableMovements()
+        ChessDrawer.hideAvailableMovements()
       }
     })
   }

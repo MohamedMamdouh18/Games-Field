@@ -1,6 +1,5 @@
-package Base.Player
+package Base
 
-import Base.GameEngine
 import javafx.scene.Node
 import javafx.scene.layout.GridPane
 
@@ -19,13 +18,9 @@ abstract class Player {
     observer.update()
   }
 
-  def Movement(source: Node = null): Unit
+  def Movement(source: Node = null): Unit = {}
 
-  def DisableMovement(): Unit = {
-    observer.gameDrawer.gameBoard.getChildren.forEach(child => {
-      child.setOnMouseClicked(null)
-    })
-  }
+  def DisableMovement(): Unit = {}
 
   def setObserver(gameEngine: GameEngine): Unit = {
     observer = gameEngine

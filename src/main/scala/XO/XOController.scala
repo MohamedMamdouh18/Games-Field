@@ -2,7 +2,7 @@ package XO
 
 import Base.{Controller, MoveValidation, Piece, State}
 
-class XOController extends Controller {
+object XOController extends Controller {
 
   override def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation = {
     if (gameBoard(state.oldRow)(state.oldCol) == null) {

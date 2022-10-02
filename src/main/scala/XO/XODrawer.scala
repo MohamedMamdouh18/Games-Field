@@ -8,7 +8,7 @@ import javafx.scene.layout.{GridPane, StackPane}
 import javafx.scene.paint.Color
 import javafx.scene.text.{Font, FontWeight}
 
-class XODrawer extends Drawer {
+object XODrawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
   override var gameBoard: GridPane = new GridPane()
 

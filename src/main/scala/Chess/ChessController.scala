@@ -4,7 +4,7 @@ import Base.{Controller, MoveValidation, Piece, State}
 import Chess.Pieces.ChessPiece
 import javafx.util.Pair
 
-class ChessController extends Controller {
+object ChessController extends Controller {
   override def checkTie(gameBoard: Array[Array[Piece]], turn: Int): Boolean = {
     if (checkEndGame(gameBoard, turn))
       return !checkMate(gameBoard, turn)

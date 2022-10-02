@@ -31,6 +31,7 @@
 |    Observer Pattern     |
 |    Mediator Pattern     |
 |     Command Pattern     |
+|    Singleton Pattern    |
 
 - **Factory Pattern** holds almost all the families in our app such that each game has its controller that inherits from
   the base controller, same for the game engine, drawer, pieces for each game and player classes for each game.
@@ -46,6 +47,8 @@
   the drawer to draw this movement.
 - **Command Pattern** is used in a small section to create the game player objects or get the new promoted piece in
   chess using a map.
+- **Singleton Pattern** is the backbone of this game because the engine, the controller and the drawer should have one
+  instance for the entire session.
 
 ## Design Decisions
 
@@ -78,14 +81,14 @@
 ### Features
 
 - A friendly GUI that allows users to choose a game to play and then change a mode among three modes:
-    - PVP: player versus player. It is the default mode if you don't choose anything.
+    - PVP: player versus player. It is the default mode if you don't select anything.
     - PVA: player versus AI.
     - AVP: AI versus player.
 
 
 - The application supports three games: Chess, Tic-tac-toe and Connect-4.
 
-- In each game, if you decide to play against an AI, you can select the difficulty of the AI from Easy, Normal -the
+- In each game session, if you decide to play against an AI, you can select the difficulty of the AI from Easy, Normal -the
   default difficulty- and Hard, but it won't make any changes if you choose a difficulty level in PVP mode.
 
 - In a Chess game, every time you click on a piece of yours. The board highlights the valid movements for this piece,
