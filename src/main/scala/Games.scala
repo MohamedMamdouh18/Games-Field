@@ -20,8 +20,6 @@ object Games extends JFXApp3 {
       height = 800
       scene = new Scene(root)
     }
-    stage.getIcons.add(
-      new Image("D:\\Library\\Programming\\Workshop\\GamesField\\src\\main\\scala\\Resources\\icon.png")
-    )
+    stage.getIcons.add(new Image("Resources/icon.png"))
   }
 }
