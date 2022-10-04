@@ -28,6 +28,16 @@ class Connect4AI extends Player {
     })
   }
 
+  /** *
+   * Calculates the best move for the AI for the current game board and the function continue recursion until the end of the game.
+   *
+   * @param board the board of the game which has been played so far.
+   * @param turn  turn of the current player to find best move for.
+   * @param a     the alpha value that we want to maximize.
+   * @param b     the beta value that we want to minimize.
+   * @param depth the number of consecutive games to calculate the best move for.
+   * @return the best move for the given board.
+   */
   private def miniMax(board: Array[Array[Piece]], turn: Int, a: Int, b: Int, depth: Int): Pair[State, Int] = {
     if (Connect4Controller.checkEndGame(board, turn))
       return new Pair[State, Int](null, if (turn == 0) -100 else 100)
@@ -71,6 +81,13 @@ class Connect4AI extends Player {
     new Pair[State, Int](bestMove, score)
   }
 
+  /** *
+   * Returns the first empty row in specific column which is valid to play in.
+   *
+   * @param board the game board to get its empty row in the given column.
+   * @param Col   the specific column to get its empty row.
+   * @return the first empty row in a column.
+   */
   private def getRow(board: Array[Array[Piece]], Col: Int): Int = {
     for (i <- Connect4En.RowLen - 1 to 0 by -1) {
       if (board(i)(Col) != null)
@@ -79,6 +96,13 @@ class Connect4AI extends Player {
     0
   }
 
+  /** *
+   * Returns the score of the given game board for a specific player.
+   *
+   * @param gameBoard the board of the game which has been played so far.
+   * @param turn      the turn of player to estimate the score for.
+   * @return the estimated score of the given game board.
+   */
   private def estimate(gameBoard: Array[Array[Piece]], turn: Int): Int = {
     var score: Int = 0
 
@@ -125,6 +149,13 @@ class Connect4AI extends Player {
     score
   }
 
+  /** *
+   * Returns the score of given window -which is group of four consecutive cells- for a player.
+   *
+   * @param window a group of four consecutive cells to estimate its score.
+   * @param turn   turn of the player to calculate its score.
+   * @return Returns the score of given window of cells.
+   */
   private def evaluateWindow(window: Array[Piece], turn: Int): Int = {
     var empty: Int = 0
     var enemy: Int = 0

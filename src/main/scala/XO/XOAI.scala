@@ -31,12 +31,13 @@ class XOAI extends Player {
     })
   }
 
-  /***
-   * Calculates the best move for the AI for the current board and the function continue recursion until the end of the game.
+  /** *
+   * Calculates the best move for the AI for the current game board and the function continue recursion until the end of the game.
+   *
    * @param board the board of the game which has been played so far.
-   * @param turn turn of the current player to find best move for.
-   * @param a the alpha value that we want to maximize.
-   * @param b the beta value that we want to minimize.
+   * @param turn  turn of the current player to find best move for.
+   * @param a     the alpha value that we want to maximize.
+   * @param b     the beta value that we want to minimize.
    * @return the best move for the given board.
    */
   private def miniMax(board: Array[Array[Piece]], turn: Int, a: Int, b: Int): Pair[Int, State] = {
