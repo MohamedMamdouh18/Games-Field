@@ -19,7 +19,6 @@ class Rook(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     Array(-0.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, -0.5),
     Array(0, 0, 0, 0.5, 0.5, 0, 0, 0)
   )
-  loadImage()
 
   override def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean = {
     clear()

@@ -3,9 +3,9 @@ package Base
 trait Controller {
   def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation
 
-  def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int = 0): Boolean
+  def checkEndGame(gameBoard: Array[Array[Piece]], turn: Int = -1): Boolean
 
-  def checkTie(gameBoard: Array[Array[Piece]], turn: Int = 0): Boolean
+  def checkTie(gameBoard: Array[Array[Piece]], turn: Int = -1): Boolean
 
   def createState(gameBoard: Array[Array[Piece]], modifiedPiece: Piece, newX: Int, newY: Int): Piece = {
     val removed = gameBoard(newX)(newY)

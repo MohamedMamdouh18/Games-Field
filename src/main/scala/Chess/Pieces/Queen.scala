@@ -17,7 +17,6 @@ class Queen(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x
     Array(-1.0, 0.0, 0.5, 0.0, 0.0, 0.0, 0.0, -1.0),
     Array(-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0)
   )
-  loadImage()
   var b: Bishop = new Bishop(null, curRow, curCol, color)
   var c: Rook = new Rook(null, curRow, curCol, color)
 

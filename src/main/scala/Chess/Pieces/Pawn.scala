@@ -20,7 +20,6 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
   )
   var promotedDone: Boolean = false
   var promotedMove: (Int, Int) => Boolean = _
-  loadImage()
 
   override def wantPromote(): Boolean = {
     (curRow == 7 && color == ChessEn.Black) || (curRow == 0 && color == ChessEn.White)

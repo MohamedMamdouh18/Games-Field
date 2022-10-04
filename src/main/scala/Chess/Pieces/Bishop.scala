@@ -19,7 +19,6 @@ class Bishop(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, 
     Array(-1.0, 0.5, 0.0, 0.0, 0.0, 0.0, 0.5, -1.0),
     Array(-2.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -2.0)
   )
-  loadImage()
 
   override def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean = {
     clear()

@@ -42,6 +42,7 @@ object ChessDrawer extends Drawer {
     for (i <- s to e) {
       for (j <- 0 to 7) {
         if (board(i)(j) != null) {
+          board(i)(j).asInstanceOf[ChessPiece].loadImage()
           gameBoard.add(board(i)(j).image, j, i)
           Event(board(i)(j).image)
         }

@@ -18,7 +18,6 @@ class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     Array(2.0, 2.0, 0.0, 0.0, 0.0, 0.0, 2.0, 2.0),
     Array(2.0, 3.0, 1.0, 0.0, 0.0, 1.0, 3.0, 2.0)
   )
-  loadImage()
 
   override def wantCastle(oldCol: Int, newCol: Int): Boolean = {
     Math.abs(oldCol - newCol) == 2 && firstMove

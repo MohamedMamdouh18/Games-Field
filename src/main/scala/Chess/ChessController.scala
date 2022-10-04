@@ -76,6 +76,9 @@ object ChessController extends Controller {
   }
 
   override def movementValidation(gameBoard: Array[Array[Piece]], state: State): MoveValidation = {
+    if (state.oldCol < 0 || state.oldCol > 7 || state.newRow > 7 || state.newRow < 0)
+      return new MoveValidation(null, false)
+
     val piece = gameBoard(state.oldRow)(state.oldCol).asInstanceOf[ChessPiece]
 
     if (piece.validateMove(gameBoard, state.newRow, state.newCol))

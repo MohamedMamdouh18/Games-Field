@@ -28,7 +28,7 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
 
   def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]]
 
-  protected def loadImage(): Unit = {
+  def loadImage(): Unit = {
     if (name != null)
       image = new ImageView("Resources/Chess/" + name + ".png")
   }

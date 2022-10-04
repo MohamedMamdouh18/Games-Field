@@ -17,7 +17,6 @@ class Knight(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, 
     Array(-4.0, -2.0, 0.0, 0.5, 0.5, 0.0, -2.0, -4.0),
     Array(-5.0, -4.0, -3.0, -3.0, -3.0, -3.0, -4.0, -5.0)
   )
-  loadImage()
 
   override def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean = {
     clear()
