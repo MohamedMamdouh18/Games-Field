@@ -3,7 +3,8 @@
 - This project was built with [Scala](https://www.scala-lang.org/download/2.13.8.html) version 2.13.8
   and [Java](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) version 17.0.2.
 - The Executable file [link](https://github.com/MohamedMamdouh18/Games-Field/tree/master/out/artifacts/Games_Field_jar).
-  Download it then open the cmd where the file lies in and write this command `java -jar GamesField.jar`.
+  Download it then open the cmd where the file lies in and write this command `java -jar GamesField.jar` or by
+  double-clicking on the jar but ensure to have Java version 17 and up.
 
 ## Authors:
 
