@@ -38,6 +38,15 @@ object ChessController extends Controller {
     true
   }
 
+  /**
+   * Returns a boolean which indicates if the king of the specific player is in a check-mate.
+   *
+   * @param gameBoard the game board of the current game.
+   * @param turn      the color of the specific player.
+   * @param r         for castling purpose only, we pass this parameter if we want to check for neighboring cells of the king is in check-mate.
+   * @param c         for castling purpose only, we pass this parameter if we want to check for neighboring cells of the king is in check-mate.
+   * @return true if the king of the specific player is in check-mate and false otherwise.
+   */
   def checkMate(gameBoard: Array[Array[Piece]], turn: Int, r: Int = -1, c: Int = -1): Boolean = {
     val enemyTurn = 1 - turn
     var row, col: Int = -1
@@ -87,6 +96,13 @@ object ChessController extends Controller {
       new MoveValidation(null, false)
   }
 
+  /**
+   * Returns the king piece for a specific player in the given board.
+   *
+   * @param gameBoard the board which we want to search for the king in.
+   * @param turn      the color of the desired king wither it is white or black.
+   * @return the king piece that we are searching for.
+   */
   def findKing(gameBoard: Array[Array[Piece]], turn: Int): ChessPiece = {
     val kings: Array[String] = Array(ChessEn.WhiteKing, ChessEn.BlackKing)
     for (i <- gameBoard.indices)
@@ -98,6 +114,7 @@ object ChessController extends Controller {
 
   /**
    * Returns the rows where the player's pieces lie.
+   *
    * @param color color of the player's pieces.
    * @return the rows where the player's pieces lie.
    */
@@ -114,8 +131,9 @@ object ChessController extends Controller {
 
   /**
    * Returns the rook new column that the king castled with it.
+   *
    * @param gameBoard the game board which has been played so far.
-   * @param move the game board which has been played so far.
+   * @param move      the game board which has been played so far.
    * @return the rook new column.
    */
   def kingCastling(gameBoard: Array[Array[Piece]], move: State): Int = {
@@ -131,6 +149,7 @@ object ChessController extends Controller {
 
   /**
    * Returns the rook old column and new column that the king will castle with it.
+   *
    * @param move the game board which has been played so far.
    * @return the rook old column and new column.
    */

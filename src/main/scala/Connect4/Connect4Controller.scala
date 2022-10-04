@@ -44,13 +44,14 @@ object Connect4Controller extends Controller {
   }
 
   /**
+   * Returns if for a given direction and cell in the game board if the player of the piece in the first cell has won the game -has three other pieces in that direction-.
    *
-   * @param gameBoard
-   * @param row
-   * @param col
-   * @param i
-   * @param j
-   * @return
+   * @param gameBoard the game board of the current game.
+   * @param row       the row of the starting piece.
+   * @param col       the column of the starting piece.
+   * @param i         the parameter for the rows that we want to check
+   * @param j         the parameter for the columns that we want to chcek
+   * @return true if the player won the game and false otherwise.
    */
   private def checkDirection(gameBoard: Array[Array[Piece]], row: Int, col: Int, i: Int, j: Int): Boolean = {
     val turn = gameBoard(row)(col).name
