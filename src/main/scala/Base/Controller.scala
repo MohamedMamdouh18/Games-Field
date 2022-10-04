@@ -3,7 +3,7 @@ package Base
 trait Controller {
   /***
    * Returns an object that holds two values the whole state and true if the move is valid.
-   * @param gameBoard the board at the current state of the game.
+   * @param gameBoard the game board which has been played so far.
    * @param state object that holds the current state (if exists) and the new state.
    * @return an object that holds a state and true if the move is valid.
    */
@@ -11,7 +11,7 @@ trait Controller {
 
   /***
    * Returns ture if the game has ended.
-   * @param gameBoard the board at the current state of the game.
+   * @param gameBoard the game board which has been played so far.
    * @param turn identifies who will play.
    * @return ture if the game has ended.
    */
@@ -19,7 +19,7 @@ trait Controller {
 
   /***
    * Returns ture if the game has ended as tie.
-   * @param gameBoard the board at the current state of the game.
+   * @param gameBoard the game board which has been played so far.
    * @param turn identifies who will play.
    * @return ture if the game has ended as tie.
    */
@@ -27,7 +27,7 @@ trait Controller {
 
   /***
    * Returns a piece object if a piece is removed.
-   * @param gameBoard the board at the current state of the game.
+   * @param gameBoard the game board which has been played so far.
    * @param modifiedPiece the piece which will move.
    * @param newX the new x coordinate for the piece.
    * @param newY the new y coordinate for the piece.
@@ -46,7 +46,7 @@ trait Controller {
 
   /***
    * Restores the board to its previous state.
-   * @param gameBoard the board at the current state of the game.
+   * @param gameBoard the game board which has been played so far.
    * @param modifiedPiece the piece that will return to its previous state.
    * @param removedPiece a removed piece that will return to its previous state (if exists).
    * @param state object that holds the current state (if exists) and the new state.

@@ -60,7 +60,7 @@ trait Drawer {
 
   /***
    * Show available moves if there is ones.
-   * @param board the board of the GUI.
+   * @param board the GUI board.
    * @param j the column of the cell.
    * @param i the row of the cell.
    */
@@ -125,7 +125,7 @@ trait Drawer {
   /***
    * Set the events of the pieces to its player.
    * @param Event the type of event to set.
-   * @param board he board of the game which holds the state of the game.
+   * @param board the game board which has been played so far.
    * @param s start index of player's pieces.
    * @param e end index of player's pieces.
    */
