@@ -4,7 +4,8 @@ import javafx.scene.Node
 import javafx.scene.layout.GridPane
 
 abstract class Player {
-  var observer: GameEngine
+  var observer: GameEngine = _
+  var gameBoard: Array[Array[Piece]] = _
   var color: Int = 0
   var depth: Int = 0
 

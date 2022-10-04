@@ -81,9 +81,4 @@ class Pawn(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
 
     validMoves
   }
-
-  override def clone(): ChessPiece = {
-    val x = new Pawn(name, curRow, curCol, color)
-    x
-  }
 }

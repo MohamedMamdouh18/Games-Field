@@ -8,8 +8,6 @@ import javafx.util.Pair
 
 class ChessPlayer extends Player {
   val state: State = new State(-1, -1, -1, -1, color)
-  override var observer: GameEngine = _
-  var gameBoard: Array[Array[Piece]] = _
   var promButs: GridPane = _
   var curPiece: ChessPiece = _
   var src: Node = _

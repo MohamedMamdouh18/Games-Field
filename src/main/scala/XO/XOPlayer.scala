@@ -5,8 +5,6 @@ import javafx.scene.Node
 import javafx.scene.layout.GridPane
 
 class XOPlayer extends Player {
-  override var observer: GameEngine = _
-  private var gameBoard: Array[Array[Piece]] = _
 
   override def run(buts: GridPane = null): Unit = {
     gameBoard = observer.gameBoard

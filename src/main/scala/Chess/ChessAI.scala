@@ -8,8 +8,6 @@ import javafx.util.Pair
 
 class ChessAI extends Player {
   private val estimator: ChessEstimator = new ChessEstimator
-  override var observer: GameEngine = _
-  private var gameBoard: Array[Array[Piece]] = _
   private var move: State = _
 
   override def run(buts: GridPane = null): Unit = {

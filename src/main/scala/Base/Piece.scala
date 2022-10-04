@@ -8,9 +8,5 @@ class Piece(pieceName: String, row: Int, col: Int, team: Int) {
   var curRow: Int = row
   var curCol: Int = col
   var image: ImageView = _
-
-  override def clone(): Piece = {
-    new Piece(name, curRow, curCol, color)
-  }
 }
 

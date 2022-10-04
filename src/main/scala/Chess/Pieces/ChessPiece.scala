@@ -16,7 +16,7 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
   var rank: Int
   var evaluationMatrix: Array[Array[Double]]
 
-  def loadImage(): Unit = {
+  protected def loadImage(): Unit = {
     if (name != null)
       image = new ImageView("Resources/Chess/" + name + ".png")
   }
@@ -32,8 +32,6 @@ abstract class ChessPiece(pieceName: String, row: Int, col: Int, color: Int) ext
   def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean
 
   def validatedMoves(board: Array[Array[Piece]]): Array[Pair[Int, Int]]
-
-  override def clone(): ChessPiece = ???
 
   protected def validateMoveImpl(s: State): Boolean = {
     if (s.newCol == s.oldCol && s.newRow == s.oldRow)

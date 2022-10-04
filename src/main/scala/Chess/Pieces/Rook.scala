@@ -31,9 +31,4 @@ class Rook(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     clear()
     loopTemplate(board, 0, 0, validatedMovesImpl, 7).validMoves
   }
-
-  override def clone(): ChessPiece = {
-    val x = new Rook(name, curRow, curCol, color)
-    x
-  }
 }

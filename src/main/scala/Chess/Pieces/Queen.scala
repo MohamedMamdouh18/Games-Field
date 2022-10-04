@@ -18,8 +18,8 @@ class Queen(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x
     Array(-2.0, -1.0, -1.0, -0.5, -0.5, -1.0, -1.0, -2.0)
   )
   loadImage()
-  var b = new Bishop(null, curRow, curCol, color)
-  var c = new Rook(null, curRow, curCol, color)
+  var b : Bishop= new Bishop(null, curRow, curCol, color)
+  var c : Rook= new Rook(null, curRow, curCol, color)
 
   override def validateMove(board: Array[Array[Piece]], newX: Int, newY: Int): Boolean = {
     clear()
@@ -40,10 +40,5 @@ class Queen(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x
     b.curCol = curCol
     c.curRow = curRow
     c.curCol = curCol
-  }
-
-  override def clone(): ChessPiece = {
-    val x = new Queen(name, curRow, curCol, color)
-    x
   }
 }

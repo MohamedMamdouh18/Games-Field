@@ -7,8 +7,6 @@ import javafx.util.Pair
 
 class Connect4AI extends Player {
   private val turns: Array[String] = Array(Connect4En.Yellow, Connect4En.Red)
-  override var observer: GameEngine = _
-  private var gameBoard: Array[Array[Piece]] = _
 
   override def run(buts: GridPane = null): Unit = {
     gameBoard = observer.gameBoard
