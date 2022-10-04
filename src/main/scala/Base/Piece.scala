@@ -9,4 +9,3 @@ class Piece(pieceName: String, row: Int, col: Int, team: Int) {
   var curCol: Int = col
   var image: ImageView = _
 }
-

@@ -1,7 +1,6 @@
 package Connect4
 
-import Base.{Controller, GameEngine, Piece, Player, State}
-import Chess.{ChessController, ChessPlayer}
+import Base.{GameEngine, Piece, Player, State}
 import javafx.scene.Node
 import javafx.scene.layout.{GridPane, StackPane}
 

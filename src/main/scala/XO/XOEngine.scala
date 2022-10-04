@@ -1,7 +1,6 @@
 package XO
 
 import Base.{GameEngine, Piece, Player, State}
-import Connect4.Connect4Drawer
 import javafx.scene.Node
 import javafx.scene.layout.{GridPane, StackPane}
 

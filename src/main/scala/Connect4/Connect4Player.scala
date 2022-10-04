@@ -1,7 +1,6 @@
 package Connect4
 
-import Base.{GameEngine, Piece, Player}
-import javafx.scene.Node
+import Base.Player
 import javafx.scene.layout.GridPane
 
 class Connect4Player extends Player {
