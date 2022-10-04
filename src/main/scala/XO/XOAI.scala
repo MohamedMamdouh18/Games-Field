@@ -31,7 +31,7 @@ class XOAI extends Player {
     })
   }
 
-  /** *
+  /**
    * Calculates the best move for the AI for the current game board and the function continue recursion until the end of the game.
    *
    * @param board the board of the game which has been played so far.

@@ -28,7 +28,7 @@ class Connect4AI extends Player {
     })
   }
 
-  /** *
+  /**
    * Calculates the best move for the AI for the current game board and the function continue recursion until the end of the game or the depth reaches 0.
    *
    * @param board the board of the game which has been played so far.
@@ -81,7 +81,7 @@ class Connect4AI extends Player {
     new Pair[State, Int](bestMove, score)
   }
 
-  /** *
+  /**
    * Returns the first empty row in specific column which is valid to play in.
    *
    * @param board the game board to get its empty row in the given column.
@@ -96,7 +96,7 @@ class Connect4AI extends Player {
     0
   }
 
-  /** *
+  /**
    * Returns the score of the given game board for a specific player.
    *
    * @param gameBoard the board of the game which has been played so far.
@@ -149,7 +149,7 @@ class Connect4AI extends Player {
     score
   }
 
-  /** *
+  /**
    * Returns the score of given window -which is group of four consecutive cells- for a player.
    *
    * @param window a group of four consecutive cells to estimate its score.
