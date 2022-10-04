@@ -96,6 +96,11 @@ object ChessController extends Controller {
     null
   }
 
+  /**
+   * Returns the rows where the player's pieces lie.
+   * @param color color of the player's pieces.
+   * @return the rows where the player's pieces lie.
+   */
   def getPlayerPieces(color: Int): Pair[Int, Int] = {
     var p: Pair[Int, Int] = null
 
@@ -107,6 +112,12 @@ object ChessController extends Controller {
     p
   }
 
+  /**
+   * Returns the rook new column that the king castled with it.
+   * @param gameBoard the game board which has been played so far.
+   * @param move the game board which has been played so far.
+   * @return the rook new column.
+   */
   def kingCastling(gameBoard: Array[Array[Piece]], move: State): Int = {
     val p = getRookPlace(move)
     val oldRookCol = p.getKey
@@ -118,6 +129,11 @@ object ChessController extends Controller {
     newRookCol
   }
 
+  /**
+   * Returns the rook old column and new column that the king will castle with it.
+   * @param move the game board which has been played so far.
+   * @return the rook old column and new column.
+   */
   def getRookPlace(move: State): Pair[Int, Int] = {
     var oldRookCol, newRookCol: Int = -1
     if (move.newCol > move.oldCol) {
