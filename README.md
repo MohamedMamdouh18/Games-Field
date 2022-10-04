@@ -3,12 +3,14 @@
 - This project was built with [Scala](https://www.scala-lang.org/download/2.13.8.html) version 2.13.8
   and [Java](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) version 17.0.2.
 - The Executable file [link](https://github.com/MohamedMamdouh18/Games-Field/tree/master/out/artifacts/Games_Field_jar).
-    - If you have Java 17 or above, only double-click on th JAR file
-    - otherwise, open the cmd where the file lies in and write this command java -jar GamesField.jar
+    - If you have Java 17 or above, only double-click on th JAR file.
+    - otherwise, open the cmd where the file lies in and write this command `java -jar GamesField.jar`.
+- There is [ScalaDoc](https://mohamedmamdouh18.github.io/Games-Field/) Website for the Project.
 
 ## Authors
+
 > **Youssef Ali Bazina**
-> 
+>
 > **Mohamed Mamdouh Rashad**
 
 ## Table of Contents
@@ -60,7 +62,7 @@
 
 ## Design Decisions
 
-- For each game in the application, We made mainly four components :
+- For each game in the application, We made mainly four components:
     - Engine
     - Controller
     - Drawer
@@ -80,9 +82,9 @@
 - In each game, there can be pieces which are separate components that carry the data of each piece. Each piece goes to
   a player who can control it in his game (for chess specifically).
 
-
 - We didn't use some rules in the Chess game like en passant and rule 50, but we handled the basic rules and features
   like castling, promotion, etc.
+- All the controllers in the project are included with some tests.
 
 ## Features and User Guide
 
@@ -98,7 +100,8 @@
 
 - In each game session, if you decide to play against an AI, you can select the difficulty of the AI from Easy, Normal
   -the
-  default difficulty- and Hard, but it won't make any changes if you choose a difficulty level in PVP mode.
+  default difficulty- and Hard, but it won't make any changes if you choose a difficulty level in PVP mode or in
+  tic-tac-toe game.
 
 - In a Chess game, every time you click on a piece of yours. The board highlights the valid movements for this piece,
   and if you make one move, the tiles that this piece moved from and to will get highlighted.
@@ -107,10 +110,8 @@
 
 - Choose the mode that you want to play in, then choose the game that you desire to play.
 
-
-- **Note** When choosing hard difficulty in a chess game, It may take up to three minutes for the AI to calculate the
-  best
-  move.
+- **Notes** When choosing hard difficulty in a chess game, It may take up to three minutes for the AI to calculate the
+  best move.
 
 ### UI Samples
 
