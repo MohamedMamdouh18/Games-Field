@@ -29,7 +29,7 @@ class Connect4AI extends Player {
   }
 
   /** *
-   * Calculates the best move for the AI for the current game board and the function continue recursion until the end of the game.
+   * Calculates the best move for the AI for the current game board and the function continue recursion until the end of the game or the depth reaches 0.
    *
    * @param board the board of the game which has been played so far.
    * @param turn  turn of the current player to find best move for.
