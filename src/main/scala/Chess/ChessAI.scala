@@ -124,6 +124,12 @@ class ChessAI extends Player {
     new Pair[State, Int](bestMove, score)
   }
 
+  /**
+   * Given a game board which the AI has done a castling move in the mini-max. return it to its original state.
+   *
+   * @param board the board to return it to its original state.
+   * @param state the place of the rook before castling.
+   */
   private def reverseKingCastling(board: Array[Array[Piece]], state: State): Unit = {
     val p = ChessController.getRookPlace(move)
     val oldRookCol = p.getKey
@@ -134,6 +140,12 @@ class ChessAI extends Player {
     board(state.newRow)(newRookCol) = null
   }
 
+  /**
+   * Given a game board which the AI has done a promotion move in the mini-max. return it to its original state.
+   *
+   * @param board the board to return it to its original state.
+   * @param state the place of the pawn before castling.
+   */
   private def reversePromotion(board: Array[Array[Piece]], state: State): Unit = {
     val pawn = new Pawn(if (state.turn == ChessEn.Black) ChessEn.BlackPawn else ChessEn.WhitePawn,
       state.oldRow, state.oldCol, state.turn)
