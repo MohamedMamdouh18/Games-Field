@@ -3,8 +3,8 @@
 - This project was built with [Scala](https://www.scala-lang.org/download/2.13.8.html) version 2.13.8
   and [Java](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) version 17.0.2.
 - The Executable file [link](https://github.com/MohamedMamdouh18/Games-Field/tree/master/out/artifacts/Games_Field_jar).
-  Download it then open the cmd where the file lies in and write this command `java -jar GamesField.jar` or by
-  double-clicking on the jar but ensure to have Java version 17 and up.
+    - If you have Java 17 or above, only double-click on th JAR file
+    - otherwise, open the cmd where the file lies in and write this command java -jar GamesField.jar
 
 ## Authors:
 
@@ -15,6 +15,7 @@
 ## Table of Contents
 
 - [Setup](#Setup)
+- [UML Diagram](#UML-Diagram)
 - [Design Patterns](#Design-Patterns)
 - [Design Decisions](#Design-Decisions)
 - [Features and User Guide](#Features-and-User-Guide)
@@ -25,6 +26,10 @@
 ## Setup
 
 - The `build.sbt` will do the package installation for the app.
+
+## UML Diagram
+
+![image](https://drive.google.com/uc?export=view&id=1yInaMkfGBgFTBl58ueqNilCCnLjsEYHh)
 
 ## Design Patterns
 
