@@ -34,6 +34,7 @@ object Connect4Drawer extends Drawer {
     }
   }
 
+
   override def movementDraw(source: Node, state: State, arg: Node): Unit = {
     breakable {
       gameBoard.getChildren.forEach {
