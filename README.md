@@ -6,7 +6,7 @@
     - If you have Java 17 or above, only double-click on th JAR file
     - otherwise, open the cmd where the file lies in and write this command java -jar GamesField.jar
 
-## Authors:
+## Authors
 > **Youssef Ali Bazina**
 > 
 > **Mohamed Mamdouh Rashad**
