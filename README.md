@@ -7,10 +7,9 @@
     - otherwise, open the cmd where the file lies in and write this command java -jar GamesField.jar
 
 ## Authors:
-
-> **Mohamed Mamdouh Rashad**
->
 > **Youssef Ali Bazina**
+> 
+> **Mohamed Mamdouh Rashad**
 
 ## Table of Contents
 

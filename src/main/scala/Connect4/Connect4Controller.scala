@@ -34,6 +34,14 @@ object Connect4Controller extends Controller {
     false
   }
 
+  override def checkTie(board: Array[Array[Piece]], turn: Int): Boolean = {
+    board.foreach(_.foreach(piece => {
+      if (piece == null) {
+        return false
+      }
+    }))
+    true
+  }
   private def checkDirection(gameBoard: Array[Array[Piece]], row: Int, col: Int, i: Int, j: Int): Boolean = {
     val turn = gameBoard(row)(col).name
     for (move <- 1 to 3) {
@@ -45,12 +53,4 @@ object Connect4Controller extends Controller {
     true
   }
 
-  override def checkTie(board: Array[Array[Piece]], turn: Int): Boolean = {
-    board.foreach(_.foreach(piece => {
-      if (piece == null) {
-        return false
-      }
-    }))
-    true
-  }
 }
