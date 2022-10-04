@@ -36,6 +36,10 @@ class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     loopTemplate(board, newX, newY, validateMoveImpl, 1).valid
   }
 
+  /**
+   * Starts checking for castling if it is possible.
+   * @param board the game board which has been played so far.
+   */
   private def castling(board: Array[Array[Piece]]): Unit = {
     val rightRook = board(7 * (1 - color))(7)
     val leftRook = board(7 * (1 - color))(0)
@@ -46,6 +50,13 @@ class King(name: String, x: Int, y: Int, color: Int) extends ChessPiece(name, x,
     }
   }
 
+  /**
+   * Adds castling move to moves array if it is valid.
+   * @param rook the rook to do castle with it.
+   * @param board the game board which has been played so far.
+   * @param c1 first column after the rook.
+   * @param c2 second column after the rook.
+   */
   private def checkCastling(rook: Piece, board: Array[Array[Piece]],
                             c1: Int, c2: Int): Unit = {
     if (rook != null && rook.isInstanceOf[Rook] && rook.asInstanceOf[ChessPiece].firstMove
