@@ -50,6 +50,10 @@ object ChessDrawer extends Drawer {
     }
   }
 
+  /**
+   * Shows all available movements of the current piece.
+   * @param player the current player who plays.
+   */
   def showAvailableMovements(player: ChessPlayer): Unit = {
     var moves: Array[Pair[Int, Int]] = Array()
 
@@ -107,6 +111,10 @@ object ChessDrawer extends Drawer {
     })
   }
 
+  /**
+   * Updates the game board after the player chooses a piece to promote to.
+   * @param player the current player who plays.
+   */
   def preparePromotion(player: ChessPlayer): Unit = {
     val buts = player.promButs.getChildren
     buts.forEach(but => but.setOnMousePressed(_ => {
@@ -130,6 +138,10 @@ object ChessDrawer extends Drawer {
     gameBoard.add(arg, state.newCol, state.newRow)
   }
 
+  /**
+   * Highlights the last movement in the game (from and to).
+   * @param state the old state of the piece and the new state.
+   */
   def highlightSquares(state: State): Unit = {
     if (oldState != null)
       highlight(oldState, visibility = false)
@@ -137,6 +149,11 @@ object ChessDrawer extends Drawer {
     highlight(oldState, visibility = true)
   }
 
+  /**
+   * Highlights or turn off the highlights of the specified cells.
+   * @param state the old state of the piece and the new state.
+   * @param visibility true if it will highlight, false if it will turn off the highlight.
+   */
   def highlight(state: State, visibility: Boolean): Unit = {
     gameBoard.getChildren.filtered(new Predicate[Node] {
       override def test(node: Node): Boolean = {
