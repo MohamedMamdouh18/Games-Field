@@ -39,6 +39,9 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
     "Hard" -> 5,
   )
 
+  /**
+   * Starts XO Game when the button is pressed.
+   */
   def XOStart(): Unit = {
     init()
     val players = gameModeMap(new Pair[String, String](gM, "XO"))
@@ -48,6 +51,9 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
     gameEngine.startGame(gamePane)
   }
 
+  /**
+   * Starts Chess Game when the button is pressed.
+   */
   def ChessStart(): Unit = {
     init()
     val players = gameModeMap(new Pair[String, String](gM, "Chess"))
@@ -61,6 +67,9 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
     gameEngine.startGame(gamePane)
   }
 
+  /**
+   * Start Connect-4 Game when the button is pressed.
+   */
   def Connect4Start(): Unit = {
     init()
     val players = gameModeMap(new Pair[String, String](gM, "Connect4"))
@@ -73,10 +82,17 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
     gameEngine.startGame(gamePane)
   }
 
+  /**
+   * Returns to main menu when the button is pressed.
+   */
   def returnMenu(): Unit = {
     gameMode(false)
   }
 
+  /**
+   * Sets some boxes to be visible and others invisible.
+   * @param boolean indicate which to turn on.
+   */
   def gameMode(boolean: Boolean): Unit = {
     whitePromotionPieces.setVisible(false)
     blackPromotionPieces.setVisible(false)
@@ -88,6 +104,9 @@ class MainController(var gamePane: StackPane, val menuPane: AnchorPane,
     gamePane.setVisible(boolean)
   }
 
+  /**
+   * Initialize the game.
+   */
   def init(): Unit = {
     gameMode(true)
     gM = if (gameMode.getValue == null) "PvP" else gameMode.getValue

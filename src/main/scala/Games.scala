@@ -7,6 +7,9 @@ import scalafxml.core.{FXMLView, NoDependencyResolver}
 import java.io.IOException
 
 object Games extends JFXApp3 {
+  /**
+   * Starts the App.
+   */
   override def start(): Unit = {
     val fxml = getClass.getResource("Resources/mainView.fxml")
     if (fxml == null) {
