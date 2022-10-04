@@ -32,7 +32,7 @@ object ChessDrawer extends Drawer {
     ),
   )
 
-  override def drawPiece(): Unit = {
+  override def drawInit(): Unit = {
     gameBoard = drawBoard(8, 8,
       Color.rgb(238, 215, 181), Color.rgb(171, 127, 94), showGridLines = false, showMovements = true)
   }

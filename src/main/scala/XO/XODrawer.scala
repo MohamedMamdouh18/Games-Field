@@ -12,7 +12,7 @@ object XODrawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
   override var gameBoard: GridPane = new GridPane()
 
-  override def drawPiece(): Unit = {
+  override def drawInit(): Unit = {
     gameBoard = drawBoard(3, 3, Color.rgb(236, 205, 153), Color.rgb(236, 205, 153), showGridLines = true)
   }
 

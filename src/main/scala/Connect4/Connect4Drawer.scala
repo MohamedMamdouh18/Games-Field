@@ -13,7 +13,7 @@ object Connect4Drawer extends Drawer {
   override var gamePane: StackPane = new StackPane()
   override var gameBoard: GridPane = new GridPane()
 
-  override def drawPiece(): Unit = {
+  override def drawInit(): Unit = {
     gameBoard = drawBoard(6, 7, Color.rgb(0, 0, 139), Color.rgb(0, 0, 139), showGridLines = false)
   }
 

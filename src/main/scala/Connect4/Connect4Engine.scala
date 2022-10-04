@@ -11,7 +11,7 @@ class Connect4Engine(players: Array[Player], gameType: String) extends GameEngin
   override def startGame(gamePane: StackPane): Unit = {
     Connect4Drawer.setGamePane(gamePane)
     players(1).color = 1
-    Connect4Drawer.drawPiece()
+    Connect4Drawer.drawInit()
 
     players.foreach(player => player.run())
     Connect4Drawer.setEvents(Movement)

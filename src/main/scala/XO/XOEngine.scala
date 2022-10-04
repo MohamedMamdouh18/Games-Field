@@ -11,7 +11,7 @@ class XOEngine(players: Array[Player], gameType: String) extends GameEngine(play
   override def startGame(gamePane: StackPane): Unit = {
     XODrawer.setGamePane(gamePane)
     players(1).color = 1
-    XODrawer.drawPiece()
+    XODrawer.drawInit()
 
     players.foreach(player => player.run())
     XODrawer.setEvents(Movement)

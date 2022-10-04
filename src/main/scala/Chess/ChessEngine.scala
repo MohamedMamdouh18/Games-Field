@@ -66,7 +66,7 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
   override def startGame(gamePane: StackPane): Unit = {
     ChessDrawer.setGamePane(gamePane)
     players(1 - turn).color = ChessEn.Black
-    ChessDrawer.drawPiece()
+    ChessDrawer.drawInit()
     players(ChessEn.Black).run(blackPromButs)
     players(ChessEn.White).run(whitePromButs)
     play()
