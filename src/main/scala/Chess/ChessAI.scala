@@ -18,7 +18,7 @@ class ChessAI extends Player {
   }
 
   override def Notify(): Unit = {
-    observer.asInstanceOf[ChessEngine].ReleaseLogic(null, move)
+    observer.asInstanceOf[ChessEngine].executeMove(null, move)
     observer.update()
   }
 

@@ -86,7 +86,7 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
 
       if (!ChessController.checkMate(gameBoard, player.curPiece.color)) {
         ChessController.restoreState(gameBoard, player.curPiece, removed, player.state)
-        ReleaseLogic(source, player.state)
+        executeMove(source, player.state)
 
         if (!player.promotion)
           update()
@@ -115,7 +115,13 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
     play()
   }
 
-  def ReleaseLogic(source: Node, s: State): Unit = {
+  /**
+   * Given a valid move for the current game, it apply the move for the game board and change the image place for the given piece.
+   *
+   * @param source the image of the piece associated with the current move.
+   * @param s      the state of the piece which holds where it was and where it moved to.
+   */
+  def executeMove(source: Node, s: State): Unit = {
     ChessDrawer.highlightSquares(s)
 
     var curPiece = gameBoard(s.oldRow)(s.oldCol).asInstanceOf[ChessPiece]
@@ -166,6 +172,12 @@ class ChessEngine(players: Array[Player], gameType: String) extends GameEngine(p
     }
   }
 
+  /**
+   * Take a reference for a given promotion buttons for the white and black king.
+   *
+   * @param buts1 the buttons for the white king.
+   * @param buts2 the buttons for the black king.
+   */
   def setPromButs(buts1: GridPane, buts2: GridPane): Unit = {
     whitePromButs = buts1
     blackPromButs = buts2

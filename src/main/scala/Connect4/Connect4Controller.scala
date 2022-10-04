@@ -42,6 +42,16 @@ object Connect4Controller extends Controller {
     }))
     true
   }
+
+  /**
+   *
+   * @param gameBoard
+   * @param row
+   * @param col
+   * @param i
+   * @param j
+   * @return
+   */
   private def checkDirection(gameBoard: Array[Array[Piece]], row: Int, col: Int, i: Int, j: Int): Boolean = {
     val turn = gameBoard(row)(col).name
     for (move <- 1 to 3) {
