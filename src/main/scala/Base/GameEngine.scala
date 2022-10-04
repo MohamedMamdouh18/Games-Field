@@ -16,7 +16,7 @@ abstract class GameEngine(players: Array[Player], gameType: String) {
   def startGame(gamePane: StackPane): Unit
 
   /***
-   * Sets the movement on the board if the game doesn't have pieces in the begin.
+   * Sets the movement on the board if the game doesn't have pieces.
    * @param source Node that the event will run on it.
    */
   def Movement(source: Node): Unit = {}
